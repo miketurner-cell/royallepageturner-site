@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEMZDX1BJQ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FEMZDX1BJQ');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="canonical" href="https://royallepageturner.com/agent-training.html">
+  <meta name="description" content="Agent Training — Royal LePage Turner Realty resource center with quick-reference guides for rlpNetwork, rlpSPHERE CRM, Smart Leads, and daily tools.">
+  <title>Agent Training | Royal LePage Turner Realty</title>
+  <meta property="og:title" content="Agent Training | Royal LePage Turner Realty">
+  <meta property="og:description" content="Quick-reference training guides for Turner Realty agents. Access rlpNetwork, CRM, lead systems, and marketing tools.">
+  <meta property="og:url" content="https://royallepageturner.com/agent-training.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Royal LePage Turner Realty">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background: #fff; color: #2c2c2c; font-family: 'Roboto', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ═══ SCOPED: .at (agent training) ═══ */
+
+    /* ── NAV ── */
+    .at .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #fff; padding: 0 48px; height: 72px;
+      border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 1000;
+    }
+    .at .nav-brand { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+    .at .nav-brand-name {
+      font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 18px; color: #1a1a1a; letter-spacing: -0.01em;
+    }
+    .at .nav-brand-name span { color: #EA002A; }
+    .at .nav-brand-divider { width: 1px; height: 28px; background: #ddd; }
+    .at .nav-brand-sub {
+      font-size: 11px; font-weight: 400; color: #999; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .at .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .at .nav-toggle span { display: block; width: 22px; height: 2px; background: #1a1a1a; border-radius: 1px; transition: transform 0.3s, opacity 0.3s; }
+    .at .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .at .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .at .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .at .nav-links { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; gap: 4px; }
+    .at .nav-links li a {
+      display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: #555;
+      text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; border-radius: 6px;
+    }
+    .at .nav-links li a:hover { color: #EA002A; }
+    .at .nav-right { display: flex; align-items: center; gap: 16px; }
+    .at .nav-phone {
+      display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;
+      color: #EA002A; text-decoration: none;
+    }
+    .at .nav-phone svg { width: 16px; height: 16px; fill: #EA002A; }
+
+    /* ── HERO ── */
+    .at .hero {
+      background: linear-gradient(135deg, #f8f8f8 0%, #fff 50%, #f5f5f5 100%);
+      padding: 80px 48px; text-align: center; position: relative; overflow: hidden;
+    }
+    .at .hero::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.025;
+      background: repeating-linear-gradient(90deg, #EA002A 0px, #EA002A 1px, transparent 1px, transparent 80px);
+    }
+    .at .hero-content { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+    .at .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #EA002A; background: rgba(234,0,42,0.06); border: 1px solid rgba(234,0,42,0.15);
+      padding: 8px 20px; border-radius: 24px; margin-bottom: 24px;
+    }
+    .at .hero h1 {
+      font-family: 'Raleway', sans-serif; font-weight: 900;
+      font-size: clamp(32px, 4.5vw, 48px); line-height: 1.15; margin: 0 0 16px;
+      color: #1a1a1a; letter-spacing: -0.03em;
+    }
+    .at .hero-sub {
+      font-size: clamp(15px, 1.8vw, 18px); color: #666; line-height: 1.7;
+      margin: 0; font-weight: 300;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .at .main-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+    .at .layout-grid {
+      display: grid; grid-template-columns: 1fr 280px; gap: 48px; padding: 48px 0;
+    }
+
+    /* ── QUICK LINKS SIDEBAR ── */
+    .at .quick-links-box {
+      background: #f7f7f7; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 28px 20px; height: fit-content; position: sticky; top: 100px;
+    }
+    .at .quick-links-title {
+      font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 14px;
+      color: #1a1a1a; letter-spacing: 0.03em; margin: 0 0 20px; text-transform: uppercase;
+    }
+    .at .quick-links-list { list-style: none; margin: 0; padding: 0; }
+    .at .quick-links-list li {
+      margin-bottom: 12px;
+    }
+    .at .quick-links-list li:last-child { margin-bottom: 0; }
+    .at .quick-links-list a {
+      display: block; font-size: 13px; color: #555; text-decoration: none;
+      padding: 8px 12px; border-radius: 6px; transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+    .at .quick-links-list a:hover {
+      background: rgba(234,0,42,0.04); color: #EA002A; border-left-color: #EA002A;
+    }
+
+    /* ── CONTENT SECTIONS ── */
+    .at .content-area { flex: 1; }
+    .at .accordion-section {
+      margin-bottom: 24px; border: 1px solid #e8e8e8; border-radius: 10px;
+      background: #fff; overflow: hidden; transition: box-shadow 0.2s;
+    }
+    .at .accordion-section:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+    .at .accordion-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px; cursor: pointer; user-select: none;
+      background: #fafafa; border-bottom: 1px solid transparent; transition: all 0.2s;
+    }
+    .at .accordion-header:hover { background: #f2f2f2; }
+    .at .accordion-section.open .accordion-header {
+      background: #f7f7f7; border-bottom-color: #e8e8e8;
+    }
+    .at .accordion-header-left { display: flex; align-items: center; gap: 16px; flex: 1; }
+    .at .accordion-icon {
+      width: 40px; height: 40px; border-radius: 8px; background: rgba(234,0,42,0.08);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .at .accordion-icon svg { width: 20px; height: 20px; fill: #EA002A; }
+    .at .accordion-header-text h3 {
+      font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 17px;
+      color: #1a1a1a; margin: 0; letter-spacing: -0.01em;
+    }
+    .at .accordion-header-text p {
+      font-size: 13px; color: #888; margin: 4px 0 0; line-height: 1.4;
+    }
+    .at .accordion-toggle {
+      width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform 0.3s;
+    }
+    .at .accordion-section.open .accordion-toggle { transform: rotate(180deg); }
+    .at .accordion-body {
+      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    }
+    .at .accordion-section.open .accordion-body { max-height: 2000px; }
+    .at .accordion-content {
+      padding: 0 28px 28px; color: #555; font-size: 15px; line-height: 1.75;
+    }
+    .at .accordion-content h4 {
+      font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 15px;
+      color: #1a1a1a; margin: 24px 0 12px; letter-spacing: -0.01em;
+    }
+    .at .accordion-content h4:first-child { margin-top: 0; }
+    .at .accordion-content ol, .at .accordion-content ul {
+      margin: 12px 0; padding-left: 24px;
+    }
+    .at .accordion-content li {
+      margin-bottom: 10px; line-height: 1.65;
+    }
+    .at .accordion-content a {
+      color: #EA002A; text-decoration: none; font-weight: 500; transition: color 0.2s;
+    }
+    .at .accordion-content a:hover { color: #c8001f; }
+    .at .code-block {
+      background: #f7f7f7; border-left: 3px solid #EA002A; padding: 12px 16px;
+      margin: 12px 0; font-family: 'Courier New', monospace; font-size: 13px;
+      color: #333; border-radius: 6px; line-height: 1.5;
+    }
+    .at .highlight-box {
+      background: rgba(234,0,42,0.06); border: 1px solid rgba(234,0,42,0.15);
+      border-left: 3px solid #EA002A; padding: 14px 16px; margin: 16px 0;
+      border-radius: 6px; font-size: 14px;
+    }
+    .at .highlight-box strong { color: #EA002A; }
+
+    /* ── FOOTER ── */
+    .at .site-footer { background: #fafafa; border-top: 1px solid #e8e8e8; padding: 56px 48px 0; margin-top: 80px; }
+    .at .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 48px;
+    }
+    .at .footer-brand-name { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 16px; color: #1a1a1a; margin-bottom: 12px; }
+    .at .footer-brand p { font-size: 13px; color: #888; line-height: 1.7; margin: 0; }
+    .at .footer-brand a { color: #888; text-decoration: none; transition: color 0.2s; }
+    .at .footer-brand a:hover { color: #EA002A; }
+    .at .footer-heading {
+      font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-bottom: 16px;
+    }
+    .at .footer-links { list-style: none; margin: 0; padding: 0; }
+    .at .footer-links li { margin-bottom: 10px; }
+    .at .footer-links a { font-size: 14px; color: #666; text-decoration: none; transition: color 0.2s; }
+    .at .footer-links a:hover { color: #EA002A; }
+    .at .footer-red-bar {
+      background: #EA002A; margin: 0 -48px; padding: 14px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .at .footer-red-bar p { margin: 0; font-size: 12px; color: #fff; font-weight: 400; }
+    .at .footer-red-bar a { color: #fff; text-decoration: none; }
+    .at .footer-legal {
+      max-width: 1100px; margin: 0 auto; padding: 20px 0;
+      font-size: 11px; color: #aaa; line-height: 1.6; text-align: center;
+    }
+
+    /* ── SEARCH BAR ── */
+    .at .search-wrapper {
+      margin-bottom: 32px; position: relative;
+    }
+    .at .search-input {
+      width: 100%; padding: 14px 20px 14px 44px; font-size: 15px;
+      border: 1px solid #ddd; border-radius: 8px; background: #fff;
+      font-family: 'Roboto', sans-serif; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .at .search-input:focus {
+      outline: none; border-color: #EA002A; box-shadow: 0 0 0 3px rgba(234,0,42,0.1);
+    }
+    .at .search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      width: 18px; height: 18px; fill: #999;
+    }
+    .at .search-results { font-size: 13px; color: #888; margin-top: 8px; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 1024px) {
+      .at .nav-bar { padding: 0 20px; height: 60px; }
+      .at .nav-brand-divider, .at .nav-brand-sub { display: none; }
+      .at .nav-toggle { display: flex; }
+      .at .nav-links {
+        display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0;
+        background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      }
+      .at .nav-links.open { display: flex; }
+      .at .nav-links li a { padding: 12px 24px; font-size: 15px; }
+      .at .nav-right { display: none; }
+      .at .hero { padding: 56px 20px; }
+      .at .main-wrapper { padding: 0 20px; }
+      .at .layout-grid { grid-template-columns: 1fr; gap: 32px; padding: 32px 0; }
+      .at .quick-links-box { position: static; margin-bottom: 32px; }
+      .at .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .at .site-footer { padding: 40px 20px 0; }
+      .at .footer-red-bar { margin: 0 -20px; padding: 14px 20px; }
+      .at .accordion-header { padding: 16px 20px; }
+      .at .accordion-content { padding: 0 20px 20px; }
+      .at .accordion-icon { width: 36px; height: 36px; }
+    }
+  </style>
+</head>
+<body class="at">
+
+  <!-- NAV -->
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-name">Royal <span>LePage</span></span>
+      <span class="nav-brand-divider"></span>
+      <span class="nav-brand-sub">Turner Realty</span>
+    </a>
+    <button class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#quick-links">Quick Links</a></li>
+      <li><a href="#section-getting-started">Getting Started</a></li>
+      <li><a href="#section-crm">rlpSPHERE CRM</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:+1-709-256-7999" class="nav-phone">
+        <svg viewBox="0 0 24 24"><path d="M6.6 10.2c1.4 2.8 3.6 5 6.4 6.4l2.1-2.1c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1v3.8c0 .6-.4 1-1 1-5.5 0-10.6-2.2-14.3-5.9C2.2 10.8 0 5.7 0 .3c0-.6.4-1 1-1h3.8c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.2 1.1l-2.1 2.1z"/></svg>
+        709-256-7999
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Agent Resource Center</div>
+      <h1>Agent Training & Quick Reference</h1>
+      <p class="hero-sub">Step-by-step guides for rlpNetwork, rlpSPHERE CRM, Smart Leads, listings, and daily tools. Find what you need in seconds.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-wrapper">
+    <div class="layout-grid">
+      <!-- CONTENT AREA -->
+      <div class="content-area">
+        <!-- SEARCH -->
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search training sections...">
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <!-- SECTION 1: GETTING STARTED -->
+        <div class="accordion-section open" id="section-getting-started" data-section="Getting Started">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Getting Started</h3>
+                <p>Your first week onboarding checklist</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>1. Log into rlpNetwork</h4>
+              <ol>
+                <li>Visit <a href="https://rlpnetwork.com" target="_blank">rlpnetwork.com</a></li>
+                <li>Click the username/email field and enter your credentials</li>
+                <li>Once logged in, click "Welcome [Your Name]" at top right to access your profile</li>
+                <li>Complete your profile picture, bio, languages, and areas served</li>
+              </ol>
+
+              <h4>2. Set Up Your @royallepage.ca Email</h4>
+              <ol>
+                <li>Go to rlpNetwork > Account Settings > Email</li>
+                <li>Your @royallepage.ca email uses the same password as rlpNetwork</li>
+                <li>Access it via Gmail interface after initial setup</li>
+                <li>Email synchronization takes 20–30 minutes after a password change</li>
+                <li>Forward your @royallepage.ca email to any personal account if needed</li>
+              </ol>
+
+              <h4>3. Download the rlpSPHERE App</h4>
+              <ul>
+                <li><strong>iOS:</strong> Search "rlpSPHERE" in App Store and install</li>
+                <li><strong>Android:</strong> Search "rlpSPHERE" in Google Play and install</li>
+                <li>Log in with your rlpNetwork credentials</li>
+                <li>Enable push notifications for instant lead alerts</li>
+              </ul>
+
+              <h4>4. Complete Your rlpNetwork Profile</h4>
+              <ul>
+                <li>Photo: Professional headshot (required for listings)</li>
+                <li>Bio: 150–200 character summary of your experience</li>
+                <li>Languages: Add any languages you speak</li>
+                <li>Areas Served: Select the regions where you specialize</li>
+                <li>Contact: Ensure phone and email are visible to clients</li>
+              </ul>
+
+              <div class="highlight-box">
+                <strong>Pro Tip:</strong> Your rlpNetwork profile appears on your personal agent page. Keep it updated—it's how clients find and contact you.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: rlpSPHERE CRM -->
+        <div class="accordion-section" id="section-crm" data-section="rlpSPHERE CRM">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>rlpSPHERE® CRM</h3>
+                <p>Your daily dashboard for leads, contacts & automation</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>Access Your CRM</h4>
+              <ul>
+                <li><strong>Web:</strong> Go to <a href="https://rlpnetwork.com/rlpsphere" target="_blank">rlpnetwork.com/rlpsphere</a></li>
+                <li><strong>Mobile:</strong> Use the rlpSPHERE app (iOS or Android)</li>
+                <li>Log in with your rlpNetwork username and password</li>
+              </ul>
+
+              <h4>Smart CRM — Your Contact Hub</h4>
+              <ol>
+                <li><strong>Add Contacts:</strong> Import from email, add manually, or upload CSV</li>
+                <li><strong>Set Follow-ups:</strong> Schedule reminders for each contact (calls, emails, events)</li>
+                <li><strong>Behavioral Automation:</strong> rlpSPHERE learns your follow-up patterns and suggests next steps</li>
+                <li><strong>Contact Timeline:</strong> All interactions logged in one place—never lose a conversation thread</li>
+              </ol>
+
+              <h4>Lead Engine — Generate & Qualify Leads</h4>
+              <ul>
+                <li><strong>Organic Leads:</strong> Built-in lead capture forms and landing pages</li>
+                <li><strong>Paid Advertising:</strong> Optional Facebook/Instagram integration for lead ads</li>
+                <li><strong>Lead Scoring:</strong> Leads auto-ranked by likelihood to convert</li>
+                <li><strong>Lead Assignment:</strong> Auto-assign to team members if working in a team</li>
+              </ul>
+
+              <h4>Marketing Autopilot — Automated Campaigns</h4>
+              <ul>
+                <li><strong>Email Drips:</strong> Pre-built sequences for new listings, open houses, follow-ups</li>
+                <li><strong>Newsletters:</strong> Monthly digest templates to keep clients engaged</li>
+                <li><strong>Behavioral Triggers:</strong> Send automatic emails based on contact actions (viewed listing, opened email, etc.)</li>
+                <li><strong>Social Media Integration:</strong> Schedule posts from rlpSPHERE (optional)</li>
+              </ul>
+
+              <h4>Client For Life — Date-Based Campaigns</h4>
+              <ul>
+                <li>Automatically send birthday and home anniversary messages</li>
+                <li>Build goodwill with past clients and referral sources</li>
+                <li>Customize templates to match your brand voice</li>
+              </ul>
+
+              <h4>Pro Tip: Forward Emails to rlpSPHERE</h4>
+              <div class="code-block">forward-to-crm@rlpsphere.com</div>
+              <p>Forward client emails to this address and they'll auto-log in your CRM. Never miss a conversation record.</p>
+
+              <div class="highlight-box">
+                <strong>Daily Routine:</strong> Log into rlpSPHERE each morning. Check new leads, update follow-up status, schedule next actions. It's your single source of truth for client relationships.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: SMART LEADS -->
+        <div class="accordion-section" id="section-smart-leads" data-section="Smart Leads">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Smart Leads™ Lead Distribution</h3>
+                <p>Leads from website inquiries—respond fast to win them</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>Where Leads Come From</h4>
+              <ul>
+                <li>Visitor inquiries on royallepage.ca</li>
+                <li>Contact forms on your agent bio page</li>
+                <li>Home evaluation, market report, and listing alert requests</li>
+                <li>Property-specific inquiries from listing pages</li>
+              </ul>
+
+              <h4>How They're Distributed</h4>
+              <ol>
+                <li>Leads arrive via Lead Assign system (you'll get an email notification)</li>
+                <li>They also appear instantly in your rlpSPHERE CRM</li>
+                <li>Mobile push notification sent if you have the app installed</li>
+                <li>Lead status shows as "New" until you engage</li>
+              </ol>
+
+              <h4>Speed to Lead = Success</h4>
+              <div class="highlight-box">
+                <strong>CRITICAL:</strong> Respond to leads within 5 minutes of receiving them. Speed is the #1 predictor of conversion. Call, email, or text—whatever fits the inquiry.
+              </div>
+
+              <h4>Managing Lead Status</h4>
+              <ul>
+                <li><strong>New:</strong> Lead just arrived—you haven't contacted yet</li>
+                <li><strong>In Progress:</strong> You've made contact, follow-up scheduled</li>
+                <li><strong>Qualified:</strong> Lead is actively interested and ready to view/transact</li>
+                <li><strong>Not Qualified:</strong> Lead lost interest or wrong fit for your services</li>
+                <li><strong>Converted:</strong> Lead became a client or signed listing agreement</li>
+              </ul>
+
+              <h4>Important: Lead Routing & Opt-In</h4>
+              <ul>
+                <li>By default, you receive leads in the geographic areas where you serve</li>
+                <li>Talk to <strong>Mike Turner</strong> (709-256-7999) about customizing lead routing</li>
+                <li>Some agents opt out of certain lead types—discuss your preferences with Mike</li>
+              </ul>
+
+              <div class="highlight-box">
+                <strong>rlpSPHERE Tip:</strong> In your CRM, filter by "Status = New" to see all recent leads in one place. Set a reminder to check every 15 minutes during business hours.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: LISTINGS MANAGEMENT -->
+        <div class="accordion-section" id="section-listings" data-section="Listings Management">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Listings Management</h3>
+                <p>Enhance MLS, fix photos, manage marketing</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>Enhance Your MLS Listings</h4>
+              <ol>
+                <li>Log in to rlpNetwork and navigate to <strong>Marketing > My Listings</strong></li>
+                <li>Click <strong>Enhance MLS Listings</strong></li>
+                <li>Select the property you want to enhance</li>
+                <li>Options include:
+                  <ul>
+                    <li>Add/edit virtual tour or iGuide</li>
+                    <li>Upload professional photos and videos</li>
+                    <li>Edit listing description and highlights</li>
+                    <li>Add property features and amenities</li>
+                  </ul>
+                </li>
+                <li>Click <strong>Submit</strong> when complete</li>
+              </ol>
+
+              <h4>Fix Listing Photos & Maps</h4>
+              <ul>
+                <li>Go to <strong>Marketing > My Listings > Enhance MLS Listings</strong></li>
+                <li>Find the listing with incorrect photos or map</li>
+                <li>Delete old images and upload new ones</li>
+                <li>Verify map pin is correct (adjust if needed)</li>
+                <li>Save changes</li>
+              </ul>
+
+              <h4>Remove QuickQuote™ from a Listing</h4>
+              <ul>
+                <li>If buyers are enabled to estimate property values via QuickQuote on your listing:</li>
+                <li>Go to <strong>Marketing > My Listings > Enhance MLS Listings</strong></li>
+                <li>Find the listing and click <strong>Settings</strong></li>
+                <li>Uncheck <strong>Enable QuickQuote™</strong></li>
+                <li>Save changes</li>
+              </ul>
+
+              <h4>Create Exclusive Listings</h4>
+              <ul>
+                <li>Use rlpNetwork to create "Coming Soon" or off-market listings before MLS registration</li>
+                <li>Contact Mike Turner for exclusive listing support if needed</li>
+              </ul>
+
+              <h4>CREA Data Distribution (DDF)</h4>
+              <ul>
+                <li>Your MLS listings automatically syndicate to <a href="https://royallepage.ca" target="_blank">royallepage.ca</a> and partner sites</li>
+                <li>Distribution happens within hours of MLS activation</li>
+                <li>No extra work required—it's automatic</li>
+              </ul>
+
+              <div class="highlight-box">
+                <strong>Pro Tip:</strong> Professional photos, clear descriptions, and virtual tours get 3x more buyer inquiries. Invest in staging and photography early in the listing cycle.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: MARKETING YOUR LISTINGS -->
+        <div class="accordion-section" id="section-marketing" data-section="Marketing Your Listings">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M11 15H6l7-14v8h5l-7 14v-8z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Marketing Your Listings</h3>
+                <p>Tools, templates & campaigns to promote your listings</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>Professional Media</h4>
+              <ul>
+                <li><strong>Photography & Video:</strong> Coordinate with Mike Turner for office-recommended vendors</li>
+                <li><strong>iGuide Virtual Tours:</strong> 3D walkthrough technology—talk to Mike for setup</li>
+                <li><strong>Drone Photography:</strong> Available through approved vendors</li>
+              </ul>
+
+              <h4>Social Media Templates</h4>
+              <ul>
+                <li>Log into rlpSPHERE and navigate to <strong>Marketing > Social Media</strong></li>
+                <li>Pre-designed templates for Facebook, Instagram, and LinkedIn posts</li>
+                <li>Customize with property photos and your branding</li>
+                <li>Schedule posts or share manually</li>
+                <li>Track engagement and reach</li>
+              </ul>
+
+              <h4>Listing Alert Campaigns</h4>
+              <ul>
+                <li>Create automated email alerts for your contact sphere when you list new properties</li>
+                <li>Send via rlpSPHERE Marketing Autopilot</li>
+                <li>Segment by area, price range, or property type</li>
+              </ul>
+
+              <h4>Print Marketing Templates</h4>
+              <ul>
+                <li>Visit rlpNetwork > <strong>Marketing Resources</strong></li>
+                <li>Download templates for:
+                  <ul>
+                    <li>Flyers and postcards</li>
+                    <li>Yard signs and rider signs</li>
+                    <li>Open house invitations</li>
+                    <li>Market analysis reports</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <h4>Royal LePage Branded Assets</h4>
+              <ul>
+                <li>Use Royal LePage logo and templates—they're designed to build brand trust</li>
+                <li>Ensure logo usage follows brand guidelines (ask Mike if unsure)</li>
+                <li>Co-brand with Turner Realty contact info</li>
+              </ul>
+
+              <div class="highlight-box">
+                <strong>Marketing Strategy:</strong> List your properties on multiple channels the day it activates: MLS, royallepage.ca, social media, email to sphere, and print flyers. Maximum exposure = faster sales and better prices.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 6: TRAINING & DEVELOPMENT -->
+        <div class="accordion-section" id="section-training" data-section="Training & Development">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6.18L23 9 12 3zm0 9.18L4 9.46v2.41L12 15l8-3.13V9.46l-8 2.72z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Training & Development</h3>
+                <p>Upskill with webinars, courses & coaching programs</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>rlpCAMPUS™ — Free Self-Paced Learning</h4>
+              <ol>
+                <li>Go to <a href="https://rlpnetwork.com" target="_blank">rlpnetwork.com</a></li>
+                <li>Click <strong>Training > Learning Portal</strong></li>
+                <li>Browse courses on CRM, listings, negotiations, marketing, and more</li>
+                <li>Enroll in courses and complete at your own pace</li>
+                <li>Earn certificates upon completion</li>
+              </ol>
+
+              <h4>Weekly Live Webinars</h4>
+              <ul>
+                <li>Visit rlpNetwork > <strong>Training > Webinar Training</strong></li>
+                <li>Upcoming sessions cover:
+                  <ul>
+                    <li>rlpSPHERE best practices</li>
+                    <li>Negotiation tactics</li>
+                    <li>Digital marketing tips</li>
+                    <li>Market insights and trends</li>
+                  </ul>
+                </li>
+                <li>Register in advance and join live or watch the recording</li>
+              </ul>
+
+              <h4>REALTOR® Marketing Workshops</h4>
+              <ul>
+                <li>In-person or virtual workshops held twice yearly</li>
+                <li>Topics: social media, open house marketing, listing strategies</li>
+                <li>Announcements sent via email—keep an eye on your inbox</li>
+                <li>Mike Turner can provide dates and registration details</li>
+              </ul>
+
+              <h4>Buffini & Company Coaching</h4>
+              <ul>
+                <li>Royal LePage partners with Buffini & Company for coaching programs</li>
+                <li><strong>Peak Producers Program:</strong> 12-month group coaching for agents hitting 6–10 sales/year target</li>
+                <li>Discounted rates for Royal LePage agents</li>
+                <li>Contact Mike Turner for enrollment details</li>
+              </ul>
+
+              <h4>Chris Leader's Edge — Virtual Training</h4>
+              <ul>
+                <li>Optional subscription to advanced real estate courses</li>
+                <li>Topics: systems, scripts, objection handling, scaling teams</li>
+                <li>Available through rlpNetwork or independent enrollment</li>
+              </ul>
+
+              <h4>Professional Designations</h4>
+              <ul>
+                <li><strong>ABR®</strong> (Accredited Buyer's Representative)</li>
+                <li><strong>CRS®</strong> (Certified Residential Specialist)</li>
+                <li><strong>GRI®</strong> (Graduate, REALTOR® Institute)</li>
+                <li>Royal LePage offers discounted rates—ask Mike for details</li>
+              </ul>
+
+              <div class="highlight-box">
+                <strong>Recommendation:</strong> Commit to one rlpCAMPUS course per month. Small, consistent learning drives big results. Start with rlpSPHERE fundamentals if you're new to the CRM.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 7: AWARDS & RECOGNITION -->
+        <div class="accordion-section" id="section-awards" data-section="Awards & Recognition">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Awards & Recognition</h3>
+                <p>Track progress and earn awards—incentives for top performers</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>Awards Qualifying Period</h4>
+              <ul>
+                <li><strong>November 16 to November 15</strong> (yearly qualification cycle)</li>
+                <li>Tracked automatically by Royal LePage—no paperwork needed</li>
+              </ul>
+
+              <h4>Track Your Progress</h4>
+              <ol>
+                <li>Log into rlpNetwork</li>
+                <li>Look for <strong>Awards Tracker</strong> at the top of the homepage</li>
+                <li>See your real-time progress toward qualification thresholds</li>
+                <li>Check target GCI, units, and transaction volume</li>
+              </ol>
+
+              <h4>Award Tiers (Ascending Order)</h4>
+              <ol>
+                <li><strong>Sales Achievement</strong> — Entry level</li>
+                <li><strong>Master Sales</strong></li>
+                <li><strong>President's Gold</strong></li>
+                <li><strong>Director's Platinum</strong></li>
+                <li><strong>Diamond</strong></li>
+                <li><strong>Ruby</strong></li>
+                <li><strong>Red Diamond</strong></li>
+                <li><strong>Executive Circle</strong> — Elite tier</li>
+              </ol>
+
+              <h4>Special Recognition</h4>
+              <ul>
+                <li><strong>Chairman's Club</strong> — Top 1% of agents nationally</li>
+                <li><strong>Award of Excellence</strong> — President's Gold or higher for 5 of 7 consecutive years</li>
+              </ul>
+
+              <h4>Team Awards</h4>
+              <ul>
+                <li>Team members share in team awards if they've been on the team for 9+ months</li>
+                <li>If you're building a team, ensure all members meet tenure requirements</li>
+              </ul>
+
+              <h4>Recognition Benefits</h4>
+              <ul>
+                <li>Trophies and certificates at annual awards banquet</li>
+                <li>Feature in Royal LePage publications and social media</li>
+                <li>Eligibility for special brokerage perks and networking events</li>
+              </ul>
+
+              <div class="highlight-box">
+                <strong>Questions?</strong> Contact <strong>Nelia Luis</strong> (nelia@royallepage.ca) for award-related inquiries or progress verification.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 8: SUPPORT & CONTACTS -->
+        <div class="accordion-section" id="section-support" data-section="Support & Contacts">
+          <div class="accordion-header">
+            <div class="accordion-header-left">
+              <div class="accordion-icon">
+                <svg viewBox="0 0 24 24"><path d="M11 8.17L9.5 9.67c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 10.41l1.09 1.09c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13 8.17V3h-2v5.17zM19.59 7.41L21 5.99c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L18.17 6c-.78-.51-1.67-.82-2.67-.82-2.76 0-5 2.24-5 5h2c0-1.66 1.34-3 3-3 1 0 1.89.31 2.67.82l-1.42 1.41c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41zM11 15.83v5.17h2v-5.17l1.5 1.5c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L12 13.59l-2.09 2.09c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.68-1.26z"/></svg>
+              </div>
+              <div class="accordion-header-text">
+                <h3>Support & Contacts</h3>
+                <p>Get help fast—escalation paths & key contacts</p>
+              </div>
+            </div>
+            <div class="accordion-toggle">
+              <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <h4>Royal LePage National Support</h4>
+              <ul>
+                <li><strong>Phone:</strong> 1-877-757-4545 (M–F, 9 AM–6 PM ET)</li>
+                <li><strong>Email:</strong> <a href="mailto:help@royallepage.ca">help@royallepage.ca</a></li>
+                <li>For general rlpNetwork, MLS, or system issues</li>
+              </ul>
+
+              <h4>rlpSPHERE Live Chat Support</h4>
+              <ul>
+                <li>Available <strong>M–F, 5 AM–7 PM PT</strong> (7 AM–9 PM ET)</li>
+                <li>Access via <a href="https://rlpnetwork.com/rlpsphere" target="_blank">rlpnetwork.com/rlpsphere</a></li>
+                <li>Best for real-time CRM troubleshooting</li>
+              </ul>
+
+              <h4>Awards & Recognition Questions</h4>
+              <ul>
+                <li><strong>Nelia Luis</strong> — Awards Manager</li>
+                <li>Email: <a href="mailto:nelia@royallepage.ca">nelia@royallepage.ca</a></li>
+              </ul>
+
+              <h4>Team Management & Structure</h4>
+              <ul>
+                <li>Email: <a href="mailto:teams@royallepage.ca">teams@royallepage.ca</a></li>
+                <li>For questions about building or managing a team</li>
+              </ul>
+
+              <h4>Your Broker — Mike Turner</h4>
+              <ul>
+                <li><strong>Phone:</strong> 709-256-7999</li>
+                <li><strong>Email:</strong> <a href="mailto:miketurner@royallepage.ca">miketurner@royallepage.ca</a></li>
+                <li>Lead routing, vendor recommendations, local office support, contract questions, and anything not covered above</li>
+              </ul>
+
+              <h4>Escalation Path</h4>
+              <ol>
+                <li>Check the relevant training section in this guide first</li>
+                <li>Try rlpSPHERE Live Chat for CRM issues</li>
+                <li>Contact Royal LePage Customer Care (1-877-757-4545)</li>
+                <li>Reach out to Mike Turner for Turner Realty-specific issues</li>
+              </ol>
+
+              <div class="highlight-box">
+                <strong>Pro Tip:</strong> Save the key contact numbers and emails to your phone. Bookmark this training page—it's your 24/7 reference for how to do your job.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- QUICK LINKS SIDEBAR -->
+      <aside class="quick-links-box" id="quick-links">
+        <h4 class="quick-links-title">Quick Links</h4>
+        <ul class="quick-links-list">
+          <li><a href="https://rlpnetwork.com" target="_blank">rlpNetwork Portal</a></li>
+          <li><a href="https://rlpnetwork.com/rlpsphere" target="_blank">rlpSPHERE CRM</a></li>
+          <li><a href="https://royallepage.ca" target="_blank">Royal LePage.ca</a></li>
+          <li><a href="https://www.facebook.com/realestategander" target="_blank">Facebook</a></li>
+          <li><a href="https://www.youtube.com/playlist?list=PLr4XcQLT7UeO_8OZSgtx6h2N6dvsmsY_Y" target="_blank">YouTube</a></li>
+          <li><a href="tel:+1-877-757-4545">1-877-757-4545</a></li>
+          <li><a href="mailto:help@royallepage.ca">help@royallepage.ca</a></li>
+          <li><a href="tel:+1-709-256-7999">Mike Turner: 709-256-7999</a></li>
+        </ul>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Royal LePage Turner Realty</div>
+        <p>Award-winning brokerage serving Newfoundland & Labrador since 1998. Three offices, 11 REALTORS®, dedicated to helping you succeed.</p>
+      </div>
+      <div>
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="agent-training.html">Agent Training</a></li>
+          <li><a href="https://rlpnetwork.com" target="_blank">rlpNetwork</a></li>
+          <li><a href="https://royallepage.ca" target="_blank">Royal LePage</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-heading">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="tel:+1-709-256-7999">709-256-7999</a></li>
+          <li><a href="mailto:miketurner@royallepage.ca">Mike Turner</a></li>
+          <li><a href="https://www.facebook.com/realestategander" target="_blank">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-red-bar">
+      <p>Real estate agents operating under Royal LePage. © 2026 Royal LePage Turner Realty. All rights reserved.</p>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="footer-legal">
+      Royal LePage Turner Realty operates three offices across Newfoundland and Labrador. Each office is independently owned and operated. Royal LePage is a registered trademark of Royal LePage Real Estate Services Ltd. Brokerage. All material contained on this website is proprietary to Royal LePage Turner Realty.
+    </div>
+  </footer>
+
+  <script>
+    // NAV TOGGLE
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ACCORDION TOGGLE
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const section = header.closest('.accordion-section');
+        section.classList.toggle('open');
+      });
+    });
+
+    // SEARCH FUNCTIONALITY
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const sections = document.querySelectorAll('[data-section]');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      if (!query) {
+        searchResults.textContent = '';
+        return;
+      }
+
+      let matchCount = 0;
+      sections.forEach(section => {
+        const sectionName = section.dataset.section;
+        const sectionText = section.innerText.toLowerCase();
+        const matches = sectionText.includes(query);
+
+        if (matches) {
+          matchCount++;
+          section.style.opacity = '1';
+          section.style.pointerEvents = 'auto';
+        } else {
+          section.style.opacity = '0.4';
+          section.style.pointerEvents = 'none';
+        }
+      });
+
+      if (matchCount === 0) {
+        searchResults.textContent = `No results for "${e.target.value}"`;
+      } else {
+        searchResults.textContent = `Found in ${matchCount} section${matchCount !== 1 ? 's' : ''}`;
+      }
+    });
+
+    // Clear search on escape
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        searchResults.textContent = '';
+        sections.forEach(section => {
+          section.style.opacity = '1';
+          section.style.pointerEvents = 'auto';
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

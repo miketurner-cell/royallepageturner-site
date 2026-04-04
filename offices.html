@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEMZDX1BJQ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FEMZDX1BJQ');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="canonical" href="https://royallepageturner.com/offices.html">
+  <meta name="description" content="Royal LePage Turner Realty offices across Newfoundland & Labrador — Gander, Happy Valley–Goose Bay, and St. John's, plus recruiting in Labrador West.">
+  <title>Our Offices | Royal LePage Turner Realty</title>
+  <meta property="og:title" content="Our Offices | Royal LePage Turner Realty">
+  <meta property="og:description" content="Three active offices across Newfoundland & Labrador — Gander, Happy Valley–Goose Bay, and St. John's, plus recruiting in Labrador West.">
+  <meta property="og:url" content="https://royallepageturner.com/offices.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Royal LePage Turner Realty">
+  <meta property="og:image" content="https://royallepageturner.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background: #fff; color: #2c2c2c; font-family: 'Roboto', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ═══ SCOPED: .of (offices) ═══ */
+
+    /* NAV */
+    .of .nav-bar { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 0 48px; height: 72px; border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 1000; }
+    .of .nav-brand { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+    .of .nav-brand-name { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 18px; color: #1a1a1a; }
+    .of .nav-brand-name span { color: #EA002A; }
+    .of .nav-brand-divider { width: 1px; height: 28px; background: #ddd; }
+    .of .nav-brand-sub { font-size: 11px; font-weight: 400; color: #999; letter-spacing: 0.06em; text-transform: uppercase; }
+    .of .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .of .nav-toggle span { display: block; width: 22px; height: 2px; background: #1a1a1a; border-radius: 1px; transition: transform 0.3s, opacity 0.3s; }
+    .of .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .of .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .of .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .of .nav-links { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; gap: 4px; }
+    .of .nav-links li a { display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: #555; text-decoration: none; border-radius: 6px; transition: color 0.2s; }
+    .of .nav-links li a:hover { color: #EA002A; }
+    .of .nav-right { display: flex; align-items: center; gap: 16px; }
+    .of .nav-phone { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #EA002A; text-decoration: none; }
+    .of .nav-phone svg { width: 16px; height: 16px; fill: #EA002A; }
+
+    /* PAGE HEADER */
+    .of .page-header { background: #f7f7f7; padding: 72px 48px 64px; text-align: center; border-bottom: 1px solid #e8e8e8; }
+    .of .page-header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #EA002A; margin-bottom: 12px; }
+    .of .page-header h1 { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: clamp(28px, 4.5vw, 44px); margin: 0 0 16px; color: #1a1a1a; letter-spacing: -0.02em; }
+    .of .page-header p { font-size: 17px; color: #666; max-width: 580px; margin: 0 auto; line-height: 1.7; }
+
+    /* SECTIONS */
+    .of section { padding: 96px 48px; }
+    .of .section-inner { max-width: 1000px; margin: 0 auto; }
+
+    /* OFFICE DETAIL CARDS */
+    .of .office-detail {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; overflow: hidden;
+      margin-bottom: 40px; transition: box-shadow 0.3s;
+    }
+    .of .office-detail:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.06); }
+    .of .office-detail:last-child { margin-bottom: 0; }
+    .of .office-detail.placeholder { opacity: 0.4; pointer-events: none; }
+    .of .od-map {
+      background: #f0f0f0; display: flex; align-items: center; justify-content: center;
+      min-height: 260px; position: relative;
+    }
+    .of .od-map iframe { width: 100%; height: 100%; position: absolute; top: 0; left: 0; border: 0; }
+    .of .od-map a {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      text-decoration: none; color: #999; transition: color 0.2s;
+    }
+    .of .od-map a:hover { color: #EA002A; }
+    .of .od-map svg { width: 32px; height: 32px; fill: currentColor; }
+    .of .od-map span { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .of .od-info { padding: 48px 40px; }
+    .of .od-info .office-status {
+      display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 12px; margin-bottom: 16px;
+    }
+    .of .od-info .status-active { background: rgba(0,160,75,0.08); color: #00a04b; }
+    .of .od-info .status-soon { background: rgba(234,0,42,0.06); color: #EA002A; }
+    .of .od-info h2 { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 24px; margin: 0 0 8px; color: #1a1a1a; }
+    .of .od-info .od-domain { font-size: 14px; color: #EA002A; margin-bottom: 20px; font-weight: 500; }
+    .of .od-info .od-meta { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 24px; }
+    .of .od-info .od-meta strong { color: #2c2c2c; font-weight: 500; }
+    .of .btn-visit {
+      display: inline-flex; align-items: center; gap: 8px; background: #EA002A; color: #fff;
+      padding: 12px 28px; font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 13px;
+      text-decoration: none; border-radius: 6px; transition: background 0.2s;
+    }
+    .of .btn-visit:hover { background: #c8001f; }
+    .of .btn-visit svg { width: 14px; height: 14px; fill: #fff; }
+
+    /* NETWORK SUMMARY */
+    .of .network-section { background: #1a1a1a; }
+    .of .network-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+    .of .net-item .net-num {
+      font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 36px; color: #EA002A; margin-bottom: 6px;
+    }
+    .of .net-item .net-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+    /* FOOTER */
+    .of .site-footer { background: #fafafa; border-top: 1px solid #e8e8e8; padding: 56px 48px 0; }
+    .of .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+    .of .footer-brand-name { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 16px; color: #1a1a1a; margin-bottom: 12px; }
+    .of .footer-brand p { font-size: 13px; color: #888; line-height: 1.7; margin: 0; }
+    .of .footer-brand a { color: #888; text-decoration: none; transition: color 0.2s; }
+    .of .footer-brand a:hover { color: #EA002A; }
+    .of .footer-heading { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-bottom: 16px; }
+    .of .footer-links { list-style: none; margin: 0; padding: 0; }
+    .of .footer-links li { margin-bottom: 10px; }
+    .of .footer-links a { font-size: 14px; color: #666; text-decoration: none; transition: color 0.2s; }
+    .of .footer-links a:hover { color: #EA002A; }
+    .of .footer-red-bar { background: #EA002A; margin: 0 -48px; padding: 14px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .of .footer-red-bar p { margin: 0; font-size: 12px; color: #fff; }
+    .of .footer-red-bar a { color: #fff; text-decoration: none; }
+    .of .footer-legal { max-width: 1100px; margin: 0 auto; padding: 20px 0; font-size: 11px; color: #aaa; line-height: 1.6; text-align: center; }
+
+    /* MOBILE */
+    @media (max-width: 1024px) {
+      .of .nav-bar { padding: 0 20px; height: 60px; }
+      .of .nav-brand-divider, .of .nav-brand-sub { display: none; }
+      .of .nav-toggle { display: flex; }
+      .of .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+      .of .nav-links.open { display: flex; }
+      .of .nav-links li a { padding: 12px 24px; font-size: 15px; }
+      .of .nav-right { display: none; }
+      .of .page-header { padding: 56px 20px 48px; }
+      .of section { padding: 64px 20px; }
+      .of .office-detail { grid-template-columns: 1fr; }
+      .of .od-map { min-height: 180px; }
+      .of .od-info { padding: 32px 24px; }
+      .of .network-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .of .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .of .site-footer { padding: 40px 20px 0; }
+      .of .footer-red-bar { margin: 0 -20px; padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="of">
+
+  <!-- NAV -->
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-name">Royal LePage <span>Turner Realty</span></span>
+      <span class="nav-brand-divider"></span>
+      <span class="nav-brand-sub">Newfoundland &amp; Labrador</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="offices.html">Offices</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="awards.html">Awards</a></li>
+      <li><a href="team.html">Our Team</a></li>
+      <li><a href="shelter-foundation.html">Shelter Foundation</a></li>
+      <li><a href="agent-training.html">Agent Training</a></li>
+      <li><a href="join-our-team.html">Careers</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:7092567999" class="nav-phone">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        709-256-7999
+      </a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="eyebrow">Our Network</div>
+    <h1>Offices Across Newfoundland &amp; Labrador</h1>
+    <p>Each office operates its own website, team, and local listings. Visit an office site to connect with a REALTOR&reg; in your area.</p>
+  </div>
+
+  <!-- OFFICE DETAILS -->
+  <section>
+    <div class="section-inner">
+
+      <!-- GANDER -->
+      <div class="office-detail">
+        <div class="od-map">
+          <iframe src="https://www.google.com/maps?q=204+Airport+Blvd,+Gander,+NL+A1V+1L6&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Gander Office Map" allowfullscreen></iframe>
+        </div>
+        <div class="od-info">
+          <span class="office-status status-active">Active</span>
+          <h2>Gander</h2>
+          <div class="od-domain">realestategander.com</div>
+          <div class="od-meta">
+            <strong>Address:</strong> 204 Airport Boulevard, Gander, NL A1V 1L6<br>
+            <strong>Phone:</strong> <a href="tel:7092567999" style="color:#EA002A;text-decoration:none;">709-256-7999</a><br>
+            <strong>Agents:</strong> 8 licensed REALTORS&reg;<br>
+            <strong>Areas Served:</strong> Gander, Appleton, Glenwood, Gambo, Glovertown, Lewisporte, Twillingate
+          </div>
+          <a href="https://realestategander.com" class="btn-visit" target="_blank" rel="noopener">
+            Visit Office Site <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- HVGB -->
+      <div class="office-detail">
+        <div class="od-map">
+          <iframe src="https://www.google.com/maps?q=1+Loring+Drive,+Happy+Valley-Goose+Bay,+NL+A0P+1C0&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Happy Valley–Goose Bay Office Map" allowfullscreen></iframe>
+        </div>
+        <div class="od-info">
+          <span class="office-status status-active">Active</span>
+          <h2>Happy Valley–Goose Bay</h2>
+          <div class="od-domain">goosebayrealestate.ca</div>
+          <div class="od-meta">
+            <strong>Address:</strong> 1 Loring Drive, Happy Valley–Goose Bay, NL A0P 1C0<br>
+            <strong>Phone:</strong> <a href="tel:7092567999" style="color:#EA002A;text-decoration:none;">709-256-7999</a><br>
+            <strong>Agents:</strong> 2 licensed REALTORS&reg;<br>
+            <strong>Areas Served:</strong> Happy Valley–Goose Bay and surrounding area
+          </div>
+          <a href="https://goosebayrealestate.ca" class="btn-visit" target="_blank" rel="noopener">
+            Visit Office Site <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- LABRADOR WEST (Recruiting Only) -->
+      <div class="office-detail">
+        <div class="od-map">
+          <iframe src="https://www.google.com/maps?q=Labrador+City,+NL&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Labrador West Area Map" allowfullscreen></iframe>
+        </div>
+        <div class="od-info">
+          <span class="office-status status-soon">Recruiting</span>
+          <h2>Labrador West</h2>
+          <div class="od-domain">labwestrealty.com</div>
+          <div class="od-meta">
+            <strong>Region:</strong> Labrador City &amp; Wabush<br>
+            <strong>Status:</strong> We&rsquo;re actively recruiting licensed REALTORS&reg; to represent Royal LePage Turner Realty in Labrador West. No office location yet&mdash;visit the recruiting site to learn more.
+          </div>
+          <a href="https://labwestrealty.com" class="btn-visit" target="_blank" rel="noopener">
+            Learn More <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ST. JOHN'S -->
+      <div class="office-detail">
+        <div class="od-map">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;color:#bbb;">
+            <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:currentColor;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span style="font-size:12px;letter-spacing:0.06em;text-transform:uppercase;">St. John's</span>
+          </div>
+        </div>
+        <div class="od-info">
+          <span class="office-status status-active">Active</span>
+          <h2>St. John's</h2>
+          <div class="od-domain" style="color:#bbb;">Coming Soon</div>
+          <div class="od-meta">
+            <strong>Agents:</strong> 1<br>
+            <strong>Areas Served:</strong> St. John's Capital Region<br>
+            <strong>Agent:</strong> Chris Morrison, REALTOR&reg;
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NETWORK STATS -->
+  <section class="network-section">
+    <div class="section-inner">
+      <div class="network-grid">
+        <div class="net-item">
+          <div class="net-num">3</div>
+          <div class="net-label">Active Offices</div>
+        </div>
+        <div class="net-item">
+          <div class="net-num">11</div>
+          <div class="net-label">Licensed REALTORS&reg;</div>
+        </div>
+        <div class="net-item">
+          <div class="net-num">28</div>
+          <div class="net-label">Years in Business</div>
+        </div>
+        <div class="net-item">
+          <div class="net-num">6</div>
+          <div class="net-label">Brokerage Awards</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Royal LePage Turner Realty</div>
+        <p>Royal LePage Turner Realty (2014) Inc.<br>204 Airport Boulevard, Gander, NL A1V 1L6<br><a href="tel:7092567999">709-256-7999</a></p>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="offices.html">Offices</a></li>
+          <li><a href="awards.html">Awards</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Offices</div>
+        <ul class="footer-links">
+          <li><a href="https://realestategander.com" target="_blank" rel="noopener">Gander</a></li>
+          <li><a href="https://goosebayrealestate.ca" target="_blank" rel="noopener">Happy Valley–Goose Bay</a></li>
+          <li><a href="https://labwestrealty.com" target="_blank" rel="noopener">Labrador West</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-red-bar">
+      <p><strong>Royal LePage Turner Realty (2014) Inc.</strong></p>
+      <p>royallepageturner.com &middot; <a href="tel:7092567999">709-256-7999</a></p>
+    </div>
+    <div class="footer-legal">
+      &copy; 1998&ndash;2026 Royal LePage Turner Realty (2014) Inc. Each office independently owned and operated.<br>
+      Not intended to solicit buyers or sellers currently under contract.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.querySelector('.of .nav-toggle');
+  var links = document.querySelector('.of .nav-links');
+  if(btn && links){
+    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); });
+  }
+})();
+</script>
+</body>
+</html>
