@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Smart Leads Report | Turner Realty — Internal</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /*
+         * Smart Leads Report (.sl) Scope
+         * ───────────────────────────────
+         * Internal password-protected report
+         */
+
+        /* Base resets */
+        *, *::before, *::after { box-sizing: border-box; }
+        body { margin: 0; padding: 0; background: #0a0a0a; font-family: 'Roboto', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        a { color: inherit; }
+        img { display: block; max-width: 100%; }
+
+        /* ── HUB SITE NAV (sl- scoped) ── */
+        .sl-nav-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #fff; padding: 0 48px; height: 72px;
+            border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 1000;
+        }
+        .sl-nav-brand { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+        .sl-nav-brand-name {
+            font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 18px; color: #1a1a1a; letter-spacing: -0.01em;
+        }
+        .sl-nav-brand-name span { color: #EA002A; }
+        .sl-nav-brand-divider { width: 1px; height: 28px; background: #ddd; }
+        .sl-nav-brand-sub {
+            font-size: 11px; font-weight: 400; color: #999; letter-spacing: 0.06em; text-transform: uppercase;
+        }
+        .sl-nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+        .sl-nav-toggle span { display: block; width: 22px; height: 2px; background: #1a1a1a; border-radius: 1px; transition: transform 0.3s, opacity 0.3s; }
+        .sl-nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .sl-nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .sl-nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .sl-nav-links { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; gap: 4px; }
+        .sl-nav-links li a {
+            display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: #555;
+            text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; border-radius: 6px;
+        }
+        .sl-nav-links li a:hover { color: #EA002A; }
+        .sl-nav-right { display: flex; align-items: center; gap: 16px; }
+        .sl-nav-phone {
+            display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;
+            color: #EA002A; text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .sl-nav-bar { padding: 0 20px; height: 60px; }
+            .sl-nav-brand-divider, .sl-nav-brand-sub { display: none; }
+            .sl-nav-toggle { display: flex; }
+            .sl-nav-links {
+                display: none; position: absolute; top: 60px; left: 0; right: 0;
+                background: #fff; flex-direction: column; padding: 8px 0;
+                border-bottom: 1px solid #e8e8e8; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .sl-nav-links.open { display: flex; }
+            .sl-nav-links li a { padding: 12px 24px; font-size: 15px; }
+            .sl-nav-right { display: none; }
+        }
+
+        /* ── HUB SITE FOOTER (sl- scoped) ── */
+        .sl-site-footer { background: #fafafa; border-top: 1px solid #e8e8e8; padding: 56px 48px 0; }
+        .sl-footer-inner {
+            max-width: 1100px; margin: 0 auto; display: grid;
+            grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 48px;
+        }
+        .sl-footer-brand-name { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 16px; color: #1a1a1a; margin-bottom: 12px; }
+        .sl-footer-brand p, .sl-site-footer p { font-size: 13px; color: #888; line-height: 1.7; margin: 0; }
+        .sl-footer-brand a, .sl-site-footer a { color: #888; text-decoration: none; transition: color 0.2s; }
+        .sl-footer-brand a:hover, .sl-site-footer a:hover { color: #EA002A; }
+        .sl-footer-heading {
+            font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 13px;
+            color: #1a1a1a; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;
+        }
+        .sl-footer-links { list-style: none; margin: 0; padding: 0; }
+        .sl-footer-links li { margin-bottom: 10px; }
+        .sl-footer-links a { font-size: 14px; color: #666; text-decoration: none; transition: color 0.2s; }
+        .sl-footer-links a:hover { color: #EA002A; }
+        .sl-footer-red-bar {
+            background: #EA002A; display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 48px; margin: 0 -48px;
+        }
+        .sl-footer-red-bar p { margin: 0; font-size: 12px; color: #fff; font-weight: 400; }
+        .sl-footer-red-bar a { color: #fff; text-decoration: none; }
+        .sl-footer-legal {
+            max-width: 1100px; margin: 0 auto; padding: 20px 0; font-size: 11px;
+            color: #aaa; text-align: center; line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .sl-footer-inner { grid-template-columns: 1fr; gap: 32px; }
+            .sl-site-footer { padding: 40px 20px 0; }
+            .sl-footer-red-bar { margin: 0 -20px; padding: 14px 20px; }
+        }
+
+        .sl-gate {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0a;
+        }
+
+        .sl-gate-box {
+            background: #111111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 48px 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .sl-gate-box svg { margin-bottom: 20px; }
+
+        .sl-gate-box h2 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 900;
+            color: #fff;
+            font-size: 1.6rem;
+            margin: 0 0 8px 0;
+        }
+
+        .sl-gate-box p {
+            font-family: 'Roboto', sans-serif;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin: 0 0 28px 0;
+        }
+
+        .sl-gate-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .sl-gate-input:focus {
+            outline: none;
+            border-color: #EA002A;
+        }
+
+        .sl-gate-btn {
+            width: 100%;
+            padding: 14px;
+            background: #EA002A;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .sl-gate-btn:hover { background: #c8001f; }
+
+        .sl-gate-error {
+            color: #EA002A;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ---- Report Content ---- */
+        .sl-report { display: none; }
+
+        .sl-hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            padding: 100px 20px 60px;
+            border-bottom: 3px solid #EA002A;
+        }
+
+        .sl-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sl-hero-eyebrow {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            color: #EA002A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+        }
+
+        .sl-hero h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            color: #fff;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+        }
+
+        .sl-hero-sub {
+            font-family: 'Roboto', sans-serif;
+            color: #ddd;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .sl-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .sl-section-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(26px, 4vw, 38px);
+            font-weight: 900;
+            color: #fff;
+            margin: 60px 0 12px 0;
+        }
+
+        .sl-section-title:first-child { margin-top: 0; }
+
+        .sl-section-sub {
+            font-family: 'Roboto', sans-serif;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            margin: 0 0 32px 0;
+        }
+
+        /* KPI Cards */
+        .sl-kpis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .sl-kpi {
+            background: #111111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        .sl-kpi-value {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 900;
+            font-size: 2.4rem;
+            color: #EA002A;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .sl-kpi-label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tables */
+        .sl-table-wrap {
+            overflow-x: auto;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+
+        .sl-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .sl-table thead th {
+            background: #1a1a1a;
+            color: #fff;
+            font-weight: 700;
+            padding: 14px 16px;
+            text-align: left;
+            white-space: nowrap;
+            border-bottom: 2px solid #EA002A;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .sl-table thead th:hover { color: #EA002A; }
+        .sl-table thead th .sort-arrow { font-size: 0.7rem; margin-left: 4px; opacity: 0.5; }
+        .sl-table thead th.sorted .sort-arrow { opacity: 1; color: #EA002A; }
+
+        .sl-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #1e1e1e;
+            color: rgba(255,255,255,0.7);
+            vertical-align: top;
+        }
+
+        .sl-table tbody tr:hover td { background: rgba(234, 0, 42, 0.05); }
+
+        .sl-table tbody tr.sl-matched td { background: rgba(0, 170, 0, 0.08); }
+        .sl-table tbody tr.sl-matched:hover td { background: rgba(0, 170, 0, 0.14); }
+
+        .sl-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sl-badge-converted {
+            background: rgba(0, 170, 0, 0.15);
+            color: #00cc66;
+        }
+
+        .sl-badge-none {
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+        }
+
+        .sl-price { font-weight: 700; color: #fff; }
+
+        /* Agent Cards */
+        .sl-agents {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .sl-agent-card {
+            background: #111111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sl-agent-name {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .sl-agent-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .sl-agent-stat-val {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #EA002A;
+            line-height: 1;
+        }
+
+        .sl-agent-stat-lbl {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-top: 4px;
+        }
+
+        .sl-bar-wrap {
+            margin-top: 16px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .sl-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #EA002A, #ff4060);
+            border-radius: 6px;
+            transition: width 0.6s ease;
+        }
+
+        /* Filters */
+        .sl-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sl-filter-select {
+            padding: 10px 14px;
+            background: #111111;
+            border: 1px solid #222;
+            color: #fff;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .sl-filter-select:focus { outline: none; border-color: #EA002A; }
+
+        .sl-filter-search {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            background: #111111;
+            border: 1px solid #222;
+            color: #fff;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .sl-filter-search:focus { outline: none; border-color: #EA002A; }
+        .sl-filter-search::placeholder { color: rgba(255,255,255,0.3); }
+
+        .sl-count {
+            font-family: 'Roboto', sans-serif;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        /* Timeline */
+        .sl-timeline {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+            height: 80px;
+            margin-bottom: 40px;
+            padding: 0 4px;
+        }
+
+        .sl-timeline-bar {
+            flex: 1;
+            background: linear-gradient(180deg, #EA002A, #8b0019);
+            border-radius: 3px 3px 0 0;
+            min-width: 20px;
+            position: relative;
+            transition: opacity 0.2s;
+        }
+
+        .sl-timeline-bar:hover { opacity: 0.8; }
+
+        .sl-timeline-label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        .sl-timeline-labels {
+            display: flex;
+            gap: 4px;
+            padding: 0 4px;
+        }
+
+        .sl-timeline-labels span { flex: 1; min-width: 20px; text-align: center; font-family: 'Roboto', sans-serif; font-size: 0.65rem; color: rgba(255,255,255,0.3); }
+
+        /* Footer note */
+        .sl-footer-note {
+            text-align: center;
+            padding: 40px 20px;
+            font-family: 'Roboto', sans-serif;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+            border-top: 1px solid #1e1e1e;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .sl-hero h1 { font-size: 2rem; }
+            .sl-kpis { grid-template-columns: repeat(2, 1fr); }
+            .sl-agents { grid-template-columns: 1fr; }
+            .sl-section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hub Site Nav -->
+<div class="hp">
+  <nav class="sl-nav-bar">
+    <a href="index.html" class="sl-nav-brand">
+      <span class="sl-nav-brand-name">Royal LePage <span>Turner Realty</span></span>
+      <span class="sl-nav-brand-divider"></span>
+      <span class="sl-nav-brand-sub">Newfoundland &amp; Labrador</span>
+    </a>
+    <button class="sl-nav-toggle" id="slNavToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="sl-nav-links" id="slNavLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="offices.html">Offices</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="awards.html">Awards</a></li>
+      <li><a href="team.html">Our Team</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="sl-nav-right">
+      <a href="tel:7092567999" class="sl-nav-phone">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="#EA002A"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        709-256-7999
+      </a>
+    </div>
+  </nav>
+</div>
+
+<!-- PASSWORD GATE -->
+<div class="sl-gate" id="slGate">
+    <div class="sl-gate-box">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#EA002A" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <h2>Agent Portal</h2>
+        <p>Enter the access code to view the Smart Leads report.</p>
+        <input type="password" class="sl-gate-input" id="slPassword" placeholder="Access Code" autocomplete="off">
+        <button class="sl-gate-btn" id="slUnlock">View Report</button>
+        <div class="sl-gate-error" id="slError">Incorrect code. Please try again.</div>
+    </div>
+</div>
+
+<!-- REPORT CONTENT (hidden until authenticated) -->
+<div class="sl-report" id="slReport">
+
+    <div class="sl-hero">
+        <div class="sl-hero-inner">
+            <p class="sl-hero-eyebrow">Internal Report &middot; Confidential</p>
+            <h1>Smart Leads Conversion Report</h1>
+            <p class="sl-hero-sub">Cross-referencing 275 Royal LePage Smart Leads (Oct 2024 &ndash; Apr 2026) against 1,257 Loft47 closed deals to identify which online leads converted to transactions.</p>
+        </div>
+    </div>
+
+    <div class="sl-content">
+
+        <!-- KPIs -->
+        <div class="sl-kpis">
+            <div class="sl-kpi">
+                <div class="sl-kpi-value">275</div>
+                <div class="sl-kpi-label">Total Smart Leads</div>
+            </div>
+            <div class="sl-kpi">
+                <div class="sl-kpi-value">16</div>
+                <div class="sl-kpi-label">Unique Deals Closed</div>
+            </div>
+            <div class="sl-kpi">
+                <div class="sl-kpi-value">$4.6M</div>
+                <div class="sl-kpi-label">Total Deal Value</div>
+            </div>
+            <div class="sl-kpi">
+                <div class="sl-kpi-value">5.8%</div>
+                <div class="sl-kpi-label">Conversion Rate</div>
+            </div>
+            <div class="sl-kpi">
+                <div class="sl-kpi-value">100</div>
+                <div class="sl-kpi-label">Avg. Days to Sale</div>
+            </div>
+        </div>
+
+        <!-- Lead Volume Timeline -->
+        <h2 class="sl-section-title">Lead Volume by Month</h2>
+        <p class="sl-section-sub">Monthly Smart Lead inflow since October 2024</p>
+        <div class="sl-timeline" id="slTimeline"></div>
+        <div class="sl-timeline-labels" id="slTimelineLabels"></div>
+
+        <!-- Agent Breakdown -->
+        <h2 class="sl-section-title">Agent Performance</h2>
+        <p class="sl-section-sub">Leads received and conversions per agent</p>
+        <div class="sl-agents" id="slAgents"></div>
+
+        <!-- Conversions Detail -->
+        <h2 class="sl-section-title">Confirmed Conversions</h2>
+        <p class="sl-section-sub">19 lead entries matched to 16 unique closed deals &mdash; only deals that closed <em>after</em> the lead arrived</p>
+        <div class="sl-table-wrap">
+            <table class="sl-table" id="slConversions">
+                <thead>
+                    <tr>
+                        <th>Lead Name <span class="sort-arrow">&#9650;</span></th>
+                        <th>Lead Date <span class="sort-arrow">&#9650;</span></th>
+                        <th>Lead Agent <span class="sort-arrow">&#9650;</span></th>
+                        <th>Side <span class="sort-arrow">&#9650;</span></th>
+                        <th>Deal # <span class="sort-arrow">&#9650;</span></th>
+                        <th>Sold Price <span class="sort-arrow">&#9650;</span></th>
+                        <th>Sold Date <span class="sort-arrow">&#9650;</span></th>
+                        <th>Days <span class="sort-arrow">&#9650;</span></th>
+                        <th>Deal Agent <span class="sort-arrow">&#9650;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="slConvBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Full Lead List -->
+        <h2 class="sl-section-title">All Smart Leads</h2>
+        <p class="sl-section-sub">Complete lead roster with conversion status</p>
+
+        <div class="sl-filters">
+            <select class="sl-filter-select" id="slFilterAgent">
+                <option value="">All Agents</option>
+            </select>
+            <select class="sl-filter-select" id="slFilterStatus">
+                <option value="">All Status</option>
+                <option value="converted">Converted Only</option>
+                <option value="none">No Match</option>
+            </select>
+            <input type="text" class="sl-filter-search" id="slFilterSearch" placeholder="Search by name or email...">
+        </div>
+        <div class="sl-count" id="slLeadCount"></div>
+
+        <div class="sl-table-wrap">
+            <table class="sl-table" id="slLeads">
+                <thead>
+                    <tr>
+                        <th>Name <span class="sort-arrow">&#9650;</span></th>
+                        <th>Email <span class="sort-arrow">&#9650;</span></th>
+                        <th>Phone <span class="sort-arrow">&#9650;</span></th>
+                        <th>Lead Date <span class="sort-arrow">&#9650;</span></th>
+                        <th>Agent <span class="sort-arrow">&#9650;</span></th>
+                        <th>Status <span class="sort-arrow">&#9650;</span></th>
+                        <th>Conversion <span class="sort-arrow">&#9650;</span></th>
+                    </tr>
+                </thead>
+                <tbody id="slLeadBody"></tbody>
+            </table>
+        </div>
+
+        <div class="sl-footer-note">
+            Smart Leads Reconciliation Report &middot; Royal LePage Turner Realty (2014) Inc.<br>
+            Generated April 5, 2026 &middot; Data sources: BlueBird (Smart Leads) + Loft47 (Deals)<br>
+            Matching method: Strict first + last name comparison, deals closing after lead date only.<br>
+            <strong>CONFIDENTIAL &mdash; Internal Use Only</strong>
+        </div>
+    </div>
+</div>
+
+<!-- Hub Site Footer -->
+<div class="hp">
+  <footer class="sl-site-footer">
+    <div class="sl-footer-inner">
+      <div class="sl-footer-brand">
+        <div class="sl-footer-brand-name">Royal LePage Turner Realty</div>
+        <p>Royal LePage Turner Realty (2014) Inc.<br>204 Airport Boulevard, Gander, NL A1V 1L6<br><a href="tel:7092567999">709-256-7999</a></p>
+      </div>
+      <div>
+        <div class="sl-footer-heading">Company</div>
+        <ul class="sl-footer-links">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="offices.html">Offices</a></li>
+          <li><a href="awards.html">Awards</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sl-footer-heading">Offices</div>
+        <ul class="sl-footer-links">
+          <li><a href="https://realestategander.com" target="_blank" rel="noopener">Gander</a></li>
+          <li><a href="https://goosebayrealestate.ca" target="_blank" rel="noopener">Happy Valley–Goose Bay</a></li>
+          <li><a href="https://labwestrealty.com" target="_blank" rel="noopener">Labrador West</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sl-footer-red-bar">
+      <p><strong>Royal LePage Turner Realty (2014) Inc.</strong></p>
+      <p>royallepageturner.com &middot; <a href="tel:7092567999">709-256-7999</a></p>
+    </div>
+    <div class="sl-footer-legal">
+      &copy; 1998&ndash;2026 Royal LePage Turner Realty (2014) Inc. Each office independently owned and operated.<br>
+      Not intended to solicit buyers or sellers currently under contract.
+    </div>
+  </footer>
+</div>
+
+<script>
+(function() {
+    // Nav toggle
+    var btn = document.getElementById('slNavToggle');
+    var links = document.getElementById('slNavLinks');
+    if (btn && links) {
+        btn.addEventListener('click', function() { btn.classList.toggle('active'); links.classList.toggle('open'); });
+    }
+
+    // ---- PASSWORD GATE ----
+    // Simple hash-based gate (not military security, but keeps casual access out)
+    var HASH = '5f4dcc3b5aa765d61d8327deb882cf99'; // md5 of "password" placeholder — will be set below
+    function simpleHash(str) {
+        var h = 0;
+        for (var i = 0; i < str.length; i++) {
+            h = ((h << 5) - h) + str.charCodeAt(i);
+            h |= 0;
+        }
+        return h.toString(36);
+    }
+
+    // The actual passcode check (set your code here)
+    var PASSCODE = 'turner2026';
+
+    document.getElementById('slUnlock').addEventListener('click', function() {
+        var input = document.getElementById('slPassword').value.trim();
+        if (input.toLowerCase() === PASSCODE.toLowerCase()) {
+            document.getElementById('slGate').style.display = 'none';
+            document.getElementById('slReport').style.display = 'block';
+            renderReport();
+        } else {
+            document.getElementById('slError').style.display = 'block';
+            document.getElementById('slPassword').value = '';
+            document.getElementById('slPassword').focus();
+        }
+    });
+
+    document.getElementById('slPassword').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') document.getElementById('slUnlock').click();
+    });
+
+    // ---- DATA ----
+    var conversions = [
+        {n:"Marlene Hurley",ld:"2025-12-02",la:"Kayla Tulk",side:"Buyer",deal:"149-2026-0008",price:165000,sd:"2026-01-08",days:37,da:"Kayla Tulk",addr:"Labrador"},
+        {n:"Derrick Holloway",ld:"2025-11-22",la:"Crystal Hynes",side:"Buyer",deal:"149-2026-0011",price:31000,sd:"2026-02-12",days:82,da:"Crystal Hynes",addr:"Gander area"},
+        {n:"Marlene Hurley",ld:"2025-11-16",la:"Kayla Tulk",side:"Buyer",deal:"149-2026-0008",price:165000,sd:"2026-01-08",days:53,da:"Kayla Tulk",addr:"Labrador"},
+        {n:"Shirlee Pierce",ld:"2025-09-21",la:"Crystal Hynes",side:"Buyer",deal:"149-2025-0128",price:420000,sd:"2025-10-25",days:34,da:"Danielle Pike",addr:"Gander area"},
+        {n:"Jordan Parsons",ld:"2025-08-27",la:"Gaye Turner",side:"Buyer",deal:"149-2025-0103",price:40000,sd:"2025-09-01",days:5,da:"Gaye Turner",addr:"Gander area"},
+        {n:"Rachael Liston",ld:"2025-07-30",la:"Mike Turner",side:"Buyer",deal:"149-2025-0094",price:205000,sd:"2025-08-02",days:3,da:"Crystal Hynes",addr:"Gander area"},
+        {n:"Niki Anstey",ld:"2025-07-29",la:"Crystal Hynes",side:"Buyer",deal:"149-2025-0126",price:200000,sd:"2025-10-23",days:86,da:"Crystal Hynes",addr:"Gander area"},
+        {n:"David & Erica Thomas",ld:"2025-06-14",la:"Crystal Hynes",side:"Buyer",deal:"149-2025-0091",price:291500,sd:"2025-07-05",days:21,da:"Crystal Hynes",addr:"Gander area"},
+        {n:"Cara Telford",ld:"2025-05-27",la:"Crystal Hynes",side:"Seller",deal:"149-2025-0092",price:650000,sd:"2025-08-15",days:80,da:"Crystal Hynes",addr:"Gander area"},
+        {n:"Beverly Stickley",ld:"2025-05-11",la:"Danielle Pike",side:"Buyer",deal:"149-2025-0078",price:413900,sd:"",days:null,da:"Matt Wheaton",addr:"Gander area"},
+        {n:"Tamara Pittman",ld:"2025-04-03",la:"Danielle Pike",side:"Buyer",deal:"149-2025-0108",price:269000,sd:"2025-09-05",days:155,da:"Danielle Pike",addr:"Gander area"},
+        {n:"Mitchell Kippenhuck",ld:"2025-03-07",la:"Kayla Tulk",side:"Buyer",deal:"156-2025-0013",price:312000,sd:"2025-05-27",days:81,da:"Roberta Primmer, Karen Pomeroy",addr:"Goose Bay"},
+        {n:"Bethany Brand",ld:"2025-03-06",la:"Gaye Turner",side:"Buyer",deal:"149-2025-0034",price:315000,sd:"2025-03-18",days:12,da:"Gaye Turner",addr:"Gander area"},
+        {n:"Kimberly Mouland",ld:"2025-03-03",la:"Matt Wheaton",side:"Buyer",deal:"149-2025-0075",price:325000,sd:"2025-06-02",days:91,da:"Matt Wheaton",addr:"Gander area"},
+        {n:"Kaitlin Drover",ld:"2025-02-03",la:"Matt Wheaton",side:"Buyer",deal:"149-2025-0125",price:325000,sd:"2025-11-04",days:274,da:"Matt Wheaton",addr:"Gander area"},
+        {n:"Colette Winsor",ld:"2025-01-27",la:"Danielle Pike",side:"Buyer",deal:"149-2025-0102",price:480000,sd:"2025-08-12",days:197,da:"Matt Wheaton, Crystal Hynes",addr:"Gander area"},
+        {n:"Trudy Greene",ld:"2025-01-19",la:"Crystal Hynes",side:"Seller",deal:"149-2025-0126",price:200000,sd:"2025-10-23",days:277,da:"Crystal Hynes",addr:"Gander area"},
+        {n:"Mercy Andrews",ld:"2025-01-08",la:"Gaye Turner",side:"Buyer",deal:"149-2025-0067",price:185000,sd:"2025-06-10",days:153,da:"Ashley Bullen, Dwayne Kean",addr:"Gander area"},
+        {n:"Mitchell Kippenhuck",ld:"2024-12-10",la:"Karen Pomeroy",side:"Buyer",deal:"156-2025-0013",price:312000,sd:"2025-05-27",days:168,da:"Roberta Primmer, Karen Pomeroy",addr:"Goose Bay"}
+    ];
+
+    // Matched lead indices (from the matching script)
+    var matchedIndices = new Set([40,48,50,75,87,97,99,115,127,130,156,168,169,173,188,192,196,211,220]);
+
+    var leads = [];
+    var rawBatches = [
+"RANDY SMITH|randyrandosmith@gmail.com|'+17057175467|2026-04-02|Kayla Tulk|Accepted~Thomas Calteau|thomas.calteau974@gmail.com|8195889969 / 4505440936|2026-03-30|Karen Pomeroy|Accepted~Lloyd Whitehorne|lloyd.whitehorne@outlook.com|7094222713|2026-03-29|Crystal Hynes|Accepted~natalie turchuk|nateric@hotmail.ca|8196615408|2026-03-27|Dwayne Kean|Accepted~Deidre Feltham|deidrecnormore@hotmail.com||2026-03-21|Danielle Pike|Accepted~Cynthia Green|Cyndigreen72@gmail.com|709 571 2899|2026-03-19|Kayla Tulk|Auto-Accepted-Coalesced~Cynthia|cyndigreen72@gmail.com|7095712899|2026-03-19|Kayla Tulk|Auto-Accepted-Coalesced~Alicia|Aliciadowney10@gmail.com||2026-03-19|Ashley Bullen|Accepted~David Anstey|David.anstey22@hotmail.com|7096973917|2026-03-18|Danielle Pike|Accepted~Roxanne Wheaton|Wheatonrox@outlook.com|7095346177|2026-03-18|Crystal Hynes|Accepted~Alicia|Downeyalicia319@gmail.com||2026-03-18|Matt Wheaton|Accepted~Linda Little|lindalittle48@gmail.com|7096874736|2026-03-16|Danielle Pike|Accepted~Cynthia|cyndigreen72@gmail.com|7095712899|2026-03-15|Kayla Tulk|Accepted~Trina Pilgrim|trinamay14@hotmail.com|7098975975|2026-03-12|Karen Pomeroy|Accepted~Glenn David|glenndavid07@gmail.com|7094223385|2026-03-11|Dwayne Kean|Accepted",
+"Colin Tilley|ctilley@aecu.ca|7097302957|2026-03-10|Mike Turner|Accepted~Jonathan Hounsell|JonathanHounsell619@hotmail.com|709-424-6484|2026-03-09|Mike Turner|Accepted~Joshua elliott|JoshElliott1126@gmail.com|7095717486|2026-03-07|Crystal Hynes|Auto-Accepted-Coalesced~Shanay Cowan|stwilliamsjohnson@gmail.com|3062928481|2026-03-05|Mike Turner|Catchall-Accepted~Michael Gill|michaelgill123@hotmail.ca||2026-03-05|Crystal Hynes|Accepted~Wallace Greening|Wallacegreening@gmail.com|7094224651|2026-03-03|Ashley Bullen|Accepted~Darren Singh|atmainvestmentsbs@gmail.com|4373267637|2026-03-01|Karen Pomeroy|Accepted~Darren Singh|atmainvestmentsbs@gmail.com|4373267637|2026-03-01|Mike Turner|Catchall-Accepted~Kevin Vincent|kevin.vincent@baptist-atlantic.ca||2026-02-03|Karen Pomeroy|Accepted~Maxine CloutierGervais|maxine.cloutier-gervais@ec.gc.ca||2026-01-29|Mike Turner|Accepted~Alphonsus Hanlon|Alphonsus.hanlon@gmail.com|709-572-8466|2026-01-27|Crystal Hynes|Accepted~Makayla Rideout|makaylasrideout@outlook.com|7093253904|2026-01-24|Crystal Hynes|Accepted~Amber Wiggins|ambernwiggins@hotmail.com||2026-01-21|Karen Pomeroy|Accepted~Danny Hillier|dhillier0908@gmail.com|6573216105|2026-01-18|Mike Turner|Accepted~Lee Bell|Leebell173@gmail.com|7807203046|2026-01-16|Karen Pomeroy|Accepted",
+"Dwayne Evans|dwayneevans@hotmail.ca||2026-01-10|Mike Turner|Accepted~Marc Brouillette|marc.b.nf@hotmail.com|7096974594|2026-01-09|Mike Turner|Catchall-Accepted~Duane Brown|duane_brown@outlook.com|7096915462|2026-01-07|Mike Turner|Accepted~barry gillard|barryandcayla@gmail.con|7802213037|2026-01-07|Mike Turner|Accepted~Denise Gregoire|denise139gregoire@gmail.com|6138507423|2026-01-02|Mike Turner|Catchall-Accepted~Rahul|Rahul.dave0619@gmail.com||2025-12-30|Kayla Tulk|Accepted~Jerry Goodyear|jerrygoodyear@hotmail.com|7095718021|2025-12-16|Mike Turner|Auto-Accepted-Coalesced~Jerry Goodyear|jerrygoodyear@hotmail.com||2025-12-11|Mike Turner|Accepted~Cluet Wallace|cluetwallace@yahoo.com|7098974964|2025-12-09|Roberta Primmer|Accepted~Vicky White|victoria.white@brucepower.com||2025-12-05|Dwayne Kean|Accepted~marlene hurley|marlene.hurley1972@gmail.com|4033185319|2025-12-02|Kayla Tulk|Accepted~Shanciya Bilu|Shanciyabilal850@gmail.com|7094246855|2025-12-01|Ashley Bullen|Auto-Accepted-Coalesced~Shanciya Bilu|Shanciyabilal850@gmail.com|709-424-6855|2025-12-01|Ashley Bullen|Accepted~Teraceta Campbell|Teracetacampbell@hotmail.com|7098961081|2025-11-27|Karen Pomeroy|Accepted~Ellen Thompson|esthonpson72@gmail.com|7807421325|2025-11-25|Matt Wheaton|Accepted",
+"Cindy|cindyc37@live.ca|7097697036|2025-11-24|Danielle Pike|Accepted~Sarah Seymour|sarahvyoung1@hotmail.com|7094862596|2025-11-22|Kayla Tulk|Accepted~Derrick Holloway|derekholloway@live.ca|7094246003|2025-11-22|Crystal Hynes|Accepted~Kirklin Shea|kgshea00@gmail.com|7095715166|2025-11-21|Ashley Bullen|Accepted~Verat Ozby|veratozby73@gmail.com||2025-11-17|Mike Turner|Accepted~marlene hurley|marlene.hurley1972@gmail.com|4033185319|2025-11-16|Kayla Tulk|Accepted~Reginald Collins|Collinsr2007@hotmail.com||2025-11-12|Crystal Hynes|Accepted~Clarence Walsh|walshy_24@yahoo.ca|905 826 0423|2025-11-11|Matt Wheaton|Accepted~Michael|mbaquiran11@yahoo.com|7097255836|2025-11-10|Mike Turner|Accepted~Michael|mbaquiran11@yahoo.com|7097255836|2025-11-10|Mike Turner|Catchall-Accepted~Michael|mbaquiran11@yahoo.com|7097255836|2025-11-10|Roberta Primmer|Accepted~Erin McDonald|erin.mcdonald@outlook.com||2025-11-06|Ashley Bullen|Auto-Accepted-Coalesced~Sharon Thompson|sharonhdthompson@hotmail.com||2025-11-01||Catchall~melvin burry|brokeagain@rogers.com||2025-10-30|Mike Turner|Accepted~Erin McDonald|erin.mcdonald@outlook.com|7094244993|2025-10-29|Ashley Bullen|Accepted",
+"Nancy King|nancyking_1963@hotmail.com|709 694 3726|2025-10-24|Danielle Pike|Accepted~Trudy knox|trudyknox4508@gmail.com|7096741515|2025-10-23|Kayla Tulk|Auto-Accepted-Coalesced~Trudy knox|trudyknox4508@gmail.com|7096741515|2025-10-23|Kayla Tulk|Auto-Accepted-Coalesced~Byron Bussey|B.bussey@hotmail.com|3063201865|2025-10-21|Kayla Tulk|Accepted~Gregory Coates|greg_g_coates@yahoo.ca|17094249410|2025-10-20|Crystal Hynes|Accepted~Stacey Nolan|Stacwygoldberger@yahoo.com|7542469800|2025-10-14|Karen Pomeroy|Accepted~Kyle Patten|kpat1797@gmail.com||2025-10-10|Ashley Bullen|Accepted~Zack Parsons|Zdparsons@icloud.com||2025-10-10|Kayla Tulk|Accepted~Otto Gates|Ottogates28@gmail.com||2025-10-09|Kayla Tulk|Accepted~LLOYD WHITEHORNE|ruggedviewenterprises@gmail.com|7094222713|2025-10-07|Mike Turner|Accepted~Barry Furlong|cdfurlong@hotmail.com|7096950729|2025-10-04|Dwayne Kean|Accepted~Ben Patey|benwpatey@gmail.com|17095262033|2025-10-02|Mike Turner|Accepted~Joeseph Dimitriev|joedirt24622462@gmail.com||2025-09-29|Crystal Hynes|Accepted~Ryan Nippard|Ryannippard27@gmail.com||2025-09-28|Ashley Bullen|Accepted~Alexandra Thompson|alit200311@gmail.com|7095722502|2025-09-23|Kayla Tulk|Accepted",
+"Shirlee Pierce|pierceshirlee@gmail.com|709-424-4681|2025-09-21|Crystal Hynes|Accepted~Otto Gates|Ottogates28@gmail.com||2025-09-20|Ashley Bullen|Accepted~Kirklin Shea|kgshea00@gmail.com|7095715166|2025-09-20|Ashley Bullen|Accepted~Doug Rice|dougjude@gmail.com||2025-09-20|Ashley Bullen|Accepted~Ashley butler|yelhsaword@gmail.com||2025-09-14|Danielle Pike|Accepted~Trina Pilgrim|trinamay14@hotmail.com||2025-09-10|Roberta Primmer|Accepted~Colin Pittman|colinpittman506@gmail.com||2025-09-09|Karen Pomeroy|Accepted~Kitura Pittman|kiturapittman@hotmail.com|7098994766|2025-09-03|Roberta Primmer|Accepted~Myles faulkner|Mylesfaulkner@hotmail.com||2025-08-31|Matt Wheaton|Accepted~Dianne Hodge|d.hodge@hotmail.com|709-571-3279|2025-08-28|Matt Wheaton|Auto-Accepted-Coalesced~Dianne|d.hodge@hotmail.com||2025-08-28|Matt Wheaton|Accepted~Catherine Rowe|Catherinerowe8icloud.ca@gmail.com||2025-08-27|Dwayne Kean|Accepted~Jordan parsons|Parsonsjordan@hotmail.com|17097461019|2025-08-27|Gaye Turner|Accepted~Natalie Thimot|nthimot@gmail.com||2025-08-25|Crystal Hynes|Accepted~Emily Vivian|Marie.keats@live.ca|709-674-6418|2025-08-21|Dwayne Kean|Accepted",
+"raya jordan  jordon gauthier|rayajordan@gmail.com||2025-08-20|Ashley Bullen|Accepted~Wendel Jacque|wendel_jacque@hotmail.com|7094799883|2025-08-20|Mike Turner|Accepted~Lucas yetman|Lucasyetman@hotmail.com||2025-08-19|Kayla Tulk|Catchall-Accepted~Colleen Fudge|Colleenfudge@hotmail.com|4034653179|2025-08-17|Matt Wheaton|Accepted~Akin|Akinbaba1@gmail.com|7095712434|2025-08-15|Ashley Bullen|Accepted~Trudy Knox|trudyknox4508@gmail.com|7096741515|2025-08-15|Kayla Tulk|Accepted~Debra Alcock|debbie_lush@hotmail.com|7094245847|2025-08-11|Crystal Hynes|Accepted~Debra Alcock|debbie_lush@hotmail.com|7094245847|2025-08-11|Crystal Hynes|Accepted~Debra Alcock|debbie_lush@hotmail.com|7094245847|2025-08-10|Crystal Hynes|Accepted~Stephanie Parker in England|lightroom@btinternet.com||2025-08-09|Gaye Turner|Accepted~Lisa Keats|lisamarie_68@hotmail.com|17097665190|2025-08-07|Gaye Turner|Accepted~Katherine Fleet|katherinemfleet@gmail.com|709-725-3746|2025-08-06|Crystal Hynes|Accepted~Scott Sheppard|ScottSheppard3@outlook.com||2025-08-05|Karen Pomeroy|Accepted~Katherine Fleet|katherinemfleet@gmail.com|7097253746|2025-08-01|Crystal Hynes|Accepted~Shane Pinsent|shanepinsent@gmail.com|7095711334|2025-07-31|Dwayne Kean|Accepted",
+"Akin Ojo|Nufjamaicaa@hotmail.com||2025-07-30|Matt Wheaton|Auto-Accepted-Coalesced~Akin Ojo|Nufjamaicaa@hotmail.com||2025-07-30|Matt Wheaton|Accepted~Rachael Liston|rachael.m.liston@gmail.com|4167956405|2025-07-30|Mike Turner|Accepted~Blaine paul|Bdp1@live.ca|7098975602|2025-07-29|Roberta Primmer|Requeued-Auto-Accepted~Niki Anstey|Babbyniki@hotmail.com||2025-07-29|Crystal Hynes|Accepted~Anne Drover|adrover@mun.ca||2025-07-27|Mike Turner|Accepted~Kristy Saunders|Kristydawn86@gmail.com||2025-07-26|Kayla Tulk|Accepted~Keshav Shahi|keshavshahi7861@gmail.com||2025-07-26|Roberta Primmer|Accepted~Jackie Mullins|jackie17lobitos@hotmail.com|7098992979|2025-07-22|Roberta Primmer|Accepted~Peter Brown|thescreech@icloud.com|4036601921|2025-07-20|Ashley Bullen|Accepted~Greg Gill|ggill@nl.rogers.com||2025-07-14|Danielle Pike|Auto-Accepted-Coalesced~Greg Gill|ggill@nl.rogers.com|7094241228|2025-07-14|Danielle Pike|Accepted~Deborah Pedersen|debbiepedersen237@gmail.com|7056481956|2025-07-11|Matt Wheaton|Accepted~Ocean Spurrell|huntyrspurrell@hotmail.com|7096680913|2025-07-06|Kayla Tulk|Accepted~brian|brianhoxha@aol.com|4166178215|2025-07-05|Dwayne Kean|Accepted",
+"Akira Danson|akiradanson@gmail.com|6472866586|2025-07-04|Gaye Turner|Accepted~Holly Sheppard|hollyflowers.1987@gmail.com|709-217-1722|2025-07-03|Kayla Tulk|Catchall-Accepted~Justin Harris|justinharris350@hotmail.com|7096600456|2025-06-30|Ashley Bullen|Accepted~Johnal Chant|Johnalsymington@hitmail.com|7094240381|2025-06-30|Matt Wheaton|Accepted~Wanda|Wbursey@hotmail.com|7809839519|2025-06-28|Kayla Tulk|Accepted~Bill nippard|Billnippard@gmail.com||2025-06-27|Crystal Hynes|Accepted~Rick Forsey|Rick_forsey@yahoo.com|8195929242|2025-06-25|Ashley Bullen|Accepted~Charese normore|Charesenormore@icloud.com||2025-06-24|Matt Wheaton|Accepted~Kevin Weste|Kevin.westco@gmail.com|7094250256|2025-06-21|Kayla Tulk|Accepted~Sherry Whelan|Owen.sherryw@gmail.com|7094247024|2025-06-21|Crystal Hynes|Accepted~David and Erica Thomas|ericaroberts9@hotmail.com|709-486-3071 or 709-763-6625|2025-06-14|Crystal Hynes|Accepted~carvey noble|carveybnoble@gmail.com|7092171318|2025-06-11|Roberta Primmer|Accepted~Trevor Pinsent|trevorpinsent@hotmail.com|7094221584|2025-06-09|Dwayne Kean|Accepted~Sophie Humphries|Sophieoldford09@gmail.com||2025-06-05|Ashley Bullen|Accepted~Jeenus Kaur Bhatti|Jeenuskbhatti@gmail.com|4372193925|2025-05-28|Crystal Hynes|Accepted",
+"Cynthia Greene|cyndigreen72@gmail.com|7095712899|2025-05-27|Danielle Pike|Requeued-Auto-Accepted~Cynthia|cyndigreen72@gmail.com|709 571 2899|2025-05-27|Danielle Pike|Accepted~Cara Telford|cem20@hotmail.com|7092350029|2025-05-27|Crystal Hynes|Accepted~Sreekanth Sadasivan|sreekanthktm3131@gmail.com|7095712112|2025-05-22|Danielle Pike|Accepted~Sreekanth Sadasivan|sreekanthktm3131@gmail.com|7095712026|2025-05-21|Danielle Pike|Accepted~Natalie pollard|nat_2030@hotmail.com|7098992428|2025-05-20|Karen Pomeroy|Accepted~Joshua elliott|Joshelliott1126@gmail.com|709-571-7486|2025-05-19|Crystal Hynes|Accepted~Paris Keats|P.keats@hotmail.com|17096787420|2025-05-18|Kayla Tulk|Accepted~Yordan Karaivanov|jkaraivanov@yahoo.com||2025-05-17|Roberta Primmer|Accepted~Pat collins|patcollins87@hotmail.com|7802151968|2025-05-12|Dwayne Kean|Accepted~Beverly Stickley|stickleybeverly@hotmail.com|9024714062|2025-05-11|Danielle Pike|Accepted~Crystal|Crystalbarnes69@hotmail.com||2025-05-10|Kayla Tulk|Accepted~Patricia Park|reception@brotherslaw.ca|7096393400|2025-05-09|Danielle Pike|Accepted~Natasha N|Natashanicholx3@hotmail.com||2025-05-05|Mike Turner|Accepted~Victoria|Victoriakeefe97_@hotmail.com|17095346417|2025-05-02|Mike Turner|Requeued-Auto-Accepted",
+"Cole Smith|michaelcdsmith@gmail.com||2025-05-01|Ashley Bullen|Accepted~Fred  Louise Pond|Fred.Pond@salvationarmy.ca|7097436644|2025-05-01|Danielle Pike|Accepted~Peter Compton|peteracompton@hotmail.com||2025-04-30|Roberta Primmer|Accepted~Zachary Pritchett|Zacharypritchett22@hotmail.com||2025-04-24|Dwayne Kean|Accepted~SHAJU MATHEW|gandermalayalis@gmail.com|'+17094223916|2025-04-24|Crystal Hynes|Accepted~Mark Oates|markoates078@gmail.com||2025-04-18|Ashley Bullen|Accepted~Eileen Knight|handeknight@gmail.com|7096245405|2025-04-16|Crystal Hynes|Accepted~Eileen Knight|handeknight@gmail.com|7096245405|2025-04-16|Crystal Hynes|Accepted~Eileen Knight|handeknight@gmail.com|7096245405|2025-04-16|Crystal Hynes|Accepted~cavelle Jestican|cavellesjestican@hotmail.com|7097710636|2025-04-15|Matt Wheaton|Accepted~Dawn Taylor|Sophisticatedsnips@hotmail.com|709-674-1026|2025-04-12|Crystal Hynes|Accepted~Mark Oates|markoates078@gmail.com|7095978128|2025-04-11|Ashley Bullen|Accepted~Tonya|tazmanina2001@gmail.com|7809650535|2025-04-11|Kayla Tulk|Accepted~Rob|Towtruck1962@gmail.com|6134499150|2025-04-09|Mike Turner|Accepted~Ryan Decker|ryandecker@nlesd.ca||2025-04-08|Crystal Hynes|Accepted",
+"Tamara Pittman|tamara-pittman@hotmail.com|7096369298|2025-04-03|Danielle Pike|Accepted~Marsha Hill|garyhauctions@sympatico.ca|4169856719|2025-03-30|Dwayne Kean|Accepted~Britany richards|otheraccount1992@outlook.com|7094223181|2025-03-29|Crystal Hynes|Accepted~Reeth uroy|reethuroy@hotmail.com|'+7094224768|2025-03-29|Mike Turner|Auto-Accepted-Coalesced~Reethuroy|Reethuroy@hotmail.com|'+7094224768|2025-03-29|Mike Turner|Accepted~Jenna Pritchett|Pritchettjenna@gmail.com||2025-03-24|Matt Wheaton|Accepted~Robyn sniw|Beccasnow87@gmail.com|7094250763|2025-03-22|Ashley Bullen|Accepted~Travis Payne|tpayne@curtisdawe.com|709-746-8348|2025-03-16|Karen Pomeroy|Accepted~Woody|Woodykeeping@hotmail.com|867 445 8662|2025-03-16|Kayla Tulk|Accepted~Kathryn schwabe|Kathrynschwabe@live.ca||2025-03-14|Crystal Hynes|Accepted~Todd bishop|toddbishop02@gmail.com||2025-03-13|Kayla Tulk|Catchall-Accepted~Rosemary LeFresneDwyer|r.g.lefresne@gmail.com||2025-03-13|Dwayne Kean|Accepted~Patty|Pattymccomb67@gmail.com|613-323-6487|2025-03-12|Roberta Primmer|Accepted~Sherrylee ford|sherrylee_ford1982@hotmail.com||2025-03-11|Crystal Hynes|Accepted~Donovan brinson|brinsond44@gmail.com|2493593033|2025-03-11|Danielle Pike|Accepted",
+"Rosemary LeFresneDwyer|r.g.lefresne@gmail.com||2025-03-10|Kayla Tulk|Catchall-Accepted~Sean Bibeau|bibeaus16@gmail.com|2046885385|2025-03-09|Matt Wheaton|Accepted~Gabriel Riff|gabriel@riffs.ca|4167026077|2025-03-07|Roberta Primmer|Accepted~Mitchell Kippenhuck|mitchellkippenhuck@hotmail.com|7098977682|2025-03-07|Kayla Tulk|Catchall-Accepted~Bethany Brand|bbrandup@gmail.com|4103372923|2025-03-06|Gaye Turner|Accepted~Frederick Scott Lunnen|fredlunnen@gmail.com||2025-03-05|Ashley Bullen|Accepted~Steven jesso|Lsmjesso@ocloud.com|7808351191|2025-03-03|Kayla Tulk|Accepted~ethan blake|ethanblake2002@hotmail.com|7095714229|2025-03-03|Crystal Hynes|Accepted~Kimberly Mouland|kimberlyannmouland99@gmail.com|7094249981|2025-03-03|Matt Wheaton|Accepted~Carolyn Howell|cmlhowell@yahoo.ca|7095722579|2025-02-26|Kayla Tulk|Catchall-Accepted~Sherry  Desaulniers|Claude4997@gmail.com|780 223 2412|2025-02-23|Dwayne Kean|Accepted~Gabriella|support@companiesport.com|4165468881|2025-02-19|Crystal Hynes|Accepted~Jecy|jecy.mm@gmail.com|7095337711|2025-02-16|Ashley Bullen|Accepted~Jennifer and Denley blake|jdfk.2027@gmail.com|7098996526|2025-02-12|Karen Pomeroy|Auto-Accepted-Coalesced~Jennifer and denley blaks|jdfk.2027@gmail.com|7098996526|2025-02-12|Karen Pomeroy|Accepted",
+"Christa Dowding|Christa_dowding@hotmail.com||2025-02-10|Danielle Pike|Accepted~Sharon|sharonrimmerbennett@hotmail.com||2025-02-07|Kayla Tulk|Accepted~Ian Edwards|ian.edwards@rbc.com|7092207439|2025-02-03|Mike Turner|Accepted~kaitlin Drover|kaitlin.strickland21@gmail.com|7094242329|2025-02-03|Matt Wheaton|Auto-Accepted-Coalesced~Kate drover|kaitlin.strickland21@gmail.com|7094242329|2025-02-03|Matt Wheaton|Accepted~Leah Thistle|leah.c.thistle@hotmail.ca|7094247701|2025-02-01|Crystal Hynes|Auto-Accepted-Coalesced~Sherry Mutford|Sherrymutford@yahoo.com|7094242777|2025-02-01|Ashley Bullen|Accepted~Alec|alec_issl@yahoo.ca||2025-01-28|Crystal Hynes|Accepted~Rebecca Nichol|rebeccamonicadorothy@gmail.com|7095346137|2025-01-27|Crystal Hynes|Accepted~Colette winsor|colettewinsor@yahoo.ca|7095410382|2025-01-27|Danielle Pike|Accepted~Ryan Ellsworth|ryanellsworth@live.ca|709-571-3607|2025-01-27|Kayla Tulk|Accepted~Belinda Robinson|koolsgander@gmail.com|7096681468|2025-01-26|Matt Wheaton|Auto-Accepted-Coalesced~Belinda Robinson|koolsgander@gmail.com|7096681468|2025-01-26|Matt Wheaton|Accepted~shirley mullett|b.mullett23@hotmail.com|7092562435|2025-01-23|Ashley Bullen|Accepted~Trudy greene|32barracks@gmail.com|6134640305|2025-01-19|Crystal Hynes|Accepted",
+"Paula Ennis|Perham_paula@yahoo.ca|7094246958|2025-01-17|Danielle Pike|Accepted~Matthew Pye|Mattpye23@gmail.com|7094249414|2025-01-15|Crystal Hynes|Accepted~Denise Collins|Denise.collins.nl@gmail.com|6393179169|2025-01-15|Danielle Pike|Accepted~Kris Keats|kris_keats@hotmail.com|709-424-0705|2025-01-15|Crystal Hynes|Accepted~Shirley Mullett|b.mullett23@hotmail.com|7095719159|2025-01-15|Gaye Turner|Accepted~Laura BelbenKenny Mullins|laurabelben11@gmail.com|2892331221|2025-01-12|Roberta Primmer|Accepted~Mercy Andrews|kjglover46@gmail.com|7094220172|2025-01-08|Gaye Turner|Accepted~Ashley heath|Aheath30@hotmail.com|17096910954|2025-01-08|Crystal Hynes|Accepted~Chris Crane|chrisallancrane@outlook.com|7097641427|2025-01-06|Mike Turner|Accepted~Peter|Pjchaulk@hotmail.com|9028902406|2025-01-04|Kayla Tulk|Accepted~Amy Pike|Amypike44@hotmail.com||2025-01-02|Roberta Primmer|Accepted~Gage chinn|gagechinn2020@gmail.com|17095368165|2025-01-01|Matt Wheaton|Accepted~Charlene Hodder|charlenenippard46@outlook.com|7095718959|2024-12-28|Danielle Pike|Accepted~Charlene Nippard|charlenenippard46@outlook.com|7095718959|2024-12-25|Ashley Bullen|Accepted~Charlene Nippard|charlenenippard46@outlook.com|7095718959|2024-12-25|Ashley Bullen|Auto-Accepted-Coalesced",
+"Trisa|trisa_jason@hotmail.com|7094245761|2024-12-19|Crystal Hynes|Accepted~Wendy Cave|wendydwayne@hotmail.ca|7094244891|2024-12-17|Kayla Tulk|Catchall-Accepted~Brandon Hounsell|bcchounsell@gmail.com||2024-12-15|Kayla Tulk|Accepted~Charlene Hodder|charlenenippard46@outlook.com|7095718959|2024-12-15|Ashley Bullen|Accepted~Aaron Batho|aaron@alliedhealthcarenl.com||2024-12-12|Crystal Hynes|Accepted~Mitchell Kippenhuck|mitchellkippenhuck@hotmail.com|7098977682|2024-12-10|Karen Pomeroy|Accepted~Maryanne Sibley|butterfly_mms@hotmail.com|7095722256|2024-12-07|Dwayne Kean|Accepted~Abigail Rees|gailrees13@gmail.com|709 765 3333|2024-12-04|Kayla Tulk|Accepted~Jeremy Gould|gouldjeremy@ymail.com|7098992257|2024-12-03|Roberta Primmer|Accepted~Jeremy Gould|gouldjeremy@ymail.com|7098992257|2024-12-03|Roberta Primmer|Accepted~Ben|bluebirdpaintinginc@gmail.com|5195747084|2024-12-03|Crystal Hynes|Accepted~Len|Mlen7812@gmail.com|780.721.9295|2024-11-27|Kayla Tulk|Accepted~Trisa Snow|trisa_jason@hotmail.com|7094245761|2024-11-27|Crystal Hynes|Accepted~Rick Hunt|rhunt76@hotmail.com|867-223-4516|2024-11-23|Matt Wheaton|Accepted~Mark Sibley|marksibley77@gmail.com||2024-11-22|Ashley Bullen|Accepted",
+"Austin Maddocks|wem7studios@gmail.com||2024-11-21|Dwayne Kean|Accepted~Trina Jacqueline Heffern|TrinaMurphy150@hotmail.com|7095713161     709 677 2122|2024-11-21|Gaye Turner|Accepted~Jeff|Jeffcollins_25@hotmail.com|7096314305|2024-11-18|Kayla Tulk|Accepted~Leah Thistle|leah.c.thistle@hotmail.ca|7094247701|2024-11-16|Crystal Hynes|Auto-Accepted-Coalesced~Kyle Heard|heardconstruction1@gmail.com|7092178124|2024-11-16|Karen Pomeroy|Reassign-Auto-Accepted~Trisa Snow|trisa_jason@hotmail.com|7094245761|2024-11-14|Crystal Hynes|Accepted~Dion|Twodogsfishing@hotmail.com|6474553358|2024-11-13|Matt Wheaton|Accepted~Bethany|bethany3@hotmail.ca|7094249006|2024-11-13|Crystal Hynes|Accepted~Jessica Pearce|jpearce15@hotmail.com||2024-11-12|Kayla Tulk|Accepted~Glen Collins|glenc7@telus.net||2024-11-09|Matt Wheaton|Auto-Accepted-Coalesced~Glen Collins|glenc7@telus.net||2024-11-09|Matt Wheaton|Accepted~Amy McAuley|aims1989@gmail.com||2024-11-08|Karen Pomeroy|Requeued-Auto-Accepted~Eric|ericmarsden9@gmail.com||2024-11-07|Crystal Hynes|Accepted~Todd Burden|burdentodd@gmail.com||2024-11-06|Karen Pomeroy|Accepted~BobbKelly|bobkellyj@gmail.com||2024-11-05|Dwayne Kean|Auto-Accepted-Coalesced",
+"Bob Kelly|bobkellyj@gmail.com||2024-11-05|Dwayne Kean|Accepted~Jessica Bishop|jessicabishop203@gmail.com|7097648789|2024-11-04|Kayla Tulk|Accepted~Zachary Andrews|z_andrews@live.ca|7094862246|2024-10-30|Danielle Pike|Auto-Accepted-Coalesced~Zachary Andrews|z_andrews@live.ca|7094862246|2024-10-29|Danielle Pike|Auto-Accepted-Coalesced~Zachary Andrews|z_andrews@live.ca|7094862246|2024-10-29|Danielle Pike|Accepted~Winston C Francis|wcfrancis@hotmail.com|7094245037|2024-10-29|Matt Wheaton|Accepted~Blaine|blainedhodder@hotmail.com||2024-10-23|Crystal Hynes|Accepted~Shanda  Ryan|shandapaul8@gmail.com|7096741002|2024-10-19|Ashley Bullen|Accepted~Jessica Decker|Jessicadeckerr@gmail.com||2024-10-18|Crystal Hynes|Accepted~John Lane|Jwlane@shaw.ca|4036502783|2024-10-17|Mike Turner|Accepted~Jason Brown|Browniej@live.ca||2024-10-15|Ashley Bullen|Accepted~Paula Williams|paulawilliams201@hotmail.com||2024-10-14|Crystal Hynes|Accepted~Peter kelly|Headcans@hotmail.com|613-447-3622|2024-10-14|Kayla Tulk|Accepted~Jason Bennett|droidlabz@icloud.com|705-241-8973|2024-10-11|Dwayne Kean|Accepted~Tanya Vincent|Vincenttanya13@hotmail.com||2024-10-10|Matt Wheaton|Accepted",
+"Ashley Smit|Trairayash@gmail.com||2024-10-09|Crystal Hynes|Accepted~Renee Easton|Tomrenee726@gmail.com|7097211118|2024-10-08|Ashley Bullen|Accepted~Stephen Handrigan|shandriganc390@gmail.com||2024-10-08|Mike Turner|Accepted~Tracy Woodward|recoveryprescribing@gmail.com|7098963060|2024-10-07|Gaye Turner|Accepted~Joanne Grice|joannegillam@yahoo.ca|7094587229|2024-10-05|Ashley Bullen|Accepted"
+    ];
+
+    // Parse leads from batches
+    rawBatches.forEach(function(batch) {
+        batch.split('~').forEach(function(entry) {
+            var p = entry.split('|');
+            if (p.length >= 6) {
+                leads.push({n: p[0].trim(), e: p[1].trim(), p: p[2].trim(), d: p[3].trim(), a: p[4].trim(), s: p[5].trim()});
+            }
+        });
+    });
+
+    function renderReport() {
+        renderTimeline();
+        renderAgents();
+        renderConversions();
+        renderLeads();
+        setupFilters();
+    }
+
+    function renderTimeline() {
+        var months = {};
+        leads.forEach(function(l) {
+            var ym = l.d.substring(0, 7);
+            months[ym] = (months[ym] || 0) + 1;
+        });
+        var keys = Object.keys(months).sort();
+        var max = Math.max.apply(null, keys.map(function(k) { return months[k]; }));
+        var timeline = document.getElementById('slTimeline');
+        var labels = document.getElementById('slTimelineLabels');
+        keys.forEach(function(k) {
+            var h = Math.max(8, (months[k] / max) * 80);
+            var bar = document.createElement('div');
+            bar.className = 'sl-timeline-bar';
+            bar.style.height = h + 'px';
+            bar.title = k + ': ' + months[k] + ' leads';
+            timeline.appendChild(bar);
+            var lbl = document.createElement('span');
+            lbl.textContent = k.substring(5);
+            labels.appendChild(lbl);
+        });
+    }
+
+    function renderAgents() {
+        var agentData = {};
+        leads.forEach(function(l) {
+            if (!l.a) return;
+            if (!agentData[l.a]) agentData[l.a] = {leads: 0, conv: 0, value: 0};
+            agentData[l.a].leads++;
+        });
+        conversions.forEach(function(c) {
+            if (agentData[c.la]) {
+                agentData[c.la].conv++;
+                agentData[c.la].value += c.price;
+            }
+        });
+        var maxLeads = Math.max.apply(null, Object.values(agentData).map(function(a) { return a.leads; }));
+        var container = document.getElementById('slAgents');
+        var agents = Object.keys(agentData).sort(function(a, b) { return agentData[b].leads - agentData[a].leads; });
+        agents.forEach(function(name) {
+            var d = agentData[name];
+            var rate = d.leads > 0 ? ((d.conv / d.leads) * 100).toFixed(1) : '0.0';
+            var card = document.createElement('div');
+            card.className = 'sl-agent-card';
+            card.innerHTML = '<div class="sl-agent-name">' + name + '</div>' +
+                '<div class="sl-agent-stats">' +
+                '<div><div class="sl-agent-stat-val">' + d.leads + '</div><div class="sl-agent-stat-lbl">Leads</div></div>' +
+                '<div><div class="sl-agent-stat-val">' + d.conv + '</div><div class="sl-agent-stat-lbl">Conversions</div></div>' +
+                '<div><div class="sl-agent-stat-val">' + rate + '%</div><div class="sl-agent-stat-lbl">Conv. Rate</div></div>' +
+                '<div><div class="sl-agent-stat-val">$' + (d.value / 1000).toFixed(0) + 'K</div><div class="sl-agent-stat-lbl">Deal Value</div></div>' +
+                '</div>' +
+                '<div class="sl-bar-wrap"><div class="sl-bar" style="width:' + ((d.leads / maxLeads) * 100) + '%"></div></div>';
+            container.appendChild(card);
+        });
+    }
+
+    function renderConversions() {
+        var tbody = document.getElementById('slConvBody');
+        conversions.forEach(function(c) {
+            var tr = document.createElement('tr');
+            tr.className = 'sl-matched';
+            tr.innerHTML = '<td>' + c.n + '</td>' +
+                '<td>' + c.ld + '</td>' +
+                '<td>' + c.la + '</td>' +
+                '<td>' + c.side + '</td>' +
+                '<td>' + c.deal + '</td>' +
+                '<td class="sl-price">$' + c.price.toLocaleString() + '</td>' +
+                '<td>' + (c.sd || 'Pending') + '</td>' +
+                '<td>' + (c.days !== null ? c.days : '—') + '</td>' +
+                '<td>' + c.da + '</td>';
+            tbody.appendChild(tr);
+        });
+    }
+
+    function renderLeads() {
+        var tbody = document.getElementById('slLeadBody');
+        tbody.innerHTML = '';
+        var agentSet = new Set();
+        var filterAgent = document.getElementById('slFilterAgent').value;
+        var filterStatus = document.getElementById('slFilterStatus').value;
+        var search = (document.getElementById('slFilterSearch').value || '').toLowerCase();
+        var count = 0;
+
+        leads.forEach(function(l, i) {
+            agentSet.add(l.a);
+            var isConverted = matchedIndices.has(i);
+
+            if (filterAgent && l.a !== filterAgent) return;
+            if (filterStatus === 'converted' && !isConverted) return;
+            if (filterStatus === 'none' && isConverted) return;
+            if (search && l.n.toLowerCase().indexOf(search) === -1 && l.e.toLowerCase().indexOf(search) === -1) return;
+
+            count++;
+            var tr = document.createElement('tr');
+            if (isConverted) tr.className = 'sl-matched';
+            tr.innerHTML = '<td>' + l.n + '</td>' +
+                '<td>' + l.e + '</td>' +
+                '<td>' + l.p + '</td>' +
+                '<td>' + l.d + '</td>' +
+                '<td>' + l.a + '</td>' +
+                '<td>' + l.s + '</td>' +
+                '<td>' + (isConverted ? '<span class="sl-badge sl-badge-converted">Converted</span>' : '<span class="sl-badge sl-badge-none">No Match</span>') + '</td>';
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById('slLeadCount').textContent = 'Showing ' + count + ' of ' + leads.length + ' leads';
+
+        // Populate agent filter (once)
+        var sel = document.getElementById('slFilterAgent');
+        if (sel.options.length <= 1) {
+            Array.from(agentSet).filter(Boolean).sort().forEach(function(a) {
+                var opt = document.createElement('option');
+                opt.value = a; opt.textContent = a;
+                sel.appendChild(opt);
+            });
+        }
+    }
+
+    function setupFilters() {
+        document.getElementById('slFilterAgent').addEventListener('change', renderLeads);
+        document.getElementById('slFilterStatus').addEventListener('change', renderLeads);
+        var timer;
+        document.getElementById('slFilterSearch').addEventListener('input', function() {
+            clearTimeout(timer);
+            timer = setTimeout(renderLeads, 200);
+        });
+
+        // Table sorting
+        document.querySelectorAll('.sl-table thead th').forEach(function(th, idx) {
+            th.addEventListener('click', function() {
+                var table = th.closest('table');
+                var tbody = table.querySelector('tbody');
+                var rows = Array.from(tbody.querySelectorAll('tr'));
+                var asc = !th.classList.contains('sorted') || th.dataset.dir === 'desc';
+                table.querySelectorAll('th').forEach(function(h) { h.classList.remove('sorted'); });
+                th.classList.add('sorted');
+                th.dataset.dir = asc ? 'asc' : 'desc';
+                th.querySelector('.sort-arrow').textContent = asc ? '\u25B2' : '\u25BC';
+                rows.sort(function(a, b) {
+                    var va = a.cells[idx].textContent.replace(/[$,]/g, '');
+                    var vb = b.cells[idx].textContent.replace(/[$,]/g, '');
+                    var na = parseFloat(va), nb = parseFloat(vb);
+                    if (!isNaN(na) && !isNaN(nb)) return asc ? na - nb : nb - na;
+                    return asc ? va.localeCompare(vb) : vb.localeCompare(va);
+                });
+                rows.forEach(function(r) { tbody.appendChild(r); });
+            });
+        });
+    }
+})();
+</script>
+</body>
+</html>
