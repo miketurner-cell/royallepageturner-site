@@ -118,6 +118,28 @@
     .hp .stat-num em { font-style: normal; color: #EA002A; }
     .hp .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
 
+    /* ── AWARDS STRIP ── */
+    .hp .awards-strip { background: #fff; padding: 72px 48px; border-bottom: 1px solid #eee; }
+    .hp .awards-strip .section-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+    .hp .awards-strip .section-eyebrow { margin-bottom: 12px; }
+    .hp .awards-strip h2 {
+      font-family: 'Raleway', sans-serif; font-weight: 900;
+      font-size: clamp(22px, 3vw, 30px); color: #1a1a1a; margin: 0 0 40px; letter-spacing: -0.02em;
+    }
+    .hp .awards-logo-row {
+      display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap;
+    }
+    .hp .award-logo-item { text-align: center; }
+    .hp .award-logo-item img {
+      height: 110px; width: auto; object-fit: contain;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.08));
+      transition: transform 0.25s;
+    }
+    .hp .award-logo-item img:hover { transform: scale(1.05); }
+    .hp .award-logo-item p {
+      font-size: 12px; color: #888; margin: 10px 0 0; letter-spacing: 0.02em; line-height: 1.4;
+    }
+
     /* ── SECTIONS ── */
     .hp section { padding: 96px 48px; }
     .hp .section-inner { max-width: 1100px; margin: 0 auto; }
@@ -286,6 +308,9 @@
       .hp .nav-right { display: none; }
       .hp .hero { padding: 64px 20px 56px; }
       .hp section { padding: 64px 20px; }
+      .hp .awards-strip { padding: 48px 20px; }
+      .hp .awards-logo-row { gap: 28px; }
+      .hp .award-logo-item img { height: 80px; }
       .hp .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
       .hp .stat-item:last-child { border-bottom: none; }
       .hp .footer-inner { grid-template-columns: 1fr; gap: 32px; }
@@ -363,6 +388,40 @@
     <div class="stat-item">
       <div class="stat-num">11</div>
       <div class="stat-label">Licensed REALTORS&reg;</div>
+    </div>
+  </div>
+
+  <!-- AWARDS -->
+  <div class="awards-strip">
+    <div class="section-inner">
+      <div class="section-eyebrow">Award-Winning Brokerage</div>
+      <h2>Nationally Recognized, Locally Committed</h2>
+      <div class="awards-logo-row">
+        <div class="award-logo-item">
+          <a href="awards.html"><img src="images/award-chairmans-2025.png" alt="Chairman's Club Award" loading="lazy"></a>
+          <p>Chairman's Club<br>Top 1% Nationally</p>
+        </div>
+        <div class="award-logo-item">
+          <a href="awards.html"><img src="images/award-ae-lepage-2020.png" alt="A.E. LePage Brokerage of the Year Award" loading="lazy"></a>
+          <p>Brokerage of the Year<br>East Coast</p>
+        </div>
+        <div class="award-logo-item">
+          <a href="awards.html"><img src="images/award-best-in-tech.png" alt="Best in Tech Award" loading="lazy"></a>
+          <p>Best in Tech<br>2021, 2022 &amp; 2024</p>
+        </div>
+        <div class="award-logo-item">
+          <a href="awards.html"><img src="images/award-excellence-2025.png" alt="Award of Excellence" loading="lazy"></a>
+          <p>Award of Excellence<br>2023, 2024 &amp; 2025</p>
+        </div>
+        <div class="award-logo-item">
+          <a href="awards.html"><img src="images/award-top-ten-2025.png" alt="Top Ten East Coast Team" loading="lazy"></a>
+          <p>Top Ten East Coast<br>Since 2016</p>
+        </div>
+        <div class="award-logo-item">
+          <a href="awards.html"><img src="images/award-shelter-foundation-2024.jpg" alt="Shelter Foundation Award" loading="lazy"></a>
+          <p>Shelter Foundation<br>Brokerage Award 2024</p>
+        </div>
+      </div>
     </div>
   </div>
 
