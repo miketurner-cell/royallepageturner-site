@@ -103,6 +103,8 @@
       font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 28px; color: #fff; line-height: 1.2; margin-bottom: 8px;
     }
     .aw .dc-visual .dc-badge-sub { font-size: 14px; color: rgba(255,255,255,0.5); }
+    .aw .dc-award-img { max-width: 200px; max-height: 200px; object-fit: contain; filter: drop-shadow(0 4px 24px rgba(0,0,0,0.3)); }
+    .aw .ha-award-img { width: 56px; height: 56px; object-fit: contain; margin: 0 auto 20px; }
     .aw .dc-info { padding: 48px 40px; }
     .aw .dc-info .dc-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #EA002A; margin-bottom: 10px; }
     .aw .dc-info h3 { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 24px; color: #1a1a1a; margin: 0 0 8px; }
@@ -225,18 +227,14 @@
       <div class="hero-awards">
 
         <div class="hero-award">
-          <div class="ha-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 15l-2 5H6l4-3.5L8.5 22 12 19l3.5 3L14 16.5 18 20h-4l-2-5zm0-13l2.24 4.55L19 7.5l-3.5 3.4.82 4.85L12 13.4l-4.32 2.35.82-4.85L5 7.5l4.76-.95L12 2z"/></svg>
-          </div>
+          <img src="images/award-ae-lepage-2020.png" alt="A.E. LePage Award" class="ha-award-img">
           <h3>A.E. LePage Award:<br>Brokerage of the Year</h3>
           <div class="ha-years">East Coast &middot; 2018 &amp; 2020</div>
           <p>The highest honour Royal LePage bestows on a brokerage in the East Coast region.</p>
         </div>
 
         <div class="hero-award">
-          <div class="ha-icon">
-            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
+          <img src="images/award-best-in-tech.png" alt="Best in Tech Award" class="ha-award-img">
           <h3>Best in Tech Award</h3>
           <div class="ha-years">2021, 2022 &amp; 2024</div>
           <p>Recognition for technology leadership in marketing and client service.</p>
@@ -252,9 +250,7 @@
         </div>
 
         <div class="hero-award">
-          <div class="ha-icon">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </div>
+          <img src="images/award-shelter-foundation-2024.jpg" alt="Shelter Foundation Award" class="ha-award-img">
           <h3>Shelter Foundation<br>Awards</h3>
           <div class="ha-years">East Coast &middot; 2018 &amp; 2024</div>
           <p>Peer-nominated recognition for community giving — Team Award and Brokerage Award.</p>
@@ -271,11 +267,7 @@
       <!-- BROKERAGE OF THE YEAR -->
       <div class="detail-card">
         <div class="dc-visual bg-dark">
-          <div class="dc-badge">
-            <div class="dc-badge-icon"><svg viewBox="0 0 24 24"><path d="M12 15l-2 5H6l4-3.5L8.5 22 12 19l3.5 3L14 16.5 18 20h-4l-2-5zm0-13l2.24 4.55L19 7.5l-3.5 3.4.82 4.85L12 13.4l-4.32 2.35.82-4.85L5 7.5l4.76-.95L12 2z" fill="#EA002A"/></svg></div>
-            <div class="dc-badge-title">Brokerage<br>of the Year</div>
-            <div class="dc-badge-sub">East Coast &middot; A.E. LePage Award</div>
-          </div>
+          <img src="images/award-ae-lepage-2020.png" alt="A.E. LePage Brokerage of the Year — East Coast" class="dc-award-img">
         </div>
         <div class="dc-info">
           <div class="dc-eyebrow">Highest Brokerage Honour</div>
@@ -289,11 +281,7 @@
       <!-- BEST IN TECH -->
       <div class="detail-card">
         <div class="dc-visual bg-tech">
-          <div class="dc-badge">
-            <div class="dc-badge-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" fill="none" stroke="#EA002A" stroke-width="2"/><line x1="8" y1="21" x2="16" y2="21" stroke="#EA002A" stroke-width="2"/><line x1="12" y1="17" x2="12" y2="21" stroke="#EA002A" stroke-width="2"/></svg></div>
-            <div class="dc-badge-title">Best in<br>Tech</div>
-            <div class="dc-badge-sub">Royal LePage National Award</div>
-          </div>
+          <img src="images/award-best-in-tech.png" alt="Royal LePage Best in Tech Award" class="dc-award-img">
         </div>
         <div class="dc-info">
           <div class="dc-eyebrow">Technology Leadership</div>
@@ -308,7 +296,6 @@
       <div class="detail-card">
         <div class="dc-visual bg-lead">
           <div class="dc-badge">
-            <div class="dc-badge-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none" stroke="#EA002A" stroke-width="2"/><circle cx="8.5" cy="7" r="4" fill="none" stroke="#EA002A" stroke-width="2"/><line x1="20" y1="8" x2="20" y2="14" stroke="#EA002A" stroke-width="2"/><line x1="23" y1="11" x2="17" y2="11" stroke="#EA002A" stroke-width="2"/></svg></div>
             <div class="dc-badge-title">Lead Manager<br>of the Year</div>
             <div class="dc-badge-sub">National Finalist &middot; 2023</div>
           </div>
@@ -326,11 +313,7 @@
       <!-- SHELTER FOUNDATION -->
       <div class="detail-card">
         <div class="dc-visual bg-shelter">
-          <div class="dc-badge">
-            <div class="dc-badge-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#EA002A"/></svg></div>
-            <div class="dc-badge-title">Shelter<br>Foundation</div>
-            <div class="dc-badge-sub">East Coast &middot; 2018 &amp; 2024</div>
-          </div>
+          <img src="images/award-shelter-foundation-2024.jpg" alt="Royal LePage Shelter Foundation Award — East Coast" class="dc-award-img">
         </div>
         <div class="dc-info">
           <div class="dc-eyebrow">Community Service</div>
@@ -420,6 +403,37 @@
             <span class="tl-badge tl-badge-gold">A.E. LePage — Brokerage of the Year, East Coast</span>
             <span class="tl-badge tl-badge-red">Shelter Foundation — Team Award, East Coast</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTION AWARDS BANNER -->
+  <section class="stats-strip" style="padding: 64px 48px;">
+    <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+      <div style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #EA002A; margin-bottom: 12px;">Production Awards</div>
+      <h2 style="font-family: 'Raleway', sans-serif; font-weight: 900; font-size: clamp(22px, 3vw, 32px); color: #fff; margin: 0 0 12px; letter-spacing: -0.02em;">National Production Recognition</h2>
+      <p style="font-size: 15px; color: rgba(255,255,255,0.5); max-width: 600px; margin: 0 auto 40px;">Royal LePage awards based on closed transaction volume — recognizing the team's performance year after year.</p>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <img src="images/award-chairmans-2025.png" alt="Chairman's Club" style="height: 120px; object-fit: contain; margin: 0 auto 12px; display: block;">
+          <div style="font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 14px; color: #fff;">Chairman's Club</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.4);">Top 1% Nationally</div>
+        </div>
+        <div style="text-align: center;">
+          <img src="images/award-excellence-2025.png" alt="Award of Excellence" style="height: 120px; object-fit: contain; margin: 0 auto 12px; display: block;">
+          <div style="font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 14px; color: #fff;">Award of Excellence</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.4);">2023, 2024 &amp; 2025</div>
+        </div>
+        <div style="text-align: center;">
+          <img src="images/award-top-ten-2025.png" alt="Top Ten Team — East Coast" style="height: 120px; object-fit: contain; margin: 0 auto 12px; display: block;">
+          <div style="font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 14px; color: #fff;">Top Ten — East Coast</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.4);">Since 2016 · Best: #2 in 2017</div>
+        </div>
+        <div style="text-align: center;">
+          <img src="images/award-executive-circle-2025.png" alt="Executive Circle" style="height: 120px; object-fit: contain; margin: 0 auto 12px; display: block;">
+          <div style="font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 14px; color: #fff;">Executive Circle</div>
+          <div style="font-size: 12px; color: rgba(255,255,255,0.4);">2025</div>
         </div>
       </div>
     </div>
