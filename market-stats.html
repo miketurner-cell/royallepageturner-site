@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCXYTGQ6XF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QCXYTGQ6XF');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="canonical" href="https://royallepageturner.com/market-stats.html">
+  <meta name="description" content="Market Intelligence across Newfoundland & Labrador. Real-time MLS market data for all Turner Realty service areas. Updated monthly with NLAR MLS data.">
+  <title>Market Intelligence | Royal LePage Turner Realty</title>
+  <meta property="og:title" content="Market Intelligence | Royal LePage Turner Realty">
+  <meta property="og:description" content="Real-time market data for all Turner Realty service areas. Updated monthly with NLAR MLS data.">
+  <meta property="og:url" content="https://royallepageturner.com/market-stats.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Royal LePage Turner Realty">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Market Intelligence | Royal LePage Turner Realty">
+  <meta name="twitter:description" content="Real-time market data for all Turner Realty service areas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background: #fff; color: #2c2c2c; font-family: 'Roboto', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; line-height: 1.6; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ═══ SCOPED: .ms (market stats page) ═══ */
+
+    /* ── NAV ── */
+    .ms .nav-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #fff; padding: 0 48px; height: 72px;
+      border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 1000;
+    }
+    .ms .nav-brand { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+    .ms .nav-brand-name {
+      font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 18px; color: #1a1a1a; letter-spacing: -0.01em;
+    }
+    .ms .nav-brand-name span { color: #EA002A; }
+    .ms .nav-brand-divider { width: 1px; height: 28px; background: #ddd; }
+    .ms .nav-brand-sub {
+      font-size: 11px; font-weight: 400; color: #999; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .ms .nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+    .ms .nav-toggle span { display: block; width: 22px; height: 2px; background: #1a1a1a; border-radius: 1px; transition: transform 0.3s, opacity 0.3s; }
+    .ms .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .ms .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .ms .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .ms .nav-links { display: flex; align-items: center; list-style: none; margin: 0; padding: 0; gap: 4px; }
+    .ms .nav-links li a {
+      display: block; padding: 8px 16px; font-size: 14px; font-weight: 500; color: #555;
+      text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; border-radius: 6px;
+    }
+    .ms .nav-links li a:hover { color: #EA002A; }
+    .ms .nav-links li a.active { color: #EA002A; font-weight: 600; }
+    .ms .nav-right { display: flex; align-items: center; gap: 16px; }
+    .ms .nav-phone {
+      display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500;
+      color: #EA002A; text-decoration: none;
+    }
+    .ms .nav-phone svg { width: 16px; height: 16px; fill: #EA002A; }
+
+    /* ── HERO ── */
+    .ms .hero {
+      background: linear-gradient(135deg, #f8f8f8 0%, #fff 50%, #f5f5f5 100%);
+      padding: 100px 48px 80px; text-align: center; position: relative; overflow: hidden;
+    }
+    .ms .hero::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.025;
+      background: repeating-linear-gradient(90deg, #EA002A 0px, #EA002A 1px, transparent 1px, transparent 80px);
+    }
+    .ms .hero-content { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .ms .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: #EA002A; background: rgba(234,0,42,0.06); border: 1px solid rgba(234,0,42,0.15);
+      padding: 8px 20px; border-radius: 24px; margin-bottom: 32px;
+    }
+    .ms .hero h1 {
+      font-family: 'Raleway', sans-serif; font-weight: 900;
+      font-size: clamp(34px, 5vw, 54px); line-height: 1.12; margin: 0 0 20px;
+      color: #1a1a1a; letter-spacing: -0.03em;
+    }
+    .ms .hero h1 em { font-style: normal; color: #EA002A; }
+    .ms .hero-sub {
+      font-size: clamp(16px, 2vw, 19px); color: #666; line-height: 1.7;
+      margin: 0; font-weight: 300;
+    }
+
+    /* ── SECTION STRUCTURE ── */
+    .ms section { padding: 96px 48px; }
+    .ms .section-inner { max-width: 1100px; margin: 0 auto; }
+    .ms .section-eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #EA002A; margin-bottom: 12px;
+    }
+    .ms .section-title {
+      font-family: 'Raleway', sans-serif; font-weight: 900;
+      font-size: clamp(26px, 3.5vw, 38px); color: #1a1a1a; margin: 0 0 16px; letter-spacing: -0.02em;
+    }
+    .ms .section-desc {
+      font-size: 17px; color: #666; line-height: 1.75; max-width: 600px; margin-bottom: 48px;
+    }
+
+    /* ── AT-A-GLANCE GRID ── */
+    .ms .aag-section { background: #f7f7f7; }
+    .ms .area-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .ms .area-card {
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 32px 28px; text-decoration: none; color: #2c2c2c;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .ms .area-card:hover { border-color: #EA002A; box-shadow: 0 12px 40px rgba(0,0,0,0.06); transform: translateY(-4px); }
+    .ms .area-card h3 { font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 18px; margin: 0 0 20px; color: #1a1a1a; }
+    .ms .card-stat { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f0f0f0; }
+    .ms .card-stat-label { font-size: 13px; color: #999; font-weight: 500; letter-spacing: 0.02em; }
+    .ms .card-stat-value { font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 22px; color: #1a1a1a; }
+    .ms .card-stat-pending { font-size: 13px; color: #bbb; font-weight: 400; }
+    .ms .card-yoy { display: flex; align-items: center; gap: 8px; }
+    .ms .yoy-value { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 16px; }
+    .ms .yoy-positive { color: #10a760; }
+    .ms .yoy-negative { color: #d32f2f; }
+    .ms .yoy-neutral { color: #888; }
+    .ms .card-divider { flex: 1; }
+    .ms .card-link {
+      margin-top: auto; padding-top: 16px; border-top: 1px solid #f0f0f0;
+      font-size: 13px; font-weight: 600; color: #EA002A;
+      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .ms .card-link:hover { gap: 10px; }
+    .ms .card-link::after { content: '→'; }
+
+    /* ── PRICE CHART ── */
+    .ms .chart-section { background: #fff; }
+    .ms .chart-container {
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 40px 32px; margin-top: 32px;
+      position: relative; height: 420px;
+    }
+    .ms .chart-container canvas { position: relative !important; height: 420px !important; }
+
+    /* ── DEEP-DIVE CARDS ── */
+    .ms .deepdive-section { background: #f7f7f7; }
+    .ms .deepdive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 32px; }
+    .ms .deepdive-card {
+      background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 40px 32px;
+    }
+    .ms .deepdive-card h3 { font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 20px; color: #1a1a1a; margin: 0 0 20px; }
+    .ms .deepdive-subsection { margin-bottom: 24px; }
+    .ms .deepdive-subsection h4 {
+      font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 14px;
+      color: #EA002A; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 12px;
+    }
+    .ms .deepdive-subsection p { font-size: 15px; color: #555; line-height: 1.7; margin: 0 0 8px; }
+    .ms .deepdive-subsection ul {
+      list-style: none; margin: 0; padding: 0;
+      font-size: 15px; color: #555; line-height: 1.7;
+    }
+    .ms .deepdive-subsection li { margin-bottom: 8px; }
+    .ms .deepdive-subsection li::before { content: '• '; color: #EA002A; font-weight: 600; margin-right: 8px; }
+    .ms .deepdive-insight {
+      background: rgba(234,0,42,0.04); border-left: 3px solid #EA002A;
+      padding: 16px; border-radius: 4px; margin-top: 20px;
+    }
+    .ms .deepdive-insight p { margin: 0; font-size: 14px; color: #555; font-style: italic; }
+
+    /* ── FIND YOUR MARKET CTA ── */
+    .ms .cta-section { background: #1a1a1a; position: relative; overflow: hidden; }
+    .ms .cta-section::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.03;
+      background: repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 80px);
+    }
+    .ms .cta-section .section-inner { position: relative; z-index: 1; }
+    .ms .cta-section h2 {
+      font-family: 'Raleway', sans-serif; font-weight: 900;
+      font-size: clamp(24px, 3.5vw, 36px); color: #fff; margin: 0 0 16px;
+    }
+    .ms .cta-section p { color: rgba(255,255,255,0.6); }
+    .ms .cta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 40px; }
+    .ms .cta-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 28px; text-decoration: none; color: #fff;
+      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    }
+    .ms .cta-card:hover {
+      border-color: #EA002A; background: rgba(234,0,42,0.08); transform: translateY(-2px);
+    }
+    .ms .cta-card h3 { font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 18px; margin: 0 0 12px; color: #fff; }
+    .ms .cta-card p { font-size: 14px; color: rgba(255,255,255,0.7); margin: 0 0 16px; line-height: 1.6; }
+    .ms .cta-link { font-size: 13px; font-weight: 600; color: #ffb3bf; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+    .ms .cta-link:hover { gap: 10px; }
+    .ms .cta-link::after { content: '→'; }
+
+    /* ── FOOTER ── */
+    .ms .site-footer { background: #fafafa; border-top: 1px solid #e8e8e8; padding: 56px 48px 0; }
+    .ms .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 48px;
+    }
+    .ms .footer-brand-name { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: 16px; color: #1a1a1a; margin-bottom: 12px; }
+    .ms .footer-brand p { font-size: 13px; color: #888; line-height: 1.7; margin: 0; }
+    .ms .footer-brand a { color: #888; text-decoration: none; transition: color 0.2s; }
+    .ms .footer-brand a:hover { color: #EA002A; }
+    .ms .footer-heading {
+      font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-bottom: 16px;
+    }
+    .ms .footer-links { list-style: none; margin: 0; padding: 0; }
+    .ms .footer-links li { margin-bottom: 10px; }
+    .ms .footer-links a { font-size: 14px; color: #666; text-decoration: none; transition: color 0.2s; }
+    .ms .footer-links a:hover { color: #EA002A; }
+    .ms .footer-red-bar {
+      background: #EA002A; margin: 0 -48px; padding: 14px 48px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .ms .footer-red-bar p { margin: 0; font-size: 12px; color: #fff; font-weight: 400; }
+    .ms .footer-red-bar a { color: #fff; text-decoration: none; }
+    .ms .footer-legal {
+      max-width: 1100px; margin: 0 auto; padding: 20px 0;
+      font-size: 11px; color: #aaa; line-height: 1.6; text-align: center;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 1024px) {
+      .ms .nav-bar { padding: 0 20px; height: 60px; }
+      .ms .nav-brand-divider, .ms .nav-brand-sub { display: none; }
+      .ms .nav-toggle { display: flex; }
+      .ms .nav-links {
+        display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0;
+        background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      }
+      .ms .nav-links.open { display: flex; }
+      .ms .nav-links li a { padding: 12px 24px; font-size: 15px; }
+      .ms .nav-right { display: none; }
+      .ms .hero { padding: 64px 20px 56px; }
+      .ms .hero-badge { font-size: 11px; padding: 8px 16px; line-height: 1.5; text-align: center; }
+      .ms section { padding: 64px 20px; }
+      .ms .chart-container { padding: 28px 20px; height: 360px; }
+      .ms .chart-container canvas { height: 360px !important; }
+      .ms .cta-grid { grid-template-columns: 1fr; }
+      .ms .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .ms .site-footer { padding: 40px 20px 0; }
+      .ms .footer-red-bar { margin: 0 -20px; padding: 14px 20px; }
+    }
+    @media (max-width: 600px) {
+      .ms .area-grid { grid-template-columns: 1fr; }
+      .ms .deepdive-grid { grid-template-columns: 1fr; }
+      .ms .card-stat { flex-direction: column; align-items: flex-start; }
+      .ms .card-stat-value { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ms">
+
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-name">Royal <span>LePage</span></span>
+      <div class="nav-brand-divider"></div>
+      <span class="nav-brand-sub">Turner Realty</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="market-stats.html" class="active">Market Stats</a></li>
+      <li><a href="offices.html">Offices</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="tel:7092567999" class="nav-phone">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        709-256-7999
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">Market Intelligence</div>
+        <h1>Market Data Across <em>Newfoundland & Labrador</em></h1>
+        <p class="hero-sub">Real-time market data for all Turner Realty service areas. Updated monthly with NLAR MLS data.</p>
+      </div>
+    </section>
+
+    <!-- AT-A-GLANCE GRID -->
+    <section class="aag-section">
+      <div class="section-inner">
+        <div class="section-eyebrow">At a Glance</div>
+        <h2 class="section-title">2026 YTD Market Overview</h2>
+        <p class="section-desc">Key metrics across all service areas. Compare pricing, days on market, and year-over-year trends.</p>
+        <div class="area-grid">
+
+          <!-- Gander -->
+          <a href="https://realestategander.com/pages/gander-mls-market-stats.html" target="_blank" rel="noopener" class="area-card">
+            <h3>Gander (A1V)</h3>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg Sale Price</span>
+              <span class="card-stat-value">$381K</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg DOM</span>
+              <span class="card-stat-value">79</span>
+            </div>
+            <div class="card-stat" style="border-bottom: none; margin-bottom: 0;">
+              <span class="card-stat-label">YoY Change</span>
+              <span class="card-yoy"><span class="yoy-value yoy-positive">▲ 38%</span></span>
+            </div>
+            <span class="card-link">View Full Report</span>
+          </a>
+
+          <!-- Central NL -->
+          <a href="https://realestategander.com/pages/gander-mls-market-stats.html" target="_blank" rel="noopener" class="area-card">
+            <h3>Central NL (A0G)</h3>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg Sale Price</span>
+              <span class="card-stat-pending">Data Pending</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg DOM</span>
+              <span class="card-stat-pending">Data Pending</span>
+            </div>
+            <div class="card-stat" style="border-bottom: none; margin-bottom: 0;">
+              <span class="card-stat-label">YoY Change</span>
+              <span class="card-stat-pending">—</span>
+            </div>
+            <span class="card-link">View Full Report</span>
+          </a>
+
+          <!-- Happy Valley-Goose Bay -->
+          <a href="https://goosebayrealestate.ca/pages/market-stats.html" target="_blank" rel="noopener" class="area-card">
+            <h3>Happy Valley–Goose Bay</h3>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg Sale Price</span>
+              <span class="card-stat-value">$287K</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg DOM</span>
+              <span class="card-stat-value">56</span>
+            </div>
+            <div class="card-stat" style="border-bottom: none; margin-bottom: 0;">
+              <span class="card-stat-label">YoY Change</span>
+              <span class="card-yoy"><span class="yoy-value yoy-negative">▼ 20%</span></span>
+            </div>
+            <span class="card-link">View Full Report</span>
+          </a>
+
+          <!-- Labrador West -->
+          <a href="https://labwestrealty.com/market-stats.html" target="_blank" rel="noopener" class="area-card">
+            <h3>Labrador West</h3>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg Sale Price</span>
+              <span class="card-stat-value">$387K</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg DOM</span>
+              <span class="card-stat-value">54</span>
+            </div>
+            <div class="card-stat" style="border-bottom: none; margin-bottom: 0;">
+              <span class="card-stat-label">YoY Change</span>
+              <span class="card-yoy"><span class="yoy-value yoy-positive">▲ 15%</span></span>
+            </div>
+            <span class="card-link">View Full Report</span>
+          </a>
+
+          <!-- St. John's Metro -->
+          <a href="https://stjohnsrealestate.ca/pages/stjohns-mls-market-stats.html" target="_blank" rel="noopener" class="area-card">
+            <h3>St. John's Metro</h3>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg Sale Price</span>
+              <span class="card-stat-value">$409K</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-label">Avg DOM</span>
+              <span class="card-stat-value">33</span>
+            </div>
+            <div class="card-stat" style="border-bottom: none; margin-bottom: 0;">
+              <span class="card-stat-label">YoY Change</span>
+              <span class="card-stat-pending">Pending</span>
+            </div>
+            <span class="card-link">View Full Report</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICE COMPARISON CHART -->
+    <section class="chart-section">
+      <div class="section-inner">
+        <div class="section-eyebrow">Historical Comparison</div>
+        <h2 class="section-title">5-Year Price Trends (2021–2026)</h2>
+        <p class="section-desc">Average sale price evolution across Turner Realty service areas, showing market resilience and growth patterns.</p>
+        <div class="chart-container">
+          <canvas id="priceChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEEP-DIVE CARDS -->
+    <section class="deepdive-section">
+      <div class="section-inner">
+        <div class="section-eyebrow">Market Insights</div>
+        <h2 class="section-title">Area-by-Area Performance</h2>
+        <p class="section-desc">2025 annual summaries and 2026 YTD highlights for each service area.</p>
+        <div class="deepdive-grid">
+
+          <!-- Gander Deep Dive -->
+          <div class="deepdive-card">
+            <h3>Gander (A1V)</h3>
+            <div class="deepdive-subsection">
+              <h4>2025 Annual Performance</h4>
+              <ul>
+                <li>Strong price appreciation: $338K average (2025 YTD)</li>
+                <li>Market activity stable with 79-day average DOM</li>
+                <li>Inventory balance supporting buyer and seller confidence</li>
+              </ul>
+            </div>
+            <div class="deepdive-subsection">
+              <h4>2026 YTD Highlights</h4>
+              <ul>
+                <li>$381K average sale price to date</li>
+                <li>38% year-over-year price growth, signaling strong demand</li>
+                <li>Central Newfoundland's largest and most active market</li>
+              </ul>
+            </div>
+            <div class="deepdive-insight">
+              <p><strong>Market Insight:</strong> Gander continues to lead the province in pricing strength and transaction velocity. First-time buyers and relocating families are driving consistent demand.</p>
+            </div>
+          </div>
+
+          <!-- Happy Valley-Goose Bay Deep Dive -->
+          <div class="deepdive-card">
+            <h3>Happy Valley–Goose Bay</h3>
+            <div class="deepdive-subsection">
+              <h4>2025 Annual Performance</h4>
+              <ul>
+                <li>Market correction from 2024 peaks; $326K average</li>
+                <li>Quick turnover: 56-day average DOM indicates healthy activity</li>
+                <li>Labrador's largest population center with government-led stability</li>
+              </ul>
+            </div>
+            <div class="deepdive-subsection">
+              <h4>2026 YTD Highlights</h4>
+              <ul>
+                <li>$287K average sale price YTD</li>
+                <li>20% year-over-year decline from 2025 peaks—price normalization</li>
+                <li>Government employment sector remains primary driver</li>
+              </ul>
+            </div>
+            <div class="deepdive-insight">
+              <p><strong>Market Insight:</strong> Price correction is creating renewed buyer interest in this Labrador hub. Stable employment and community amenities continue to support transaction volume.</p>
+            </div>
+          </div>
+
+          <!-- Labrador West Deep Dive -->
+          <div class="deepdive-card">
+            <h3>Labrador West</h3>
+            <div class="deepdive-subsection">
+              <h4>2025 Annual Performance</h4>
+              <ul>
+                <li>Steady appreciation: $337K average (2025 YTD)</li>
+                <li>Quick sales turnover: 54-day average DOM</li>
+                <li>Mining sector activity supporting broader economic confidence</li>
+              </ul>
+            </div>
+            <div class="deepdive-subsection">
+              <h4>2026 YTD Highlights</h4>
+              <ul>
+                <li>$387K average sale price to date</li>
+                <li>15% year-over-year growth; strongest Labrador performer</li>
+                <li>Lab City and Wabush both showing upward momentum</li>
+              </ul>
+            </div>
+            <div class="deepdive-insight">
+              <p><strong>Market Insight:</strong> Labrador West's resource sector foundations are supporting price stability and buyer confidence. Growing interest from out-of-province relocations.</p>
+            </div>
+          </div>
+
+          <!-- St. John's Deep Dive -->
+          <div class="deepdive-card">
+            <h3>St. John's Metro</h3>
+            <div class="deepdive-subsection">
+              <h4>2025 Annual Performance</h4>
+              <ul>
+                <li>Highest price tier: $380K average across capital region</li>
+                <li>Fastest turnover: 33-day average DOM province-wide</li>
+                <li>18 distinct community submarkets with varying dynamics</li>
+              </ul>
+            </div>
+            <div class="deepdive-subsection">
+              <h4>2026 YTD Highlights</h4>
+              <ul>
+                <li>$409K average sale price to date</li>
+                <li>Robust demand from corporate relocations and local buyers</li>
+                <li>Metropolitan amenities driving premium valuations</li>
+              </ul>
+            </div>
+            <div class="deepdive-insight">
+              <p><strong>Market Insight:</strong> St. John's metro remains Canada's fastest-selling market in this price range. Urban amenities and economic diversity create sustained buyer demand.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FIND YOUR MARKET CTA -->
+    <section class="cta-section">
+      <div class="section-inner">
+        <h2>Find Your Market</h2>
+        <p>Each Turner Realty office operates the region's most detailed market stats page. Connect with your local market experts today.</p>
+        <div class="cta-grid">
+
+          <a href="https://realestategander.com/pages/gander-mls-market-stats.html" target="_blank" rel="noopener" class="cta-card">
+            <h3>Gander Office</h3>
+            <p>Serving Central Newfoundland and beyond. 8 agents across one dynamic market.</p>
+            <span class="cta-link">realestategander.com</span>
+            <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; margin-bottom: 0;">204 Airport Blvd, Gander<br><a href="tel:7092567999" style="color: inherit; text-decoration: none;">709-256-7999</a></p>
+          </a>
+
+          <a href="https://goosebayrealestate.ca/pages/market-stats.html" target="_blank" rel="noopener" class="cta-card">
+            <h3>Happy Valley–Goose Bay</h3>
+            <p>Labrador's largest hub. Serving government workers and relocating families.</p>
+            <span class="cta-link">goosebayrealestate.ca</span>
+            <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; margin-bottom: 0;"><a href="tel:7092567999" style="color: inherit; text-decoration: none;">709-256-7999</a></p>
+          </a>
+
+          <a href="https://labwestrealty.com/market-stats.html" target="_blank" rel="noopener" class="cta-card">
+            <h3>Labrador West</h3>
+            <p>Lab City and Wabush. Mining sector expertise and community roots.</p>
+            <span class="cta-link">labwestrealty.com</span>
+            <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; margin-bottom: 0;"><a href="tel:7092567999" style="color: inherit; text-decoration: none;">709-256-7999</a></p>
+          </a>
+
+          <a href="https://stjohnsrealestate.ca/pages/stjohns-mls-market-stats.html" target="_blank" rel="noopener" class="cta-card">
+            <h3>St. John's Metro</h3>
+            <p>Capital region served by our Metro team. 18 community sub-pages.</p>
+            <span class="cta-link">stjohnsrealestate.ca</span>
+            <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 12px; margin-bottom: 0;"><a href="tel:7092567999" style="color: inherit; text-decoration: none;">709-256-7999</a></p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Royal LePage Turner Realty</div>
+        <p>Royal LePage Turner Realty (2014) Inc.<br>204 Airport Boulevard, Gander, NL A1V 1L6<br><a href="tel:7092567999">709-256-7999</a></p>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="awards.html">Awards</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Offices</div>
+        <ul class="footer-links">
+          <li><a href="https://realestategander.com" target="_blank" rel="noopener">Gander</a></li>
+          <li><a href="https://goosebayrealestate.ca" target="_blank" rel="noopener">Happy Valley–Goose Bay</a></li>
+          <li><a href="https://labwestrealty.com" target="_blank" rel="noopener">Labrador West</a></li>
+          <li><a href="https://stjohnsrealestate.ca" target="_blank" rel="noopener">St. John's</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-red-bar">
+      <p><strong>Royal LePage Turner Realty (2014) Inc.</strong></p>
+      <p>royallepageturner.com &middot; <a href="tel:7092567999">709-256-7999</a></p>
+    </div>
+    <div class="footer-legal">
+      &copy; 1998&ndash;2026 Royal LePage Turner Realty (2014) Inc. Each office independently owned and operated.<br>
+      Not intended to solicit buyers or sellers currently under contract. MLS data updated monthly with NLAR information.
+    </div>
+  </footer>
+
+</div>
+
+<!-- PRICE CHART INITIALIZATION -->
+<script>
+(function(){
+  // Navigation toggle
+  var btn = document.querySelector('.ms .nav-toggle');
+  var links = document.querySelector('.ms .nav-links');
+  if(btn && links){
+    btn.addEventListener('click', function(){
+      btn.classList.toggle('active');
+      links.classList.toggle('open');
+    });
+  }
+
+  // Price chart
+  const ctx = document.getElementById('priceChart');
+  if(ctx){
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['2021', '2022', '2023', '2024', '2025', '2026 YTD'],
+        datasets: [
+          {
+            label: 'Gander (A1V)',
+            data: [228, 272, 284, 276, 338, 381],
+            borderColor: '#EA002A',
+            backgroundColor: 'rgba(234, 0, 42, 0.05)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: '#EA002A',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverRadius: 7
+          },
+          {
+            label: 'Happy Valley–Goose Bay',
+            data: [292, 306, 279, 329, 326, 287],
+            borderColor: '#FF6B35',
+            backgroundColor: 'rgba(255, 107, 53, 0.05)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: '#FF6B35',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverRadius: 7
+          },
+          {
+            label: 'Labrador West',
+            data: [273, 296, 305, 314, 337, 387],
+            borderColor: '#004E89',
+            backgroundColor: 'rgba(0, 78, 137, 0.05)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: '#004E89',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverRadius: 7
+          },
+          {
+            label: 'St. John\'s Metro',
+            data: [300, 330, 340, 355, 380, 409],
+            borderColor: '#8B4789',
+            backgroundColor: 'rgba(139, 71, 137, 0.05)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointRadius: 5,
+            pointBackgroundColor: '#8B4789',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointHoverRadius: 7
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { family: "'Roboto', sans-serif", size: 13, weight: '500' },
+              color: '#666',
+              padding: 20,
+              boxWidth: 12,
+              usePointStyle: true
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            titleFont: { family: "'Raleway', sans-serif", size: 14, weight: '700' },
+            bodyFont: { family: "'Roboto', sans-serif", size: 13 },
+            padding: 12,
+            displayColors: true,
+            borderColor: 'rgba(255, 255, 255, 0.2)',
+            borderWidth: 1,
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': $' + context.parsed.y + 'K';
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: false,
+            min: 200,
+            max: 450,
+            ticks: {
+              font: { family: "'Roboto', sans-serif", size: 12 },
+              color: '#999',
+              callback: function(value) {
+                return '$' + value + 'K';
+              }
+            },
+            grid: { color: 'rgba(0, 0, 0, 0.05)' }
+          },
+          x: {
+            ticks: {
+              font: { family: "'Roboto', sans-serif", size: 12 },
+              color: '#999'
+            },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

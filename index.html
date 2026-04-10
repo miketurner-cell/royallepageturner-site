@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEMZDX1BJQ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FEMZDX1BJQ');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCXYTGQ6XF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QCXYTGQ6XF');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="favicon.png">
@@ -328,12 +328,48 @@
     @media (min-width: 601px) and (max-width: 1024px) {
       .hp .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
     }
+    /* ── SCENIC BAND (reusable image banner between sections) ── */
+    .hp .scenic-band {
+      position: relative; width: 100%; min-height: 340px;
+      display: flex; align-items: center; justify-content: center;
+      background-size: cover; background-position: center;
+      text-align: center; color: #fff; overflow: hidden;
+    }
+    .hp .scenic-band::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(17,17,17,0.55) 0%, rgba(26,26,26,0.45) 100%);
+    }
+    .hp .scenic-band-inner {
+      position: relative; z-index: 1; max-width: 760px; padding: 56px 32px;
+    }
+    .hp .scenic-band-eyebrow {
+      font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #ffb3bf; margin-bottom: 14px;
+    }
+    .hp .scenic-band h2 {
+      font-family: 'Raleway', sans-serif; font-weight: 900;
+      font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15; margin: 0 0 12px;
+      color: #fff; letter-spacing: -0.02em;
+    }
+    .hp .scenic-band p {
+      font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.92); margin: 0;
+    }
+    .hp .scenic-band-twillingate { background-image: url('images/web/nl-twillingate-coast-sunset.jpg'); }
+    .hp .scenic-band-signalhill  { background-image: url('images/web/signal-hill-queens-battery-aerial.jpg'); }
+    .hp .scenic-band-eastport    { background-image: url('images/web/nl-eastport-yellow-house-coast.jpg'); }
+    .hp .scenic-band-icebergs    { background-image: url('images/web/nl-twin-icebergs-twilight.jpg'); }
+    .hp .scenic-band-lighthouse  { background-image: url('images/web/nl-long-point-lighthouse-sunset.jpg'); }
+    .hp .scenic-band-cabot       { background-image: url('images/web/signal-hill-cabot-tower-aerial.jpg'); }
+    .hp .scenic-band-harbour     { background-image: url('images/web/harbour-port-signal-hill-bg.jpg'); }
+
     @media (max-width: 600px) {
       .hp .stats-strip { flex-direction: column; }
       .hp .hero-actions { flex-direction: column; align-items: center; }
       .hp .awards-logo-row { gap: 24px 20px; }
       .hp .award-logo-item img { height: 70px; }
       .hp .award-logo-item p { font-size: 11px; }
+      .hp .scenic-band { min-height: 260px; }
+      .hp .scenic-band-inner { padding: 40px 24px; }
     }
   </style>
   <script type="application/ld+json">
@@ -439,6 +475,15 @@
     </div>
   </div>
 
+  <!-- SCENIC BAND: NL-WIDE -->
+  <section class="scenic-band scenic-band-twillingate" aria-label="Serving Newfoundland and Labrador">
+    <div class="scenic-band-inner">
+      <div class="scenic-band-eyebrow">Newfoundland &amp; Labrador</div>
+      <h2>Rooted Here. Working For You.</h2>
+      <p>From the harbours of the northeast coast to the inland reach of Labrador, our REALTORS&reg; live in the markets they serve.</p>
+    </div>
+  </section>
+
   <!-- AWARDS -->
   <div class="awards-strip">
     <div class="section-inner">
@@ -510,6 +555,15 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- SCENIC BAND: NETWORK REACH -->
+  <section class="scenic-band scenic-band-icebergs" aria-label="A province-wide network">
+    <div class="scenic-band-inner">
+      <div class="scenic-band-eyebrow">One Brokerage. Province-Wide.</div>
+      <h2>From St. John's to Labrador West</h2>
+      <p>Four offices, one network, and the backing of Canada's largest real estate brand.</p>
     </div>
   </section>
 

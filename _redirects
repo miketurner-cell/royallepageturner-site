@@ -1,0 +1,10 @@
+# Clean URL rewrites — serve .html files at extensionless paths
+/about        /about.html        200
+/offices      /offices.html      200
+/awards       /awards.html       200
+/team         /team.html         200
+/shelter-foundation  /shelter-foundation.html  200
+/join-our-team       /join-our-team.html       200
+/contact      /contact.html      200
+/agent-training      /agent-training.html      200
+/smart-leads-report  /smart-leads-report.html  200

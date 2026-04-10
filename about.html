@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEMZDX1BJQ"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FEMZDX1BJQ');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCXYTGQ6XF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-QCXYTGQ6XF');</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="favicon.png">
@@ -124,7 +124,16 @@
       .ab .footer-inner { grid-template-columns: 1fr; gap: 32px; }
       .ab .site-footer { padding: 40px 20px 0; }
       .ab .footer-red-bar { margin: 0 -20px; padding: 14px 20px; }
+      .ab .scenic-band { min-height: 260px; }
+      .ab .scenic-band-inner { padding: 40px 24px; }
     }
+    /* ── SCENIC BAND ── */
+    .ab .scenic-band { position: relative; width: 100%; min-height: 340px; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; text-align: center; color: #fff; overflow: hidden; background-image: url('images/web/nl-eastport-yellow-house-coast.jpg'); }
+    .ab .scenic-band::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(17,17,17,0.55) 0%, rgba(26,26,26,0.45) 100%); }
+    .ab .scenic-band-inner { position: relative; z-index: 1; max-width: 760px; padding: 56px 32px; }
+    .ab .scenic-band-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #ffb3bf; margin-bottom: 14px; }
+    .ab .scenic-band h2 { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15; margin: 0 0 12px; color: #fff; letter-spacing: -0.02em; }
+    .ab .scenic-band p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.92); margin: 0; }
   </style>
 </head>
 <body>
@@ -177,6 +186,15 @@
         <p>In <strong>2014</strong>, Gaye's son <strong>Mike Turner</strong> — who had earned his licence in 2009 and spent years learning the business from the ground up — joined her in acquiring the brokerage outright. Together, they incorporated as <strong>Royal LePage Turner Realty (2014) Inc.</strong>, setting the stage for growth.</p>
         <p>Mike assumed the role of <strong>Broker of Record in 2022</strong>, and under his leadership the brokerage has expanded to three active offices across Newfoundland &amp; Labrador, earned multiple national brokerage awards including A.E. LePage Brokerage of the Year — East Coast and Best in Tech, and built a network of agents who share the Turner Realty values: hard work, honesty, and community first.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- SCENIC BAND -->
+  <section class="scenic-band" aria-label="Rooted in Newfoundland">
+    <div class="scenic-band-inner">
+      <div class="scenic-band-eyebrow">A Newfoundland Story</div>
+      <h2>Built Here. For the People Who Live Here.</h2>
+      <p>From a single Gander office in 1998 to a province-wide network — the Turner family has always put neighbours first.</p>
     </div>
   </section>
 
