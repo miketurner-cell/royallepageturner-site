@@ -271,7 +271,7 @@
 
     <!-- ── AGENTS ── -->
     <h2 class="section-heading">Agent Production &middot; YTD Award Year 2026</h2>
-    <p class="section-sub">Nov 16, 2025 – today, compared to the same window one year ago. Pace projects the agent's remaining year at the current daily rate.</p>
+    <p class="section-sub">Nov 16, 2025 – today, compared to the same window one year ago. Pace deseasonalizes YTD using each agent's own prior-year pattern (rest-of-year ratio), then adds pending. This prevents Q1 slowness from understating pace in a seasonal market.</p>
 
     <div class="filter-bar">
       <span class="filter-label">Office:</span>
@@ -382,7 +382,7 @@
         <li><strong>Goose Bay deals</strong> are typically co-listed by Karen Pomeroy and Roberta Primmer at 50/50 — brokerage totals reflect the full deal, agent rows reflect each agent's share.</li>
         <li><strong>Award tiers</strong> use the 2025 Royal LePage East Coast Provincial Fixed Value thresholds, plus the two national tiers (Chairman's Club = Top 1%, National Top 10 = top 10 earners). Official qualification is based on GCI <em>or</em> Units (whichever is met); this dashboard overlays Units only, because GCI is not captured in the Loft47 source data used here. Individual (1–1.25) thresholds apply to all Gander agents; Small Team (1.26–3.99) thresholds apply to Karen + Roberta (combined team units).</li>
         <li><strong>Chairman's Club 2025</strong> thresholds are estimates (>$1.05M GCI or >75 units) — finalized Dec 12, 2025. <strong>National Top 10</strong> entry levels vary year-to-year; the dashboard uses 2024 historical as a proxy.</li>
-        <li><strong>Pace Tier</strong> projects an agent's full-year 2026 units at the current daily rate (plus pending) and shows the corresponding 2025 award tier they would qualify for.</li>
+        <li><strong>Pace Tier</strong> projects full-year 2026 units using each agent's <em>prior-year seasonality pattern</em> — i.e. YTD closed × (prior-year full ÷ prior-year same-window) + pending. This avoids penalizing agents for a slow Q1 in a seasonal market. Agents with no prior-year data fall back to flat annualization.</li>
         <li><strong>Gap line</strong> under Pace Tier shows exactly what it takes to clear the next tier up — the single most actionable line for 1:1 coaching.</li>
         <li><strong>2026 Goal</strong> = per-agent personal goal in units (currently set at ~+10% over AY 2025; editable in the DATA const). Dark bar = closed YTD, striped bar = pending.</li>
         <li><strong>Coaching Notes</strong> save to this browser only (localStorage). They persist between updates on the same device — if you use a different browser/device, you'll see a fresh set.</li>
@@ -783,16 +783,32 @@ const AY_END = new Date('2026-11-15');
 const daysElapsed = Math.max(1, Math.floor((TODAY - AY_START) / 86400000));
 const daysInYear = Math.floor((AY_END - AY_START) / 86400000);
 
-function projectYear(ytdGci, ytdUnits){
+// Deseasonalized year-end projection.
+// Rather than flat-annualizing YTD (which drags Q1 pace down in seasonal markets
+// like NL real estate), project using each agent's own prior-year pattern:
+//   projected = ytd × (prior_year_full / prior_ytd)
+// Falls back to flat annualization if prior-year YTD is zero/missing.
+// Capped at 2× prior-year full to prevent noisy small-denominator ratios
+// (e.g. 2 prior-YTD units out of 17.5 full → 8.75× multiplier → runaway projection).
+function projectYear(ytdGci, ytdUnits, priorYtd, priorFull){
   if (daysElapsed >= daysInYear) return { gci: ytdGci, units: ytdUnits };
-  const rate = ytdGci / daysElapsed;
-  const unitRate = ytdUnits / daysElapsed;
-  return { gci: Math.round(rate * daysInYear), units: Math.round(unitRate * daysInYear * 10)/10 };
+  const flatRatio = daysInYear / daysElapsed;
+  const gciRatio   = (priorYtd && priorFull && priorYtd.gci   > 0) ? (priorFull.gci   / priorYtd.gci)   : flatRatio;
+  const unitsRatio = (priorYtd && priorFull && priorYtd.units > 0) ? (priorFull.units / priorYtd.units) : flatRatio;
+  let projGci   = ytdGci   * gciRatio;
+  let projUnits = ytdUnits * unitsRatio;
+  if (priorFull && priorFull.gci   > 0) projGci   = Math.min(projGci,   priorFull.gci   * 2);
+  if (priorFull && priorFull.units > 0) projUnits = Math.min(projUnits, priorFull.units * 2);
+  return {
+    gci:   Math.round(projGci),
+    units: Math.round(projUnits * 10) / 10
+  };
 }
 
-function paceBadge(ytdGci, priorFullGci){
+function paceBadge(ytdGci, priorYtd, priorFull){
+  const priorFullGci = priorFull ? priorFull.gci : null;
   if (!priorFullGci) return { cls: 'on', txt: 'New' };
-  const proj = projectYear(ytdGci, 0).gci;
+  const proj = projectYear(ytdGci, 0, priorYtd, priorFull).gci;
   const ratio = proj / priorFullGci;
   if (ratio >= 1.05) return { cls: 'ahead', txt: 'Ahead of Pace' };
   if (ratio <= 0.90) return { cls: 'behind', txt: 'Behind Pace' };
@@ -821,10 +837,11 @@ function buildTeamSummary(){
   const grid = document.getElementById('team-summary-grid');
   const cards = Object.entries(TEAMS).map(([key, t]) => {
     const ytd = sumTeam(key, 'ytd_current');
+    const priorYtd = sumTeam(key, 'ytd_prior');
     const priorFull = sumTeam(key, 'prior_year_full');
     const pending = sumTeam(key, 'pending');
     const teamListings = sumTeam(key, 'listings');
-    const proj = projectYear(ytd.gci, ytd.units);
+    const proj = projectYear(ytd.gci, ytd.units, priorYtd, priorFull);
     const projUnitsInclPending = proj.units + pending.units;
     const priorTier = tierForUnits(priorFull.units, t.category);
     const paceTier  = tierForUnits(projUnitsInclPending, t.category);
@@ -902,9 +919,9 @@ function buildHero(){
   const b = DATA.brokerage;
   const ytdDelta = pct(b.ytd_current.gci, b.ytd_prior.gci);
   const unitsDelta = pct(b.ytd_current.units, b.ytd_prior.units);
-  const proj = projectYear(b.ytd_current.gci, b.ytd_current.units);
+  const proj = projectYear(b.ytd_current.gci, b.ytd_current.units, b.ytd_prior, b.prior_year_full);
   const pace = b.prior_year_full.gci ? (proj.gci / b.prior_year_full.gci) : null;
-  const brokerBadge = paceBadge(b.ytd_current.gci, b.prior_year_full.gci);
+  const brokerBadge = paceBadge(b.ytd_current.gci, b.ytd_prior, b.prior_year_full);
   const pend = b.pending || { gci:0, units:0, commission:0 };
 
   const stats = [
@@ -946,11 +963,11 @@ function buildAgentCards(){
     const dGci = pct(a.ytd_current.gci, a.ytd_prior.gci);
     const dUnits = pct(a.ytd_current.units, a.ytd_prior.units);
     const dPrior = pct(a.ytd_current.gci * (daysInYear/daysElapsed), a.prior_year_full.gci);
-    const proj = projectYear(a.ytd_current.gci, a.ytd_current.units);
+    const proj = projectYear(a.ytd_current.gci, a.ytd_current.units, a.ytd_prior, a.prior_year_full);
     const pend = a.pending || { units:0, commission:0 };
     // Projected year-end UNITS including pending (pending is committed but not closed)
     const projUnitsWithPending = proj.units + (pend.units || 0);
-    const badge = paceBadge(a.ytd_current.gci, a.prior_year_full.gci);
+    const badge = paceBadge(a.ytd_current.gci, a.ytd_prior, a.prior_year_full);
 
     // Individual tier — for peer comparison (everyone is measured the same way)
     const indPriorTier = tierForUnits(a.prior_year_full.units, 'ind');
@@ -964,7 +981,8 @@ function buildAgentCards(){
     const teamPrior = team ? sumTeam(teamKey, 'prior_year_full') : null;
     const teamYtd = team ? sumTeam(teamKey, 'ytd_current') : null;
     const teamPending = team ? sumTeam(teamKey, 'pending') : null;
-    const teamProjUnits = teamYtd ? projectYear(teamYtd.gci, teamYtd.units).units + (teamPending ? teamPending.units : 0) : 0;
+    const teamPriorYtd = team ? sumTeam(teamKey, 'ytd_prior') : null;
+    const teamProjUnits = teamYtd ? projectYear(teamYtd.gci, teamYtd.units, teamPriorYtd, teamPrior).units + (teamPending ? teamPending.units : 0) : 0;
     const teamPriorTier = team ? tierForUnits(teamPrior.units, teamCat) : null;
     const teamPaceTier  = team ? tierForUnits(teamProjUnits, teamCat) : null;
 
