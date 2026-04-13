@@ -271,7 +271,7 @@
 
     <!-- ── AGENTS ── -->
     <h2 class="section-heading">Agent Production &middot; YTD Award Year 2026</h2>
-    <p class="section-sub">Nov 16, 2025 – today, compared to the same window one year ago. Pace deseasonalizes YTD using each agent's own prior-year pattern (rest-of-year ratio), then adds pending. This prevents Q1 slowness from understating pace in a seasonal market.</p>
+    <p class="section-sub">Nov 16, 2025 – today, compared to the same window one year ago. Pace is pipeline-aware: YTD closed + pending (×1.0, near-certain to close) + active listings (×0.85, tight NL inventory market) + prior-year rest-of-year as a conservative baseline for new business. Capped at 2× prior-year full.</p>
 
     <div class="filter-bar">
       <span class="filter-label">Office:</span>
@@ -377,12 +377,14 @@
         <li><strong>Volume</strong> = listing-side amount + selling-side amount per deal (ends basis).</li>
         <li><strong>Units</strong> = transaction ends (each side counted as 1; 0.5 for co-listing/co-selling).</li>
         <li><strong>Award Year</strong> = Nov 16 – Nov 15, matching Royal LePage awards program.</li>
-        <li><strong>Pending</strong> = firm + conditional deals not yet closed (Loft47 "unpaid" view). Shown per agent as <em>units / commission $</em>. Pending units are added to projected year-end and Pace Tier calculations.</li>
+        <li><strong>Pending</strong> = firm + conditional deals not yet closed (Loft47 "unpaid" view). Shown per agent as <em>units / commission $</em>. Pending units contribute at <strong>100%</strong> to projected year-end and Pace Tier (they almost always close).</li>
         <li><strong>Active Listings</strong> = current inventory on MLS (not yet under contract). Sourced from NLAR Matrix saved search <em>"Turner Realty - Active Listings (All Offices)"</em> — pinned as a Favourite on the Matrix home tab. Refresh cadence: every 2 weeks. <strong>Co-listed deals count as 0.5 per agent</strong> (matches Loft47 split-credit convention), so per-agent values reconcile to the brokerage unique-listing total (currently <strong>35</strong>) without double-counting.</li>
         <li><strong>Goose Bay deals</strong> are typically co-listed by Karen Pomeroy and Roberta Primmer at 50/50 — brokerage totals reflect the full deal, agent rows reflect each agent's share.</li>
         <li><strong>Award tiers</strong> use the 2025 Royal LePage East Coast Provincial Fixed Value thresholds, plus the two national tiers (Chairman's Club = Top 1%, National Top 10 = top 10 earners). Official qualification is based on GCI <em>or</em> Units (whichever is met); this dashboard overlays Units only, because GCI is not captured in the Loft47 source data used here. Individual (1–1.25) thresholds apply to all Gander agents; Small Team (1.26–3.99) thresholds apply to Karen + Roberta (combined team units).</li>
         <li><strong>Chairman's Club 2025</strong> thresholds are estimates (>$1.05M GCI or >75 units) — finalized Dec 12, 2025. <strong>National Top 10</strong> entry levels vary year-to-year; the dashboard uses 2024 historical as a proxy.</li>
-        <li><strong>Pace Tier</strong> projects full-year 2026 units using each agent's <em>prior-year seasonality pattern</em> — i.e. YTD closed × (prior-year full ÷ prior-year same-window) + pending. This avoids penalizing agents for a slow Q1 in a seasonal market. Agents with no prior-year data fall back to flat annualization.</li>
+        <li><strong>Pace Tier</strong> projects full-year 2026 units using a <em>pipeline-aware model</em>:
+          <code>ytd + pending × 1.0 + listings × 0.85 + (prior_full − prior_ytd)</code>.
+          Pending is weighted at 100% (almost always closes); active listings at 85% (NL inventory is tight and most listings sell); the rest-of-year term uses prior-year pattern as a conservative new-business baseline and is clamped at 0 for agents already ahead of prior YTD. Capped at 2× prior-year full. This replaces the older deseasonalized multiplier approach — pipeline now drives projections, seasonality is handled through the rest-of-year term.</li>
         <li><strong>Gap line</strong> under Pace Tier shows exactly what it takes to clear the next tier up — the single most actionable line for 1:1 coaching.</li>
         <li><strong>2026 Goal</strong> = per-agent personal goal in units (currently set at ~+10% over AY 2025; editable in the DATA const). Dark bar = closed YTD, striped bar = pending.</li>
         <li><strong>Coaching Notes</strong> save to this browser only (localStorage). They persist between updates on the same device — if you use a different browser/device, you'll see a fresh set.</li>
@@ -783,32 +785,58 @@ const AY_END = new Date('2026-11-15');
 const daysElapsed = Math.max(1, Math.floor((TODAY - AY_START) / 86400000));
 const daysInYear = Math.floor((AY_END - AY_START) / 86400000);
 
-// Deseasonalized year-end projection.
-// Rather than flat-annualizing YTD (which drags Q1 pace down in seasonal markets
-// like NL real estate), project using each agent's own prior-year pattern:
-//   projected = ytd × (prior_year_full / prior_ytd)
-// Falls back to flat annualization if prior-year YTD is zero/missing.
-// Capped at 2× prior-year full to prevent noisy small-denominator ratios
-// (e.g. 2 prior-YTD units out of 17.5 full → 8.75× multiplier → runaway projection).
-function projectYear(ytdGci, ytdUnits, priorYtd, priorFull){
-  if (daysElapsed >= daysInYear) return { gci: ytdGci, units: ytdUnits };
-  const flatRatio = daysInYear / daysElapsed;
-  const gciRatio   = (priorYtd && priorFull && priorYtd.gci   > 0) ? (priorFull.gci   / priorYtd.gci)   : flatRatio;
-  const unitsRatio = (priorYtd && priorFull && priorYtd.units > 0) ? (priorFull.units / priorYtd.units) : flatRatio;
-  let projGci   = ytdGci   * gciRatio;
-  let projUnits = ytdUnits * unitsRatio;
-  if (priorFull && priorFull.gci   > 0) projGci   = Math.min(projGci,   priorFull.gci   * 2);
+// Pipeline-aware year-end projection.
+// In NL's tight-inventory market, current pending almost always closes and
+// most active listings convert to sales. Rather than extrapolating YTD pace
+// (which double-penalizes Q1 slowness), sum what's already visible on the
+// board plus a conservative "rest-of-year" term based on prior-year pattern:
+//
+//   projected = ytd
+//             + pending × 1.0                  (firm/conditional — near-certain to close)
+//             + listings × 0.85                (tight market — most listings sell)
+//             + (prior_full − prior_ytd)       (expected new business at prior-year pace)
+//
+// GCI (sold volume) uses the same structure, with listing value estimated
+// from the agent's average sold price (prior-year full as baseline).
+// Capped at 2× prior-year full to keep small-denominator outliers in check.
+const PENDING_WEIGHT = 1.0;
+const LISTING_WEIGHT = 0.85;
+
+function projectWithPipeline(ytd, pending, listings, priorYtd, priorFull){
+  const pendUnits = (pending && pending.units) || 0;
+  const listingCount = listings || 0;
+
+  // Average sold price: prior-year full as baseline; fall back to YTD
+  const avgPrice = (priorFull && priorFull.units > 0)
+    ? (priorFull.gci / priorFull.units)
+    : (ytd.units > 0 ? ytd.gci / ytd.units : 0);
+
+  // Pending volume: use reported value if available (brokerage); otherwise
+  // estimate from pending units × avg price (agent/team rows don't track $).
+  const pendGci = (pending && pending.gci) ? pending.gci : (pendUnits * avgPrice);
+
+  // Rest-of-year expected (prior-year pattern, clamped at 0 so up-YTD agents
+  // aren't docked). Conservative: doesn't scale with current-year outperformance.
+  const restUnits = (priorFull && priorYtd) ? Math.max(0, priorFull.units - priorYtd.units) : 0;
+  const restGci   = (priorFull && priorYtd) ? Math.max(0, priorFull.gci   - priorYtd.gci)   : 0;
+
+  let projUnits = ytd.units + (pendUnits * PENDING_WEIGHT) + (listingCount * LISTING_WEIGHT) + restUnits;
+  let projGci   = ytd.gci   + (pendGci   * PENDING_WEIGHT) + (listingCount * LISTING_WEIGHT * avgPrice) + restGci;
+
+  // Sanity cap — no individual agent projects higher than 2× prior full
   if (priorFull && priorFull.units > 0) projUnits = Math.min(projUnits, priorFull.units * 2);
+  if (priorFull && priorFull.gci   > 0) projGci   = Math.min(projGci,   priorFull.gci   * 2);
+
   return {
     gci:   Math.round(projGci),
     units: Math.round(projUnits * 10) / 10
   };
 }
 
-function paceBadge(ytdGci, priorYtd, priorFull){
+function paceBadge(ytd, pending, listings, priorYtd, priorFull){
   const priorFullGci = priorFull ? priorFull.gci : null;
   if (!priorFullGci) return { cls: 'on', txt: 'New' };
-  const proj = projectYear(ytdGci, 0, priorYtd, priorFull).gci;
+  const proj = projectWithPipeline(ytd, pending, listings, priorYtd, priorFull).gci;
   const ratio = proj / priorFullGci;
   if (ratio >= 1.05) return { cls: 'ahead', txt: 'Ahead of Pace' };
   if (ratio <= 0.90) return { cls: 'behind', txt: 'Behind Pace' };
@@ -841,8 +869,8 @@ function buildTeamSummary(){
     const priorFull = sumTeam(key, 'prior_year_full');
     const pending = sumTeam(key, 'pending');
     const teamListings = sumTeam(key, 'listings');
-    const proj = projectYear(ytd.gci, ytd.units, priorYtd, priorFull);
-    const projUnitsInclPending = proj.units + pending.units;
+    const proj = projectWithPipeline(ytd, pending, teamListings, priorYtd, priorFull);
+    const projUnitsInclPending = proj.units;
     const priorTier = tierForUnits(priorFull.units, t.category);
     const paceTier  = tierForUnits(projUnitsInclPending, t.category);
     const gap = gapToNextTier(projUnitsInclPending, paceTier, t.category);
@@ -876,7 +904,7 @@ function buildTeamSummary(){
             <div class="val">${fmtUnits(pending.units)}u</div>
           </div>
           <div class="ts-stat">
-            <div class="lbl">Pace (incl. pending)</div>
+            <div class="lbl">Pace (pipeline)</div>
             <div class="val">${fmtUnits(projUnitsInclPending)}u</div>
           </div>
           <div class="ts-stat">
@@ -919,10 +947,10 @@ function buildHero(){
   const b = DATA.brokerage;
   const ytdDelta = pct(b.ytd_current.gci, b.ytd_prior.gci);
   const unitsDelta = pct(b.ytd_current.units, b.ytd_prior.units);
-  const proj = projectYear(b.ytd_current.gci, b.ytd_current.units, b.ytd_prior, b.prior_year_full);
-  const pace = b.prior_year_full.gci ? (proj.gci / b.prior_year_full.gci) : null;
-  const brokerBadge = paceBadge(b.ytd_current.gci, b.ytd_prior, b.prior_year_full);
   const pend = b.pending || { gci:0, units:0, commission:0 };
+  const proj = projectWithPipeline(b.ytd_current, pend, b.listings, b.ytd_prior, b.prior_year_full);
+  const pace = b.prior_year_full.gci ? (proj.gci / b.prior_year_full.gci) : null;
+  const brokerBadge = paceBadge(b.ytd_current, pend, b.listings, b.ytd_prior, b.prior_year_full);
 
   const stats = [
     { label: 'YTD Volume',          value: fmtMoney(b.ytd_current.gci), delta: ytdDelta, deltaLabel: 'vs prior YTD' },
@@ -963,11 +991,12 @@ function buildAgentCards(){
     const dGci = pct(a.ytd_current.gci, a.ytd_prior.gci);
     const dUnits = pct(a.ytd_current.units, a.ytd_prior.units);
     const dPrior = pct(a.ytd_current.gci * (daysInYear/daysElapsed), a.prior_year_full.gci);
-    const proj = projectYear(a.ytd_current.gci, a.ytd_current.units, a.ytd_prior, a.prior_year_full);
-    const pend = a.pending || { units:0, commission:0 };
-    // Projected year-end UNITS including pending (pending is committed but not closed)
-    const projUnitsWithPending = proj.units + (pend.units || 0);
-    const badge = paceBadge(a.ytd_current.gci, a.ytd_prior, a.prior_year_full);
+    const pend = a.pending || { gci:0, units:0, commission:0 };
+    const agentListings = a.listings ?? 0;
+    const proj = projectWithPipeline(a.ytd_current, pend, agentListings, a.ytd_prior, a.prior_year_full);
+    // Projected year-end UNITS — pipeline (pending + listings) is already baked in
+    const projUnitsWithPending = proj.units;
+    const badge = paceBadge(a.ytd_current, pend, agentListings, a.ytd_prior, a.prior_year_full);
 
     // Individual tier — for peer comparison (everyone is measured the same way)
     const indPriorTier = tierForUnits(a.prior_year_full.units, 'ind');
@@ -982,7 +1011,8 @@ function buildAgentCards(){
     const teamYtd = team ? sumTeam(teamKey, 'ytd_current') : null;
     const teamPending = team ? sumTeam(teamKey, 'pending') : null;
     const teamPriorYtd = team ? sumTeam(teamKey, 'ytd_prior') : null;
-    const teamProjUnits = teamYtd ? projectYear(teamYtd.gci, teamYtd.units, teamPriorYtd, teamPrior).units + (teamPending ? teamPending.units : 0) : 0;
+    const teamListings = team ? sumTeam(teamKey, 'listings') : 0;
+    const teamProjUnits = teamYtd ? projectWithPipeline(teamYtd, teamPending, teamListings, teamPriorYtd, teamPrior).units : 0;
     const teamPriorTier = team ? tierForUnits(teamPrior.units, teamCat) : null;
     const teamPaceTier  = team ? tierForUnits(teamProjUnits, teamCat) : null;
 
