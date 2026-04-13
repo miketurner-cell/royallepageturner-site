@@ -109,6 +109,12 @@
     .tier-badge.t-chairman {background:linear-gradient(90deg,#1a1a1a,#c40023);color:#fff;box-shadow:0 0 0 1px rgba(234,0,42,.35) inset}
     .tier-badge.t-top10    {background:linear-gradient(90deg,#000,#4a0010);color:#fff;box-shadow:0 0 0 1px #EA002A inset}
     .tier-badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+    .tier-badge .crest{height:22px;width:auto;display:inline-block;vertical-align:middle;margin-right:2px;background:#fff;border-radius:3px;padding:1px}
+    .tier-badge.t-exec .crest,
+    .tier-badge.t-chairman .crest,
+    .tier-badge.t-top10 .crest,
+    .tier-badge.t-red .crest{background:rgba(255,255,255,.9)}
+    .tier-legend .tier-badge .crest{height:28px}
 
     /* ── TIER LEGEND ── */
     .tier-legend{background:#fff;border:1px solid #e5e5e8;border-radius:12px;padding:20px 24px;margin-bottom:32px}
@@ -572,19 +578,29 @@ const DATA = {
 const AWARD_TIERS = [
   // National Top 10 Award — actual top 10 earners nationally. Entry level varies year-to-year.
   // Using 2024 historical entry levels as proxy. Teams threshold is for small/mid/large combined.
-  { key:'top10',    name:'National Top 10',    cls:'t-top10',    ind:{gci:1107000,units:110}, sm:{gci:2990000,units:215}, md:{gci:2990000,units:215}, lg:{gci:2990000,units:215} },
+  { key:'top10',    name:'National Top 10',    cls:'t-top10',    img:'images/awards/tier-top10.png',                                                    ind:{gci:1107000,units:110}, sm:{gci:2990000,units:215}, md:{gci:2990000,units:215}, lg:{gci:2990000,units:215} },
   // Chairman's Club is national Top 1%; 2025 thresholds are estimates (finalized Dec 12, 2025).
   // Applies equally regardless of team size.
-  { key:'chairman', name:"Chairman's Club",    cls:'t-chairman', ind:{gci:1050000,units:75}, sm:{gci:1050000,units:75}, md:{gci:1050000,units:75}, lg:{gci:1050000,units:75} },
-  { key:'exec',     name:'Executive Circle',   cls:'t-exec',     ind:{gci:475000,units:68},  sm:{gci:600000,units:86},  md:{gci:700000,units:100}, lg:{gci:850000,units:122} },
-  { key:'red',      name:'Red Diamond',        cls:'t-red',      ind:{gci:375000,units:54},  sm:{gci:500000,units:72},  md:{gci:600000,units:86},  lg:{gci:750000,units:108} },
-  { key:'ruby',     name:'Ruby',               cls:'t-ruby',     ind:{gci:275000,units:39},  sm:{gci:400000,units:57},  md:{gci:500000,units:72},  lg:{gci:600000,units:86} },
-  { key:'diamond',  name:'Diamond',            cls:'t-diamond',  ind:{gci:230000,units:33},  sm:{gci:275000,units:39},  md:{gci:350000,units:50},  lg:{gci:500000,units:72} },
-  { key:'platinum', name:"Director's Platinum",cls:'t-platinum', ind:{gci:165000,units:24},  sm:{gci:185000,units:27},  md:{gci:250000,units:36},  lg:{gci:400000,units:57} },
-  { key:'gold',     name:"President's Gold",   cls:'t-gold',     ind:{gci:105000,units:15},  sm:{gci:125000,units:18},  md:{gci:175000,units:25},  lg:null },
-  { key:'master',   name:'Master Sales',       cls:'t-master',   ind:{gci:85000, units:12},  sm:{gci:100000,units:14},  md:null,                    lg:null },
-  { key:'sales',    name:'Sales Achievement',  cls:'t-sales',    ind:{gci:65000, units:9},   sm:{gci:80000, units:11},  md:null,                    lg:null },
+  { key:'chairman', name:"Chairman's Club",    cls:'t-chairman', img:'images/awards/tier-chairman.png',                                                 ind:{gci:1050000,units:75}, sm:{gci:1050000,units:75}, md:{gci:1050000,units:75}, lg:{gci:1050000,units:75} },
+  { key:'exec',     name:'Executive Circle',   cls:'t-exec',     img:'images/awards/tier-executive.png',                                                ind:{gci:475000,units:68},  sm:{gci:600000,units:86},  md:{gci:700000,units:100}, lg:{gci:850000,units:122} },
+  { key:'red',      name:'Red Diamond',        cls:'t-red',      img:'images/awards/tier-red-diamond.svg',                                              ind:{gci:375000,units:54},  sm:{gci:500000,units:72},  md:{gci:600000,units:86},  lg:{gci:750000,units:108} },
+  { key:'ruby',     name:'Ruby',               cls:'t-ruby',     img:'images/awards/tier-excellence.png',                                               ind:{gci:275000,units:39},  sm:{gci:400000,units:57},  md:{gci:500000,units:72},  lg:{gci:600000,units:86} },
+  { key:'diamond',  name:'Diamond',            cls:'t-diamond',  img:'images/awards/tier-diamond.svg',                                                  ind:{gci:230000,units:33},  sm:{gci:275000,units:39},  md:{gci:350000,units:50},  lg:{gci:500000,units:72} },
+  { key:'platinum', name:"Director's Platinum",cls:'t-platinum', img:'images/awards/tier-platinum.svg',                                                 ind:{gci:165000,units:24},  sm:{gci:185000,units:27},  md:{gci:250000,units:36},  lg:{gci:400000,units:57} },
+  { key:'gold',     name:"President's Gold",   cls:'t-gold',     img:'images/awards/tier-gold.png',    imgTeam:'images/awards/tier-gold-team.png',      ind:{gci:105000,units:15},  sm:{gci:125000,units:18},  md:{gci:175000,units:25},  lg:null },
+  { key:'master',   name:'Master Sales',       cls:'t-master',   img:'images/awards/tier-master.png',  imgTeam:'images/awards/tier-master-team.png',    ind:{gci:85000, units:12},  sm:{gci:100000,units:14},  md:null,                    lg:null },
+  { key:'sales',    name:'Sales Achievement',  cls:'t-sales',    img:'images/awards/tier-sales.png',   imgTeam:'images/awards/tier-sales-team.png',     ind:{gci:65000, units:9},   sm:{gci:80000, units:11},  md:null,                    lg:null },
 ];
+
+// Render a tier badge with the crest logo (falls back to CSS dot if no img).
+// When isTeam=true and the tier has a team-specific crest, use that instead.
+function tierBadgeHtml(tier, isTeam){
+  const src = (isTeam && tier.imgTeam) ? tier.imgTeam : tier.img;
+  const inner = src
+    ? `<img class="crest" src="${src}" alt="" loading="lazy">`
+    : `<span class="dot"></span>`;
+  return `<span class="tier-badge ${tier.cls}">${inner}${tier.name}</span>`;
+}
 
 // Returns the highest tier the given units qualify for in the given category.
 // category: 'ind' | 'sm' | 'md' | 'lg'
@@ -853,11 +869,11 @@ function buildTeamSummary(){
         </div>
         <div class="ts-tier-row">
           <span class="ts-tier-label">AY 2025 Tier</span>
-          <span class="tier-badge ${priorTier.cls}"><span class="dot"></span>${priorTier.name}</span>
+          ${tierBadgeHtml(priorTier, true)}
         </div>
         <div class="ts-tier-row" style="border-top:none;padding-top:4px">
           <span class="ts-tier-label">Pace Tier (AY 2026)</span>
-          <span class="tier-badge ${paceTier.cls}"><span class="dot"></span>${paceTier.name}</span>
+          ${tierBadgeHtml(paceTier, true)}
         </div>
         ${gapHtml}
       </div>
@@ -873,7 +889,7 @@ function buildTierLegend(){
     : '<span style="color:var(--muted)">—</span>';
   tbody.innerHTML = AWARD_TIERS.map(t => `
     <tr>
-      <td class="left"><span class="tier-badge ${t.cls}"><span class="dot"></span>${t.name}</span></td>
+      <td class="left">${tierBadgeHtml(t, false)}</td>
       <td>${fmtCell(t.ind)}</td>
       <td>${fmtCell(t.sm)}</td>
       <td>${fmtCell(t.md)}</td>
@@ -1023,21 +1039,21 @@ function buildAgentCards(){
           <div class="tier-section-heading">Individual <span class="tier-hint">for peer comparison only — actual award is team-level</span></div>
           <div class="tier-row">
             <span class="tier-label">AY 2025</span>
-            <span class="tier-badge ${indPriorTier.cls}"><span class="dot"></span>${indPriorTier.name}</span>
+            ${tierBadgeHtml(indPriorTier, false)}
           </div>
           <div class="tier-row">
             <span class="tier-label">Pace (AY 2026)</span>
-            <span class="tier-badge ${indPaceTier.cls}"><span class="dot"></span>${indPaceTier.name}</span>
+            ${tierBadgeHtml(indPaceTier, false)}
           </div>
           ${team ? `
           <div class="tier-section-heading" style="margin-top:10px">${team.name} <span class="tier-hint">actual award earned · ${teamCat === 'lg' ? 'Large Team' : teamCat === 'md' ? 'Mid Team' : 'Small Team'}</span></div>
           <div class="tier-row">
             <span class="tier-label">AY 2025</span>
-            <span class="tier-badge ${teamPriorTier.cls}"><span class="dot"></span>${teamPriorTier.name}</span>
+            ${tierBadgeHtml(teamPriorTier, true)}
           </div>
           <div class="tier-row">
             <span class="tier-label">Pace (AY 2026)</span>
-            <span class="tier-badge ${teamPaceTier.cls}"><span class="dot"></span>${teamPaceTier.name}</span>
+            ${tierBadgeHtml(teamPaceTier, true)}
           </div>
           ` : ''}
           ${gapHtml}
