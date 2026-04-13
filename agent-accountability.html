@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Agent Accountability Dashboard | Royal LePage Turner Realty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    body{margin:0;padding:0;background:#f5f5f7;color:#1a1a1a;font-family:'Roboto',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55}
+    img{display:block;max-width:100%}
+    a{color:inherit}
+
+    /* ── GATE ── */
+    .gate{position:fixed;inset:0;background:linear-gradient(135deg,#111 0%,#2a0005 100%);display:flex;align-items:center;justify-content:center;z-index:9999;color:#fff}
+    .gate-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:48px 40px;border-radius:12px;max-width:420px;width:90%;backdrop-filter:blur(8px);text-align:center}
+    .gate-card h1{font-family:'Raleway',sans-serif;font-weight:900;font-size:26px;margin:0 0 8px;letter-spacing:-.02em}
+    .gate-card .gate-sub{font-size:13px;color:#aaa;margin:0 0 28px}
+    .gate-card input{width:100%;padding:14px 16px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.3);color:#fff;border-radius:6px;font-size:15px;font-family:inherit;outline:none}
+    .gate-card input:focus{border-color:#EA002A}
+    .gate-card button{margin-top:16px;width:100%;padding:14px;background:#EA002A;color:#fff;border:none;border-radius:6px;font-weight:600;font-size:14px;cursor:pointer;letter-spacing:.05em;text-transform:uppercase}
+    .gate-card button:hover{background:#c40023}
+    .gate-err{color:#EA002A;font-size:12px;margin-top:12px;min-height:16px}
+
+    /* ── HEADER ── */
+    .site-header{background:#1a1a1a;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.08)}
+    .site-header .brand{display:flex;align-items:center;gap:12px;font-family:'Raleway',sans-serif;font-weight:900;font-size:16px;letter-spacing:-.01em}
+    .site-header .brand span{color:#EA002A}
+    .site-header .brand .divider{width:1px;height:22px;background:rgba(255,255,255,.2)}
+    .site-header .brand .sub{font-weight:400;font-size:11px;color:#aaa;letter-spacing:.08em;text-transform:uppercase}
+    .site-header .logout{background:transparent;color:#aaa;border:1px solid rgba(255,255,255,.15);padding:6px 14px;border-radius:4px;font-size:12px;cursor:pointer;letter-spacing:.05em;text-transform:uppercase}
+    .site-header .logout:hover{color:#fff;border-color:#EA002A}
+
+    /* ── HERO ── */
+    .hero{background:linear-gradient(135deg,#EA002A 0%,#a30020 100%);color:#fff;padding:56px 32px 48px}
+    .hero-inner{max-width:1320px;margin:0 auto}
+    .hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;opacity:.85;margin-bottom:10px}
+    .hero h1{font-family:'Raleway',sans-serif;font-weight:900;font-size:clamp(28px,4vw,42px);line-height:1.1;margin:0 0 10px;letter-spacing:-.02em}
+    .hero .sub{font-size:15px;opacity:.9;max-width:680px;margin:0 0 28px}
+    .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:28px}
+    .hero-stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:20px 22px;border-radius:10px;backdrop-filter:blur(8px)}
+    .hero-stat .label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.8;margin-bottom:6px}
+    .hero-stat .value{font-family:'Raleway',sans-serif;font-weight:800;font-size:26px;line-height:1.1}
+    .hero-stat .delta{font-size:12px;margin-top:6px;font-weight:500}
+    .hero-stat .delta.up{color:#9fffa3}
+    .hero-stat .delta.down{color:#ffb8b8}
+
+    /* ── CONTENT ── */
+    main{max-width:1320px;margin:0 auto;padding:40px 32px}
+    .section-heading{font-family:'Raleway',sans-serif;font-weight:800;font-size:22px;margin:0 0 4px;letter-spacing:-.01em}
+    .section-sub{font-size:13px;color:#666;margin:0 0 24px}
+
+    /* ── FILTER BAR ── */
+    .filter-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;align-items:center}
+    .filter-bar .filter-group{display:flex;gap:6px;background:#fff;padding:4px;border-radius:8px;border:1px solid #e5e5e8}
+    .filter-bar .filter-btn{background:transparent;border:none;padding:8px 14px;font-size:13px;font-weight:500;color:#555;border-radius:5px;cursor:pointer;font-family:inherit;letter-spacing:.01em}
+    .filter-bar .filter-btn:hover{color:#1a1a1a}
+    .filter-bar .filter-btn.active{background:#1a1a1a;color:#fff}
+    .filter-bar .filter-label{font-size:11px;color:#888;letter-spacing:.08em;text-transform:uppercase;margin-right:4px}
+
+    /* ── AGENT CARDS ── */
+    .agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:48px}
+    .agent-card{background:#fff;border:1px solid #e5e5e8;border-radius:12px;overflow:hidden;transition:box-shadow .2s,transform .2s;cursor:pointer}
+    .agent-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+    .agent-card.inactive{opacity:.55}
+    .agent-card-head{padding:18px 20px;border-bottom:1px solid #f0f0f2;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .agent-card-head .name{font-family:'Raleway',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.01em;margin:0}
+    .agent-card-head .office{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+    .agent-card-head .rank{font-family:'Raleway',sans-serif;font-weight:900;font-size:24px;color:#EA002A;line-height:1}
+    .agent-card-head .rank .hash{font-size:14px;color:#bbb;font-weight:700}
+    .agent-card-body{padding:18px 20px}
+    .agent-metric{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px dashed #eee}
+    .agent-metric:last-child{border-bottom:none}
+    .agent-metric .m-label{font-size:12px;color:#666;letter-spacing:.02em}
+    .agent-metric .m-value{font-family:'Raleway',sans-serif;font-weight:700;font-size:15px}
+    .agent-metric .m-delta{font-size:11px;margin-left:6px;font-weight:600}
+    .agent-metric .m-delta.up{color:#2e7d32}
+    .agent-metric .m-delta.down{color:#c62828}
+    .agent-metric .m-delta.flat{color:#888}
+    .agent-card-foot{padding:14px 20px;background:#fafafa;border-top:1px solid #f0f0f2;display:flex;justify-content:space-between;align-items:center;font-size:12px}
+    .agent-card-foot .pace{color:#666}
+    .agent-card-foot .pace strong{color:#1a1a1a;font-family:'Raleway',sans-serif;font-weight:800}
+    .pace-badge{padding:3px 9px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .pace-badge.ahead{background:#e8f5e9;color:#2e7d32}
+    .pace-badge.behind{background:#ffebee;color:#c62828}
+    .pace-badge.on{background:#e3f2fd;color:#1565c0}
+
+    /* ── TIER BADGES ── */
+    .tier-section{padding:14px 20px;background:linear-gradient(180deg,#fafafa 0%,#fff 100%);border-top:1px solid #f0f0f2;border-bottom:1px solid #f0f0f2}
+    .tier-section-heading{font-size:10px;font-weight:800;color:#1a1a1a;letter-spacing:.08em;text-transform:uppercase;padding:4px 0 2px;border-bottom:1px solid #eee;margin-bottom:2px}
+    .tier-section-heading .tier-hint{display:block;font-size:9px;font-weight:400;color:#999;letter-spacing:.02em;text-transform:none;margin-top:2px}
+    .tier-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 0}
+    .tier-row .tier-label{font-size:11px;color:#666;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+    .tier-row .tier-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.04em}
+    .tier-badge.t-none     {background:#f0f0f0;color:#888}
+    .tier-badge.t-sales    {background:#e3f2fd;color:#0d47a1}
+    .tier-badge.t-master   {background:#e0f7fa;color:#006064}
+    .tier-badge.t-gold     {background:#fff8e1;color:#8a6d00}
+    .tier-badge.t-platinum {background:#ede7f6;color:#4527a0}
+    .tier-badge.t-diamond  {background:#fce4ec;color:#ad1457}
+    .tier-badge.t-ruby     {background:#ffebee;color:#b71c1c}
+    .tier-badge.t-red      {background:#b71c1c;color:#fff}
+    .tier-badge.t-exec     {background:linear-gradient(90deg,#c40023,#EA002A);color:#fff}
+    .tier-badge.t-chairman {background:linear-gradient(90deg,#1a1a1a,#c40023);color:#fff;box-shadow:0 0 0 1px rgba(234,0,42,.35) inset}
+    .tier-badge.t-top10    {background:linear-gradient(90deg,#000,#4a0010);color:#fff;box-shadow:0 0 0 1px #EA002A inset}
+    .tier-badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+
+    /* ── TIER LEGEND ── */
+    .tier-legend{background:#fff;border:1px solid #e5e5e8;border-radius:12px;padding:20px 24px;margin-bottom:32px}
+    .tier-legend h3{font-family:'Raleway',sans-serif;font-weight:800;font-size:16px;margin:0 0 4px}
+    .tier-legend .legend-sub{font-size:12px;color:#666;margin:0 0 16px}
+    .tier-legend table{width:100%;border-collapse:collapse;font-size:12px;min-width:660px}
+    .tier-legend th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#888;font-weight:600;padding:8px 10px;text-align:right;border-bottom:2px solid #eee;white-space:nowrap}
+    .tier-legend th.left{text-align:left}
+    .tier-legend td{padding:8px 10px;text-align:right;border-bottom:1px solid #f4f4f6;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .tier-legend td.left{text-align:left;font-weight:600}
+    .tier-legend .ll-wrap{overflow-x:auto}
+
+    /* ── HISTORY TABLE ── */
+    .history-wrap{background:#fff;border:1px solid #e5e5e8;border-radius:12px;padding:20px 24px;margin-bottom:48px;overflow-x:auto}
+    .history-wrap h3{font-family:'Raleway',sans-serif;font-weight:800;font-size:16px;margin:0 0 16px}
+    table.history{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+    table.history th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#888;font-weight:600;padding:10px 12px;text-align:right;border-bottom:2px solid #eee;white-space:nowrap}
+    table.history th.left{text-align:left}
+    table.history td{padding:10px 12px;text-align:right;border-bottom:1px solid #f4f4f6;font-variant-numeric:tabular-nums}
+    table.history td.left{text-align:left;font-weight:500}
+    table.history tr:hover td{background:#fafafa}
+    table.history tr.total-row td{font-weight:700;background:#f8f8fa;border-top:2px solid #e5e5e8}
+    table.history .mini-units{color:#999;font-size:11px;margin-left:4px}
+
+    /* ── CHART SECTION ── */
+    .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}
+    .chart-card{background:#fff;border:1px solid #e5e5e8;border-radius:12px;padding:20px 24px}
+    .chart-card h3{font-family:'Raleway',sans-serif;font-weight:800;font-size:16px;margin:0 0 4px}
+    .chart-card .chart-sub{font-size:12px;color:#888;margin:0 0 16px}
+    .chart-card canvas{max-height:320px}
+    @media(max-width:900px){.chart-grid{grid-template-columns:1fr}}
+
+    /* ── FOOTER NOTE ── */
+    .source-note{padding:24px;background:#fff;border:1px solid #e5e5e8;border-radius:12px;margin-top:32px;font-size:12px;color:#666;line-height:1.65}
+    .source-note h4{font-family:'Raleway',sans-serif;font-weight:800;font-size:13px;color:#1a1a1a;margin:0 0 8px;letter-spacing:.04em;text-transform:uppercase}
+    .source-note ul{margin:0;padding-left:18px}
+    .source-note li{margin-bottom:4px}
+
+    /* ── GOAL PROGRESS ── */
+    .goal-section{padding:12px 20px 14px;background:#fff;border-top:1px solid #f0f0f2}
+    .goal-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+    .goal-row .goal-val{color:#1a1a1a;font-family:'Raleway',sans-serif;font-weight:800;font-size:12px;letter-spacing:0;text-transform:none}
+    .goal-bar{position:relative;height:8px;background:#f0f0f2;border-radius:4px;overflow:hidden}
+    .goal-bar .fill-ytd{position:absolute;left:0;top:0;bottom:0;background:#1a1a1a;border-radius:4px 0 0 4px;transition:width .3s}
+    .goal-bar .fill-pending{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,#8a99a8,#8a99a8 3px,#a0b0c0 3px,#a0b0c0 6px);transition:width .3s}
+    .goal-bar.met .fill-ytd{background:#2e7d32}
+    .goal-bar.met .fill-pending{background:repeating-linear-gradient(45deg,#2e7d32,#2e7d32 3px,#4caf50 3px,#4caf50 6px)}
+
+    /* ── GAP ANALYSIS ── */
+    .gap-line{font-size:11px;color:#666;margin-top:8px;padding:8px 10px;background:#fff8f0;border-left:3px solid #ef6c00;border-radius:0 4px 4px 0;line-height:1.45}
+    .gap-line.met{background:#f1f8e9;border-left-color:#2e7d32;color:#1b5e20}
+    .gap-line strong{color:#1a1a1a;font-weight:700}
+    .gap-line.met strong{color:#1b5e20}
+
+    /* ── COACHING NOTES ── */
+    .notes-section{padding:12px 20px 16px;background:#fafafa;border-top:1px solid #f0f0f2}
+    .notes-label{font-size:10px;color:#888;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+    .notes-label .saved{color:#2e7d32;font-size:9px;opacity:0;transition:opacity .3s}
+    .notes-label .saved.show{opacity:1}
+    .notes-textarea{width:100%;min-height:50px;padding:8px 10px;border:1px solid #e5e5e8;border-radius:6px;font-family:'Roboto',sans-serif;font-size:12px;color:#333;resize:vertical;background:#fff;line-height:1.45}
+    .notes-textarea:focus{outline:none;border-color:#EA002A}
+    .notes-textarea::placeholder{color:#bbb;font-style:italic}
+
+    /* ── TEAM SUMMARY CARDS ── */
+    .team-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:28px}
+    .team-summary-card{background:linear-gradient(135deg,#1a1a1a 0%,#2a0005 100%);color:#fff;border-radius:12px;padding:22px 24px;position:relative;overflow:hidden}
+    .team-summary-card::before{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(234,0,42,.3) 0%,transparent 70%);pointer-events:none}
+    .team-summary-card .ts-eyebrow{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
+    .team-summary-card h3{font-family:'Raleway',sans-serif;font-weight:900;font-size:20px;margin:0 0 4px;letter-spacing:-.01em}
+    .team-summary-card .ts-sub{font-size:11px;opacity:.7;margin-bottom:16px}
+    .team-summary-card .ts-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+    .team-summary-card .ts-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:10px 12px;border-radius:8px}
+    .team-summary-card .ts-stat .lbl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:4px}
+    .team-summary-card .ts-stat .val{font-family:'Raleway',sans-serif;font-weight:800;font-size:16px;line-height:1.1}
+    .team-summary-card .ts-tier-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+    .team-summary-card .ts-tier-row .ts-tier-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;opacity:.7}
+    .team-summary-card .ts-gap{font-size:11px;margin-top:10px;padding:8px 10px;background:rgba(255,255,255,.06);border-left:3px solid #EA002A;border-radius:0 4px 4px 0;line-height:1.45}
+    .team-summary-card .ts-gap.met{border-left-color:#4caf50}
+
+    /* ── HERO PACE BADGE ── */
+    .hero-stat .hero-pace-badge{display:inline-block;margin-top:4px;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .hero-stat .hero-pace-badge.ahead{background:rgba(159,255,163,.25);color:#9fffa3}
+    .hero-stat .hero-pace-badge.behind{background:rgba(255,184,184,.25);color:#ffb8b8}
+    .hero-stat .hero-pace-badge.on{background:rgba(255,255,255,.18);color:#fff}
+
+    @media(max-width:640px){
+      .site-header{padding:14px 16px;font-size:14px}
+      .hero{padding:40px 20px}
+      main{padding:28px 16px}
+      .agents-grid{grid-template-columns:1fr}
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print{
+      body{background:#fff}
+      .gate,.site-header,.filter-bar,.logout,.hero-stats,.source-note,.chart-grid,.chart-card,.tier-legend .ll-wrap,.history-wrap,.notes-section{display:none !important}
+      .hero{background:#fff;color:#1a1a1a;padding:20px 0 12px;border-bottom:2px solid #EA002A}
+      .hero h1{font-size:20px;margin-bottom:4px}
+      .hero .sub,.hero .eyebrow{color:#666}
+      main{padding:12px 20px;max-width:100%}
+      .agents-grid{grid-template-columns:1fr 1fr;gap:8px;page-break-inside:auto}
+      .agent-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid;page-break-inside:avoid;transform:none !important}
+      .section-heading{font-size:14px;margin-bottom:4px}
+      .section-sub{font-size:10px;margin-bottom:12px}
+      .agent-card-head .name{font-size:14px}
+      .agent-metric{padding:4px 0}
+      .agent-metric .m-value{font-size:13px}
+      .gap-line{font-size:10px;padding:4px 6px}
+      .goal-section{padding:8px 14px}
+      @page{margin:0.5in}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── GATE ─── -->
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <h1>Agent Accountability</h1>
+    <p class="gate-sub">Internal coaching dashboard. Enter access code to continue.</p>
+    <input type="password" id="gate-input" placeholder="Access code" autofocus>
+    <button id="gate-btn">Unlock</button>
+    <div class="gate-err" id="gate-err"></div>
+  </div>
+</div>
+
+<!-- ─── APP ─── -->
+<div id="app" style="display:none">
+
+  <header class="site-header">
+    <div class="brand">
+      <span>Royal LePage <span>Turner Realty</span></span>
+      <span class="divider"></span>
+      <span class="sub">Accountability</span>
+    </div>
+    <button class="logout" id="logout-btn">Lock</button>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Award Year 2026 &middot; Nov 16, 2025 – Nov 15, 2026</div>
+      <h1>Brokerage Production Snapshot</h1>
+      <p class="sub">Per-agent volume, units, and pace vs prior year. Award-year alignment (Nov 16 – Nov 15). Updated <span id="updated-date"></span>.</p>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- ── TEAM SUMMARY ── -->
+    <h2 class="section-heading">Team Awards &middot; AY 2026 Pace</h2>
+    <p class="section-sub">Both offices operate as RLP teams — the brokerage's actual awards are team-level. Individual tiers on agent cards below are for peer comparison only.</p>
+    <div class="team-summary-grid" id="team-summary-grid"></div>
+
+    <!-- ── AGENTS ── -->
+    <h2 class="section-heading">Agent Production &middot; YTD Award Year 2026</h2>
+    <p class="section-sub">Nov 16, 2025 – today, compared to the same window one year ago. Pace projects the agent's remaining year at the current daily rate.</p>
+
+    <div class="filter-bar">
+      <span class="filter-label">Office:</span>
+      <div class="filter-group" id="office-filter">
+        <button class="filter-btn active" data-office="all">All</button>
+        <button class="filter-btn" data-office="Gander">Gander</button>
+        <button class="filter-btn" data-office="Goose Bay">Goose Bay</button>
+      </div>
+      <span class="filter-label" style="margin-left:16px">Sort:</span>
+      <div class="filter-group" id="sort-filter">
+        <button class="filter-btn active" data-sort="ytd_current">YTD Volume</button>
+        <button class="filter-btn" data-sort="prior_year_full">Prior Year</button>
+        <button class="filter-btn" data-sort="name">Name</button>
+      </div>
+    </div>
+
+    <div class="agents-grid" id="agents-grid"></div>
+
+    <!-- ── AWARD TIER LEGEND ── -->
+    <div class="tier-legend">
+      <h3>2025 Royal LePage Awards &middot; Thresholds</h3>
+      <p class="legend-sub">Qualification is GCI <em>or</em> Units — whichever is met. This dashboard uses <strong>Units</strong> for tier overlay (GCI not captured in source data). <strong>Gander Team</strong> qualifies as a <strong>Large Team (8+ members)</strong>; <strong>Goose Bay Team</strong> qualifies as a <strong>Small Team (2 members, 1.26–3.99 range)</strong>. Individual columns shown for peer comparison. <strong>Chairman's Club</strong> is the national Top 1% — its 2025 thresholds are <em>estimates</em> (finalized Dec 12, 2025). <strong>National Top 10</strong> entry levels shown use 2024 historical data; actual 2025 entry level depends on who earns it.</p>
+      <div class="ll-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left">Tier</th>
+            <th>Individual<br><span style="font-weight:400;color:#aaa">Units / GCI</span></th>
+            <th>Small Team<br><span style="font-weight:400;color:#aaa">Units / GCI</span></th>
+            <th>Mid Team<br><span style="font-weight:400;color:#aaa">Units / GCI</span></th>
+            <th>Large Team<br><span style="font-weight:400;color:#aaa">Units / GCI</span></th>
+          </tr>
+        </thead>
+        <tbody id="tier-legend-body"></tbody>
+      </table>
+      </div>
+
+      <h3 style="margin-top:28px">National Top 10 &middot; Historical Entry Levels</h3>
+      <p class="legend-sub">Shows what it took to enter the National Top 10 in each of the past four years — illustrates year-to-year variance. 2025 entry level is not yet known.</p>
+      <div class="ll-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="left">Year</th>
+            <th>Individual GCI</th>
+            <th>Individual Units</th>
+            <th>Team GCI</th>
+            <th>Team Units</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="left">2024</td><td>$1,107,000</td><td>110</td><td>$2,990,000</td><td>215</td></tr>
+          <tr><td class="left">2023</td><td>$1,095,000</td><td>107</td><td>$3,663,000</td><td>200</td></tr>
+          <tr><td class="left">2022</td><td>$1,410,000</td><td>135</td><td>$4,275,000</td><td>255</td></tr>
+          <tr><td class="left">2021</td><td>$1,600,000</td><td>152</td><td>$4,750,000</td><td>310</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- ── HISTORY ── -->
+    <div class="history-wrap">
+      <h3>Award-Year History &middot; Volume / Units</h3>
+      <table class="history" id="history-table">
+        <thead>
+          <tr>
+            <th class="left">Agent</th>
+            <th>AY 2022</th>
+            <th>AY 2023</th>
+            <th>AY 2024</th>
+            <th>AY 2025</th>
+            <th>YTD 2026</th>
+          </tr>
+        </thead>
+        <tbody id="history-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- ── CHARTS ── -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Brokerage Volume by Award Year</h3>
+        <p class="chart-sub">Total sold volume (both ends) per award year.</p>
+        <canvas id="brokerage-chart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Brokerage Units by Award Year</h3>
+        <p class="chart-sub">Transaction ends (each side counted once).</p>
+        <canvas id="units-chart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card" style="margin-bottom:48px">
+      <h3>Agent Volume Trend</h3>
+      <p class="chart-sub">4-year volume trajectory by agent. Click a legend entry to toggle.</p>
+      <canvas id="trend-chart" style="max-height:420px"></canvas>
+    </div>
+
+    <div class="source-note">
+      <h4>Sources &amp; Methodology</h4>
+      <ul>
+        <li><strong>Data source:</strong> Loft47 Production Report, filtered by CloseDate.</li>
+        <li><strong>Volume</strong> = listing-side amount + selling-side amount per deal (ends basis).</li>
+        <li><strong>Units</strong> = transaction ends (each side counted as 1; 0.5 for co-listing/co-selling).</li>
+        <li><strong>Award Year</strong> = Nov 16 – Nov 15, matching Royal LePage awards program.</li>
+        <li><strong>Pending</strong> = firm + conditional deals not yet closed (Loft47 "unpaid" view). Shown per agent as <em>units / commission $</em>. Pending units are added to projected year-end and Pace Tier calculations.</li>
+        <li><strong>Active Listings</strong> = current inventory on MLS (not yet under contract). Sourced from NLAR Matrix saved search <em>"Turner Realty - Active Listings (All Offices)"</em> — pinned as a Favourite on the Matrix home tab. Refresh cadence: every 2 weeks. <strong>Co-listed deals count as 0.5 per agent</strong> (matches Loft47 split-credit convention), so per-agent values reconcile to the brokerage unique-listing total (currently <strong>35</strong>) without double-counting.</li>
+        <li><strong>Goose Bay deals</strong> are typically co-listed by Karen Pomeroy and Roberta Primmer at 50/50 — brokerage totals reflect the full deal, agent rows reflect each agent's share.</li>
+        <li><strong>Award tiers</strong> use the 2025 Royal LePage East Coast Provincial Fixed Value thresholds, plus the two national tiers (Chairman's Club = Top 1%, National Top 10 = top 10 earners). Official qualification is based on GCI <em>or</em> Units (whichever is met); this dashboard overlays Units only, because GCI is not captured in the Loft47 source data used here. Individual (1–1.25) thresholds apply to all Gander agents; Small Team (1.26–3.99) thresholds apply to Karen + Roberta (combined team units).</li>
+        <li><strong>Chairman's Club 2025</strong> thresholds are estimates (>$1.05M GCI or >75 units) — finalized Dec 12, 2025. <strong>National Top 10</strong> entry levels vary year-to-year; the dashboard uses 2024 historical as a proxy.</li>
+        <li><strong>Pace Tier</strong> projects an agent's full-year 2026 units at the current daily rate (plus pending) and shows the corresponding 2025 award tier they would qualify for.</li>
+        <li><strong>Gap line</strong> under Pace Tier shows exactly what it takes to clear the next tier up — the single most actionable line for 1:1 coaching.</li>
+        <li><strong>2026 Goal</strong> = per-agent personal goal in units (currently set at ~+10% over AY 2025; editable in the DATA const). Dark bar = closed YTD, striped bar = pending.</li>
+        <li><strong>Coaching Notes</strong> save to this browser only (localStorage). They persist between updates on the same device — if you use a different browser/device, you'll see a fresh set.</li>
+        <li><strong>Print</strong> with ⌘-P / Ctrl-P for a 2-up agent-card handout suitable for 1:1s (hero, history, and charts are hidden in print).</li>
+      </ul>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA  —  Populated from Loft47 Production Report (2021-11-16 → 2026-04-13)
+// CloseDate-filtered. Award Year: Nov 16 – Nov 15.
+// ═══════════════════════════════════════════════════════════════
+const DATA = {
+  brokerage: {
+    history: [
+      { year: "2022", gci: 72052073, units: 294.0 },
+      { year: "2023", gci: 51791860, units: 219.0 },
+      { year: "2024", gci: 63060200, units: 232.0 },
+      { year: "2025", gci: 54354063, units: 195.0 },
+    ],
+    ytd_current:     { gci: 11302980, units: 35.0 },
+    ytd_prior:       { gci: 12374288, units: 53.0 },
+    prior_year_full: { gci: 54354063, units: 195.0 },
+    // Pending = firm/conditional deals not yet closed (Loft47 Performance Report, viewing=unpaid)
+    // gci here = volume (consistent w/ rest of file). commission = actual GCI $ due to brokerage.
+    pending:         { gci: 7968000, units: 39.0, commission: 168742 },
+    // Active listings = current inventory on MLS (NLAR Matrix saved search "Turner Realty - Active Listings (All Offices)").
+    // Refresh every 2 weeks: My Matrix → favourite → run → count per agent → update below.
+    listings: 35,
+  },
+  agents: [
+    {
+      id: "mike", name: "Mike Turner", office: "Gander", active: true,
+      goal_units: 9, // 2026 personal goal (editable per agent after 1:1s)
+      ytd_current:     { gci: 270000,  units: 1.0 },
+      ytd_prior:       { gci: 1102250, units: 4.0 },
+      prior_year_full: { gci: 2697250, units: 8.0 },
+      pending:         { units: 3.0, commission: 13823 },
+      listings: 3.5, // Active MLS — co-lists count as 0.5 each (1 solo + 2×0.5 w/ Crystal + 3×0.5 w/ Gaye = 3.5). Refresh bi-weekly from Matrix saved search.
+      history: [
+        { year: "2022", gci: 11514500, units: 48.0 },
+        { year: "2023", gci: 3158910,  units: 11.0 },
+        { year: "2024", gci: 4100200,  units: 13.5 },
+        { year: "2025", gci: 2697250,  units: 8.0 },
+      ]
+    },
+    {
+      id: "gaye", name: "Gaye Turner", office: "Gander", active: true,
+      goal_units: 14,
+      ytd_current:     { gci: 855000,  units: 3.0 },
+      ytd_prior:       { gci: 950000,  units: 3.0 },
+      prior_year_full: { gci: 3501800, units: 12.5 },
+      pending:         { units: 6.5, commission: 43045 },
+      listings: 5.5, // 4 solo + 3×0.5 co-listed with Mike
+      history: [
+        { year: "2022", gci: 510000,   units: 5.0 },
+        { year: "2023", gci: 3780000,  units: 24.0 },
+        { year: "2024", gci: 4639100,  units: 18.5 },
+        { year: "2025", gci: 3501800,  units: 12.5 },
+      ]
+    },
+    {
+      id: "crystal", name: "Crystal Hynes", office: "Gander", active: true,
+      goal_units: 47,
+      ytd_current:     { gci: 1362500,  units: 4.0 },
+      ytd_prior:       { gci: 3660000,  units: 12.0 },
+      prior_year_full: { gci: 13047000, units: 43.0 },
+      pending:         { units: 7.0, commission: 17581 },
+      listings: 6, // 5 solo + 2×0.5 co-listed with Mike
+      history: [
+        { year: "2022", gci: 12630500, units: 50.0 },
+        { year: "2023", gci: 8772600,  units: 38.0 },
+        { year: "2024", gci: 6943800,  units: 30.0 },
+        { year: "2025", gci: 13047000, units: 43.0 },
+      ]
+    },
+    {
+      id: "danielle", name: "Danielle Pike", office: "Gander", active: true,
+      goal_units: 17,
+      ytd_current:     { gci: 2050000, units: 5.0 },
+      ytd_prior:       { gci: 812000,  units: 3.0 },
+      prior_year_full: { gci: 5023250, units: 15.0 },
+      pending:         { units: 1.0, commission: 4899 },
+      listings: 0, // no active MLS listings as of 2026-04-13 — flag for coaching (all pipeline is pendings)
+      history: [
+        { year: "2022", gci: 7380850,  units: 27.0 },
+        { year: "2023", gci: 2397400,  units: 10.0 },
+        { year: "2024", gci: 7806300,  units: 22.0 },
+        { year: "2025", gci: 5023250,  units: 15.0 },
+      ]
+    },
+    {
+      id: "dwayne", name: "Dwayne Kean", office: "Gander", active: true,
+      goal_units: 12,
+      ytd_current:     { gci: 276000,  units: 2.0 },
+      ytd_prior:       { gci: 615000,  units: 3.0 },
+      prior_year_full: { gci: 1871200, units: 11.0 },
+      pending:         { units: 4.0, commission: 8142 },
+      listings: 6,
+      history: [
+        { year: "2022", gci: 1746750,  units: 9.0 },
+        { year: "2023", gci: 1734500,  units: 17.0 },
+        { year: "2024", gci: 2545500,  units: 16.0 },
+        { year: "2025", gci: 1871200,  units: 11.0 },
+      ]
+    },
+    {
+      id: "ashley", name: "Ashley Bullen", office: "Gander", active: true,
+      goal_units: 30,
+      ytd_current:     { gci: 65000,   units: 1.0 },
+      ytd_prior:       { gci: 1871500, units: 7.0 },
+      prior_year_full: { gci: 7743400, units: 27.0 },
+      pending:         { units: 6.0, commission: 52342 },
+      listings: 5,
+      history: [
+        { year: "2022", gci: 6646600,  units: 24.0 },
+        { year: "2023", gci: 7489000,  units: 25.0 },
+        { year: "2024", gci: 6557000,  units: 20.0 },
+        { year: "2025", gci: 7743400,  units: 27.0 },
+      ]
+    },
+    {
+      id: "matt", name: "Matt Wheaton", office: "Gander", active: true,
+      goal_units: 18,
+      ytd_current:     { gci: 2648680, units: 4.0 },
+      ytd_prior:       { gci: 900450,  units: 5.0 },
+      prior_year_full: { gci: 4099350, units: 16.0 },
+      pending:         { units: 0, commission: 0 },
+      listings: 4,
+      history: [
+        { year: "2022", gci: 0,        units: 0.0 },
+        { year: "2023", gci: 1276000,  units: 6.0 },
+        { year: "2024", gci: 4975000,  units: 22.0 },
+        { year: "2025", gci: 4099350,  units: 16.0 },
+      ]
+    },
+    {
+      id: "kayla", name: "Kayla Tulk", office: "Gander", active: true,
+      goal_units: 20,
+      ytd_current:     { gci: 1182500, units: 5.0 },
+      ytd_prior:       { gci: 497000,  units: 2.0 },
+      prior_year_full: { gci: 4438750, units: 17.5 },
+      pending:         { units: 1.5, commission: 9488 },
+      listings: 0, // no active MLS listings as of 2026-04-13 — all volume coming from pending/closed
+      history: [
+        { year: "2022", gci: 0,        units: 0.0 },
+        { year: "2023", gci: 0,        units: 0.0 },
+        { year: "2024", gci: 1806300,  units: 6.0 },
+        { year: "2025", gci: 4438750,  units: 17.5 },
+      ]
+    },
+    {
+      id: "karen", name: "Karen Pomeroy", office: "Goose Bay", active: true,
+      goal_units: 25, // individual share; team target implied = 50
+      ytd_current:     { gci: 1296650, units: 5.0 },
+      ytd_prior:       { gci: 983044,  units: 7.0 },
+      prior_year_full: { gci: 5966032, units: 22.5 },
+      pending:         { units: 5.0, commission: 9712 },
+      listings: 2.5, // Goose Bay team — tied with Roberta. 5 co-listed deals × 0.5 = 2.5 each.
+      history: [
+        { year: "2022", gci: 8721400,  units: 34.0 },
+        { year: "2023", gci: 9835000,  units: 37.0 },
+        { year: "2024", gci: 11798500, units: 41.5 },
+        { year: "2025", gci: 5966032,  units: 22.5 },
+      ]
+    },
+    {
+      id: "roberta", name: "Roberta Primmer", office: "Goose Bay", active: true,
+      goal_units: 25, // individual share; team target implied = 50
+      ytd_current:     { gci: 1296650, units: 5.0 },
+      ytd_prior:       { gci: 983044,  units: 7.0 },
+      prior_year_full: { gci: 5966032, units: 22.5 },
+      pending:         { units: 5.0, commission: 9712 },
+      listings: 2.5, // Goose Bay team — tied with Karen. 5 co-listed deals × 0.5 = 2.5 each.
+      history: [
+        { year: "2022", gci: 8721400,  units: 34.0 },
+        { year: "2023", gci: 9835000,  units: 37.0 },
+        { year: "2024", gci: 11798500, units: 41.5 },
+        { year: "2025", gci: 5966032,  units: 22.5 },
+      ]
+    },
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════
+// 2025 ROYAL LEPAGE PROVINCIAL FIXED VALUE AWARDS — EAST COAST
+// Highest tier first. Qualify by GCI OR Units (per RLP awards program).
+// Dashboard uses Units for tier overlay (source data is volume, not GCI).
+// ═══════════════════════════════════════════════════════════════
+const AWARD_TIERS = [
+  // National Top 10 Award — actual top 10 earners nationally. Entry level varies year-to-year.
+  // Using 2024 historical entry levels as proxy. Teams threshold is for small/mid/large combined.
+  { key:'top10',    name:'National Top 10',    cls:'t-top10',    ind:{gci:1107000,units:110}, sm:{gci:2990000,units:215}, md:{gci:2990000,units:215}, lg:{gci:2990000,units:215} },
+  // Chairman's Club is national Top 1%; 2025 thresholds are estimates (finalized Dec 12, 2025).
+  // Applies equally regardless of team size.
+  { key:'chairman', name:"Chairman's Club",    cls:'t-chairman', ind:{gci:1050000,units:75}, sm:{gci:1050000,units:75}, md:{gci:1050000,units:75}, lg:{gci:1050000,units:75} },
+  { key:'exec',     name:'Executive Circle',   cls:'t-exec',     ind:{gci:475000,units:68},  sm:{gci:600000,units:86},  md:{gci:700000,units:100}, lg:{gci:850000,units:122} },
+  { key:'red',      name:'Red Diamond',        cls:'t-red',      ind:{gci:375000,units:54},  sm:{gci:500000,units:72},  md:{gci:600000,units:86},  lg:{gci:750000,units:108} },
+  { key:'ruby',     name:'Ruby',               cls:'t-ruby',     ind:{gci:275000,units:39},  sm:{gci:400000,units:57},  md:{gci:500000,units:72},  lg:{gci:600000,units:86} },
+  { key:'diamond',  name:'Diamond',            cls:'t-diamond',  ind:{gci:230000,units:33},  sm:{gci:275000,units:39},  md:{gci:350000,units:50},  lg:{gci:500000,units:72} },
+  { key:'platinum', name:"Director's Platinum",cls:'t-platinum', ind:{gci:165000,units:24},  sm:{gci:185000,units:27},  md:{gci:250000,units:36},  lg:{gci:400000,units:57} },
+  { key:'gold',     name:"President's Gold",   cls:'t-gold',     ind:{gci:105000,units:15},  sm:{gci:125000,units:18},  md:{gci:175000,units:25},  lg:null },
+  { key:'master',   name:'Master Sales',       cls:'t-master',   ind:{gci:85000, units:12},  sm:{gci:100000,units:14},  md:null,                    lg:null },
+  { key:'sales',    name:'Sales Achievement',  cls:'t-sales',    ind:{gci:65000, units:9},   sm:{gci:80000, units:11},  md:null,                    lg:null },
+];
+
+// Returns the highest tier the given units qualify for in the given category.
+// category: 'ind' | 'sm' | 'md' | 'lg'
+function tierForUnits(units, category){
+  for (const t of AWARD_TIERS){
+    const req = t[category];
+    if (!req) continue;
+    if (units >= req.units) return t;
+  }
+  // Find the lowest-named tier for this category to describe "below"
+  let lowest = null;
+  for (let i = AWARD_TIERS.length - 1; i >= 0; i--){
+    if (AWARD_TIERS[i][category]) { lowest = AWARD_TIERS[i]; break; }
+  }
+  const belowName = lowest ? 'Below ' + lowest.name : 'Below Threshold';
+  return { key:'none', name: belowName, cls:'t-none' };
+}
+
+// ── TEAMS ────────────────────────────────────────────────────────
+// Both offices operate as RLP teams for award purposes. Individual tiers
+// are still shown per agent for peer comparison, but the actual award
+// earned is the TEAM tier (based on team-combined units/GCI).
+const TEAMS = {
+  gander: {
+    name: 'Gander Team',
+    category: 'lg', // Large Team (8+ members)
+    ids: ['mike','gaye','crystal','danielle','dwayne','ashley','matt','kayla'],
+  },
+  goose: {
+    name: 'Goose Bay Team',
+    category: 'sm', // Small Team (2 members, 1.26–3.99 range)
+    ids: ['karen','roberta'],
+  },
+};
+
+// Map agent → team key
+const TEAM_OF = {};
+Object.entries(TEAMS).forEach(([k, t]) => t.ids.forEach(id => TEAM_OF[id] = k));
+
+// For tier display: individual category is always 'ind' (for peer comparison).
+// Team category is the team's actual award-qualifying category.
+const categoryOf = (agentId) => 'ind'; // kept for legacy callsites showing individual tier
+const teamCategoryOf = (agentId) => {
+  const tk = TEAM_OF[agentId];
+  return tk ? TEAMS[tk].category : 'ind';
+};
+
+// Sum a period across all members of a team
+function sumTeam(teamKey, period){
+  const t = TEAMS[teamKey];
+  if (!t) return { gci: 0, units: 0 };
+  const agents = DATA.agents.filter(a => t.ids.includes(a.id));
+  if (period === 'pending'){
+    return agents.reduce((acc, a) => {
+      const p = a.pending || { units: 0, commission: 0 };
+      return { units: acc.units + (p.units||0), commission: acc.commission + (p.commission||0) };
+    }, { units: 0, commission: 0 });
+  }
+  if (period === 'listings'){
+    // Co-listed deals are stored as 0.5 per agent involved, so a plain sum
+    // gives the unique-listing count for the team (no dedup needed).
+    return agents.reduce((acc, a) => acc + (a.listings || 0), 0);
+  }
+  return agents.reduce((acc, a) => {
+    const p = a[period] || { gci: 0, units: 0 };
+    return { gci: acc.gci + (p.gci||0), units: acc.units + (p.units||0) };
+  }, { gci: 0, units: 0 });
+}
+
+// Find NEXT tier above the current tier (returns null if already at top).
+// Skips tiers that don't exist for the given category (e.g. Master Sales for Large Team).
+function nextTierAbove(currentTier, category){
+  let idx = AWARD_TIERS.findIndex(t => t.key === currentTier.key);
+  if (idx === -1) {
+    // Currently below lowest tier in category — find the lowest available
+    for (let i = AWARD_TIERS.length - 1; i >= 0; i--){
+      if (AWARD_TIERS[i][category]) return AWARD_TIERS[i];
+    }
+    return null;
+  }
+  // Walk up until we find a tier that has a threshold for this category
+  for (let i = idx - 1; i >= 0; i--){
+    if (AWARD_TIERS[i][category]) return AWARD_TIERS[i];
+  }
+  return null; // already at top
+}
+
+// Gap analysis: how many more units + GCI dollars to reach next tier.
+// Uses pace units (incl. pending) for "current" baseline.
+function gapToNextTier(paceUnitsWithPending, currentTier, category){
+  const next = nextTierAbove(currentTier, category);
+  if (!next) return { atTop: true, tierName: currentTier.name };
+  const req = next[category];
+  if (!req) return null;
+  const unitsGap = Math.max(0, req.units - paceUnitsWithPending);
+  return {
+    atTop: false,
+    tierName: next.name,
+    unitsGap: unitsGap,
+    unitsReq: req.units,
+    gciReq: req.gci,
+    cls: next.cls
+  };
+}
+
+// For Goose Bay team, combined units = 2 × individual (because of 50/50 split).
+// When evaluating as a team, compare team total against Small Team thresholds.
+function teamUnits(agent, period){
+  if (!TEAM_IDS.has(agent.id)) return agent[period].units;
+  return agent[period].units * 2; // Karen + Roberta combined
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GATE
+// ═══════════════════════════════════════════════════════════════
+const ACCESS_CODE = 'turner2026'; // change as needed
+const STORAGE_KEY = '';  // in-memory only; no browser storage
+let unlocked = false;
+
+document.getElementById('gate-btn').addEventListener('click', tryUnlock);
+document.getElementById('gate-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+document.getElementById('logout-btn').addEventListener('click', () => { unlocked = false; render(); });
+
+function tryUnlock(){
+  const v = document.getElementById('gate-input').value;
+  if (v === ACCESS_CODE){
+    unlocked = true;
+    render();
+  } else {
+    document.getElementById('gate-err').textContent = 'Incorrect code.';
+    document.getElementById('gate-input').value = '';
+  }
+}
+
+function render(){
+  if (unlocked){
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    buildDashboard();
+  } else {
+    document.getElementById('gate').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('gate-err').textContent = '';
+    document.getElementById('gate-input').value = '';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FORMATTERS
+// ═══════════════════════════════════════════════════════════════
+const fmtMoney = (n) => {
+  if (n === 0) return '$0';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(n >= 1e7 ? 1 : 2) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+  return '$' + n.toLocaleString();
+};
+const fmtMoneyFull = (n) => '$' + Math.round(n).toLocaleString();
+const fmtUnits = (u) => (u % 1 === 0 ? u.toFixed(0) : u.toFixed(1));
+const pct = (cur, prev) => {
+  if (!prev) return null;
+  return (cur - prev) / prev * 100;
+};
+
+function deltaClass(d){
+  if (d === null || Math.abs(d) < 1) return 'flat';
+  return d > 0 ? 'up' : 'down';
+}
+function deltaSymbol(d){
+  if (d === null) return '—';
+  const a = d > 0 ? '▲' : d < 0 ? '▼' : '·';
+  return a + ' ' + Math.abs(d).toFixed(0) + '%';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PACE CALC
+// ═══════════════════════════════════════════════════════════════
+const AY_START = new Date('2025-11-16');
+const TODAY = new Date();
+const AY_END = new Date('2026-11-15');
+const daysElapsed = Math.max(1, Math.floor((TODAY - AY_START) / 86400000));
+const daysInYear = Math.floor((AY_END - AY_START) / 86400000);
+
+function projectYear(ytdGci, ytdUnits){
+  if (daysElapsed >= daysInYear) return { gci: ytdGci, units: ytdUnits };
+  const rate = ytdGci / daysElapsed;
+  const unitRate = ytdUnits / daysElapsed;
+  return { gci: Math.round(rate * daysInYear), units: Math.round(unitRate * daysInYear * 10)/10 };
+}
+
+function paceBadge(ytdGci, priorFullGci){
+  if (!priorFullGci) return { cls: 'on', txt: 'New' };
+  const proj = projectYear(ytdGci, 0).gci;
+  const ratio = proj / priorFullGci;
+  if (ratio >= 1.05) return { cls: 'ahead', txt: 'Ahead of Pace' };
+  if (ratio <= 0.90) return { cls: 'behind', txt: 'Behind Pace' };
+  return { cls: 'on', txt: 'On Pace' };
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BUILD DASHBOARD
+// ═══════════════════════════════════════════════════════════════
+let currentOffice = 'all';
+let currentSort = 'ytd_current';
+let charts = {};
+
+function buildDashboard(){
+  document.getElementById('updated-date').textContent = TODAY.toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' });
+  buildHero();
+  buildTeamSummary();
+  buildAgentCards();
+  buildHistoryTable();
+  buildTierLegend();
+  buildCharts();
+  bindFilters();
+}
+
+function buildTeamSummary(){
+  const grid = document.getElementById('team-summary-grid');
+  const cards = Object.entries(TEAMS).map(([key, t]) => {
+    const ytd = sumTeam(key, 'ytd_current');
+    const priorFull = sumTeam(key, 'prior_year_full');
+    const pending = sumTeam(key, 'pending');
+    const teamListings = sumTeam(key, 'listings');
+    const proj = projectYear(ytd.gci, ytd.units);
+    const projUnitsInclPending = proj.units + pending.units;
+    const priorTier = tierForUnits(priorFull.units, t.category);
+    const paceTier  = tierForUnits(projUnitsInclPending, t.category);
+    const gap = gapToNextTier(projUnitsInclPending, paceTier, t.category);
+    const catLabel = t.category === 'lg' ? 'Large Team (8+ members)'
+                    : t.category === 'md' ? 'Mid Team (4–7.99 members)'
+                    : 'Small Team (1.26–3.99 members)';
+
+    let gapHtml = '';
+    if (gap && gap.atTop){
+      gapHtml = `<div class="ts-gap met">🏆 On pace for <strong>${gap.tierName}</strong> — the top tier.</div>`;
+    } else if (gap){
+      if (gap.unitsGap <= 0){
+        gapHtml = `<div class="ts-gap met">✓ On pace to clear <strong>${gap.tierName}</strong>.</div>`;
+      } else {
+        gapHtml = `<div class="ts-gap">Needs <strong>${fmtUnits(gap.unitsGap)} more team units</strong> to reach <strong>${gap.tierName}</strong> (${gap.unitsReq}u or $${gap.gciReq.toLocaleString()} GCI).</div>`;
+      }
+    }
+
+    return `
+      <div class="team-summary-card">
+        <div class="ts-eyebrow">${catLabel}</div>
+        <h3>${t.name}</h3>
+        <div class="ts-sub">${t.ids.length} members · Combined production</div>
+        <div class="ts-stats">
+          <div class="ts-stat">
+            <div class="lbl">YTD Units</div>
+            <div class="val">${fmtUnits(ytd.units)}</div>
+          </div>
+          <div class="ts-stat">
+            <div class="lbl">Pending</div>
+            <div class="val">${fmtUnits(pending.units)}u</div>
+          </div>
+          <div class="ts-stat">
+            <div class="lbl">Pace (incl. pending)</div>
+            <div class="val">${fmtUnits(projUnitsInclPending)}u</div>
+          </div>
+          <div class="ts-stat">
+            <div class="lbl">Active Listings</div>
+            <div class="val">${teamListings}</div>
+          </div>
+        </div>
+        <div class="ts-tier-row">
+          <span class="ts-tier-label">AY 2025 Tier</span>
+          <span class="tier-badge ${priorTier.cls}"><span class="dot"></span>${priorTier.name}</span>
+        </div>
+        <div class="ts-tier-row" style="border-top:none;padding-top:4px">
+          <span class="ts-tier-label">Pace Tier (AY 2026)</span>
+          <span class="tier-badge ${paceTier.cls}"><span class="dot"></span>${paceTier.name}</span>
+        </div>
+        ${gapHtml}
+      </div>
+    `;
+  }).join('');
+  grid.innerHTML = cards;
+}
+
+function buildTierLegend(){
+  const tbody = document.getElementById('tier-legend-body');
+  const fmtCell = (req) => req
+    ? `${req.units} / $${(req.gci/1000).toFixed(0)}K`
+    : '<span style="color:var(--muted)">—</span>';
+  tbody.innerHTML = AWARD_TIERS.map(t => `
+    <tr>
+      <td class="left"><span class="tier-badge ${t.cls}"><span class="dot"></span>${t.name}</span></td>
+      <td>${fmtCell(t.ind)}</td>
+      <td>${fmtCell(t.sm)}</td>
+      <td>${fmtCell(t.md)}</td>
+      <td>${fmtCell(t.lg)}</td>
+    </tr>
+  `).join('');
+}
+
+function buildHero(){
+  const b = DATA.brokerage;
+  const ytdDelta = pct(b.ytd_current.gci, b.ytd_prior.gci);
+  const unitsDelta = pct(b.ytd_current.units, b.ytd_prior.units);
+  const proj = projectYear(b.ytd_current.gci, b.ytd_current.units);
+  const pace = b.prior_year_full.gci ? (proj.gci / b.prior_year_full.gci) : null;
+  const brokerBadge = paceBadge(b.ytd_current.gci, b.prior_year_full.gci);
+  const pend = b.pending || { gci:0, units:0, commission:0 };
+
+  const stats = [
+    { label: 'YTD Volume',          value: fmtMoney(b.ytd_current.gci), delta: ytdDelta, deltaLabel: 'vs prior YTD' },
+    { label: 'YTD Units',           value: fmtUnits(b.ytd_current.units), delta: unitsDelta, deltaLabel: 'vs prior YTD' },
+    { label: 'Pending',             value: fmtUnits(pend.units) + 'u', delta: null, deltaLabel: fmtMoney(pend.gci) + ' vol · $' + (pend.commission||0).toLocaleString() + ' GCI' },
+    { label: 'Active Listings',     value: String(b.listings ?? 0), delta: null, deltaLabel: 'on MLS · both offices' },
+    { label: 'Projected Year End',  value: fmtMoney(proj.gci), delta: pace ? (pace-1)*100 : null, deltaLabel: 'vs prior year', badge: brokerBadge },
+    { label: 'Prior Year Full',     value: fmtMoney(b.prior_year_full.gci), delta: null, deltaLabel: fmtUnits(b.prior_year_full.units) + ' units' },
+  ];
+
+  document.getElementById('hero-stats').innerHTML = stats.map(s => `
+    <div class="hero-stat">
+      <div class="label">${s.label}</div>
+      <div class="value">${s.value}</div>
+      <div class="delta ${s.delta === null ? '' : (s.delta > 0 ? 'up' : s.delta < 0 ? 'down' : '')}">
+        ${s.delta === null ? s.deltaLabel : `${s.delta > 0 ? '▲' : '▼'} ${Math.abs(s.delta).toFixed(0)}% ${s.deltaLabel}`}
+      </div>
+      ${s.badge ? `<span class="hero-pace-badge ${s.badge.cls}">${s.badge.txt}</span>` : ''}
+    </div>
+  `).join('');
+}
+
+function buildAgentCards(){
+  const grid = document.getElementById('agents-grid');
+  let agents = DATA.agents.slice();
+
+  if (currentOffice !== 'all'){
+    agents = agents.filter(a => a.office === currentOffice);
+  }
+
+  if (currentSort === 'name'){
+    agents.sort((a,b) => a.name.localeCompare(b.name));
+  } else {
+    agents.sort((a,b) => b[currentSort].gci - a[currentSort].gci);
+  }
+
+  grid.innerHTML = agents.map((a, idx) => {
+    const dGci = pct(a.ytd_current.gci, a.ytd_prior.gci);
+    const dUnits = pct(a.ytd_current.units, a.ytd_prior.units);
+    const dPrior = pct(a.ytd_current.gci * (daysInYear/daysElapsed), a.prior_year_full.gci);
+    const proj = projectYear(a.ytd_current.gci, a.ytd_current.units);
+    const pend = a.pending || { units:0, commission:0 };
+    // Projected year-end UNITS including pending (pending is committed but not closed)
+    const projUnitsWithPending = proj.units + (pend.units || 0);
+    const badge = paceBadge(a.ytd_current.gci, a.prior_year_full.gci);
+
+    // Individual tier — for peer comparison (everyone is measured the same way)
+    const indPriorTier = tierForUnits(a.prior_year_full.units, 'ind');
+    const indPaceTier  = tierForUnits(projUnitsWithPending, 'ind');
+    const catLabel = 'Individual';
+
+    // Team tier — the actual RLP award the agent earns (team-level)
+    const teamKey = TEAM_OF[a.id];
+    const team = teamKey ? TEAMS[teamKey] : null;
+    const teamCat = teamCategoryOf(a.id);
+    const teamPrior = team ? sumTeam(teamKey, 'prior_year_full') : null;
+    const teamYtd = team ? sumTeam(teamKey, 'ytd_current') : null;
+    const teamPending = team ? sumTeam(teamKey, 'pending') : null;
+    const teamProjUnits = teamYtd ? projectYear(teamYtd.gci, teamYtd.units).units + (teamPending ? teamPending.units : 0) : 0;
+    const teamPriorTier = team ? tierForUnits(teamPrior.units, teamCat) : null;
+    const teamPaceTier  = team ? tierForUnits(teamProjUnits, teamCat) : null;
+
+    // Gap analysis — based on TEAM tier (that's the award they'll actually earn)
+    const gapBaseTier = teamPaceTier || indPaceTier;
+    const gapBaseCat = teamCat;
+    const gapBaseUnits = team ? teamProjUnits : projUnitsWithPending;
+    const gap = gapToNextTier(gapBaseUnits, gapBaseTier, gapBaseCat);
+    let gapHtml = '';
+    if (gap && gap.atTop){
+      gapHtml = `<div class="gap-line met">🏆 On pace for <strong>${gap.tierName}</strong> — the top tier.</div>`;
+    } else if (gap){
+      if (gap.unitsGap <= 0){
+        gapHtml = `<div class="gap-line met">✓ On pace to clear <strong>${gap.tierName}</strong>${team ? ' (team)' : ''}.</div>`;
+      } else {
+        const teamLbl = team ? ' team units' : ' units';
+        gapHtml = `<div class="gap-line"><strong>${team ? team.name + ':' : ''}</strong> Needs <strong>${fmtUnits(gap.unitsGap)} more${teamLbl}</strong> to reach <strong>${gap.tierName}</strong> (${gap.unitsReq}u or $${gap.gciReq.toLocaleString()} GCI).</div>`;
+      }
+    }
+
+    // Goal progress: YTD + Pending units vs goal
+    const goal = a.goal_units || Math.round(a.prior_year_full.units * 1.10);
+    const ytdUnits = a.ytd_current.units;
+    const pendUnits = pend.units || 0;
+    const ytdPct = Math.min(100, (ytdUnits / goal) * 100);
+    const pendPct = Math.min(100 - ytdPct, (pendUnits / goal) * 100);
+    const totalPct = ytdPct + pendPct;
+    const goalMetCls = (ytdUnits + pendUnits) >= goal ? 'met' : '';
+
+    return `
+      <div class="agent-card ${a.active ? '' : 'inactive'}">
+        <div class="agent-card-head">
+          <div>
+            <h3 class="name">${a.name}</h3>
+            <div class="office">${a.office} &middot; ${catLabel}</div>
+          </div>
+          <div class="rank"><span class="hash">#</span>${idx+1}</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="agent-metric">
+            <span class="m-label">YTD Volume</span>
+            <span>
+              <span class="m-value">${fmtMoney(a.ytd_current.gci)}</span>
+              <span class="m-delta ${deltaClass(dGci)}">${deltaSymbol(dGci)}</span>
+            </span>
+          </div>
+          <div class="agent-metric">
+            <span class="m-label">YTD Units</span>
+            <span>
+              <span class="m-value">${fmtUnits(a.ytd_current.units)}</span>
+              <span class="m-delta ${deltaClass(dUnits)}">${deltaSymbol(dUnits)}</span>
+            </span>
+          </div>
+          <div class="agent-metric">
+            <span class="m-label">Pending</span>
+            <span class="m-value">${fmtUnits(pend.units)}u <span class="mini-units" style="color:#999;font-size:11px">/ $${(pend.commission||0).toLocaleString()} GCI</span></span>
+          </div>
+          <div class="agent-metric">
+            <span class="m-label">Active Listings</span>
+            <span class="m-value">${fmtUnits(a.listings ?? 0)}<span class="mini-units" style="color:#999;font-size:11px"> on MLS</span></span>
+          </div>
+          <div class="agent-metric">
+            <span class="m-label">Prior Year Full</span>
+            <span class="m-value">${fmtMoney(a.prior_year_full.gci)} <span class="mini-units" style="color:#999;font-size:11px">/ ${fmtUnits(a.prior_year_full.units)}</span></span>
+          </div>
+          <div class="agent-metric">
+            <span class="m-label">Projected Year End</span>
+            <span class="m-value">${fmtMoney(proj.gci)} <span class="mini-units" style="color:#999;font-size:11px">/ ${fmtUnits(projUnitsWithPending)}u incl. pending</span></span>
+          </div>
+        </div>
+        <div class="tier-section">
+          <div class="tier-section-heading">Individual <span class="tier-hint">for peer comparison only — actual award is team-level</span></div>
+          <div class="tier-row">
+            <span class="tier-label">AY 2025</span>
+            <span class="tier-badge ${indPriorTier.cls}"><span class="dot"></span>${indPriorTier.name}</span>
+          </div>
+          <div class="tier-row">
+            <span class="tier-label">Pace (AY 2026)</span>
+            <span class="tier-badge ${indPaceTier.cls}"><span class="dot"></span>${indPaceTier.name}</span>
+          </div>
+          ${team ? `
+          <div class="tier-section-heading" style="margin-top:10px">${team.name} <span class="tier-hint">actual award earned · ${teamCat === 'lg' ? 'Large Team' : teamCat === 'md' ? 'Mid Team' : 'Small Team'}</span></div>
+          <div class="tier-row">
+            <span class="tier-label">AY 2025</span>
+            <span class="tier-badge ${teamPriorTier.cls}"><span class="dot"></span>${teamPriorTier.name}</span>
+          </div>
+          <div class="tier-row">
+            <span class="tier-label">Pace (AY 2026)</span>
+            <span class="tier-badge ${teamPaceTier.cls}"><span class="dot"></span>${teamPaceTier.name}</span>
+          </div>
+          ` : ''}
+          ${gapHtml}
+        </div>
+        <div class="goal-section">
+          <div class="goal-row">
+            <span>2026 Goal</span>
+            <span class="goal-val">${fmtUnits(ytdUnits + pendUnits)} / ${goal} units <span style="color:#999;font-weight:400">(${Math.round(totalPct)}%)</span></span>
+          </div>
+          <div class="goal-bar ${goalMetCls}">
+            <div class="fill-ytd" style="width:${ytdPct}%"></div>
+            <div class="fill-pending" style="left:${ytdPct}%;width:${pendPct}%"></div>
+          </div>
+          <div class="goal-row" style="margin-top:4px;font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:#888">
+            <span>Closed: ${fmtUnits(ytdUnits)}u · Pending: ${fmtUnits(pendUnits)}u</span>
+            <span>${goal - (ytdUnits + pendUnits) > 0 ? fmtUnits(goal - (ytdUnits + pendUnits)) + ' to go' : 'Met ✓'}</span>
+          </div>
+        </div>
+        <div class="notes-section">
+          <div class="notes-label">
+            <span>Coaching Notes</span>
+            <span class="saved" id="saved-${a.id}">Saved</span>
+          </div>
+          <textarea class="notes-textarea" data-agent="${a.id}" placeholder="Commitments, blockers, action items for next 1:1..."></textarea>
+        </div>
+        <div class="agent-card-foot">
+          <div class="pace">Pace: <strong>${fmtMoney(proj.gci)}</strong> / ${fmtUnits(projUnitsWithPending)}u</div>
+          <span class="pace-badge ${badge.cls}">${badge.txt}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Wire up notes: load from localStorage and save on change
+  document.querySelectorAll('.notes-textarea').forEach(ta => {
+    const aid = ta.dataset.agent;
+    const key = 'coaching_notes_' + aid;
+    ta.value = localStorage.getItem(key) || '';
+    let t = null;
+    ta.addEventListener('input', () => {
+      clearTimeout(t);
+      t = setTimeout(() => {
+        localStorage.setItem(key, ta.value);
+        const saved = document.getElementById('saved-' + aid);
+        if (saved){ saved.classList.add('show'); setTimeout(() => saved.classList.remove('show'), 1200); }
+      }, 400);
+    });
+  });
+}
+
+function buildHistoryTable(){
+  const tbody = document.getElementById('history-tbody');
+  const rows = DATA.agents.map(a => {
+    const cells = a.history.map(h => `<td>${fmtMoney(h.gci)}<span class="mini-units">/ ${fmtUnits(h.units)}u</span></td>`).join('');
+    return `<tr><td class="left">${a.name}<span style="color:#888;font-weight:400"> &middot; ${a.office}</span></td>${cells}<td>${fmtMoney(a.ytd_current.gci)}<span class="mini-units">/ ${fmtUnits(a.ytd_current.units)}u</span></td></tr>`;
+  });
+
+  // Total row
+  const brokerRow = DATA.brokerage.history.map(h => `<td>${fmtMoney(h.gci)}<span class="mini-units">/ ${fmtUnits(h.units)}u</span></td>`).join('');
+  rows.push(`<tr class="total-row"><td class="left">Brokerage Total</td>${brokerRow}<td>${fmtMoney(DATA.brokerage.ytd_current.gci)}<span class="mini-units">/ ${fmtUnits(DATA.brokerage.ytd_current.units)}u</span></td></tr>`);
+
+  tbody.innerHTML = rows.join('');
+}
+
+function buildCharts(){
+  Object.values(charts).forEach(c => c && c.destroy && c.destroy());
+  charts = {};
+
+  const years = DATA.brokerage.history.map(h => 'AY ' + h.year);
+  const volData = DATA.brokerage.history.map(h => h.gci);
+  const unitData = DATA.brokerage.history.map(h => h.units);
+
+  charts.brokerage = new Chart(document.getElementById('brokerage-chart'), {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Volume',
+        data: volData,
+        backgroundColor: '#EA002A',
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: (ctx) => fmtMoneyFull(ctx.parsed.y) } }
+      },
+      scales: {
+        y: { ticks: { callback: (v) => fmtMoney(v) }, grid: { color: '#f0f0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  charts.units = new Chart(document.getElementById('units-chart'), {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Units',
+        data: unitData,
+        backgroundColor: '#1a1a1a',
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { grid: { color: '#f0f0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  // Trend chart — one line per agent
+  const palette = ['#EA002A','#1565c0','#2e7d32','#ef6c00','#6a1b9a','#00838f','#c62828','#37474f','#8d6e63','#5e35b1'];
+  const datasets = DATA.agents.map((a, i) => ({
+    label: a.name,
+    data: a.history.map(h => h.gci),
+    borderColor: palette[i % palette.length],
+    backgroundColor: palette[i % palette.length] + '22',
+    borderWidth: 2,
+    tension: 0.3,
+    pointRadius: 4,
+    pointHoverRadius: 6,
+  }));
+
+  charts.trend = new Chart(document.getElementById('trend-chart'), {
+    type: 'line',
+    data: { labels: years, datasets },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12, font: { size: 12 } } },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${fmtMoneyFull(ctx.parsed.y)}` } }
+      },
+      scales: {
+        y: { ticks: { callback: (v) => fmtMoney(v) }, grid: { color: '#f0f0f2' } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+function bindFilters(){
+  document.querySelectorAll('#office-filter .filter-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#office-filter .filter-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      currentOffice = b.dataset.office;
+      buildAgentCards();
+    });
+  });
+  document.querySelectorAll('#sort-filter .filter-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#sort-filter .filter-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      currentSort = b.dataset.sort;
+      buildAgentCards();
+    });
+  });
+}
+
+// init — show gate
+render();
+</script>
+
+</body>
+</html>
