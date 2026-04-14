@@ -241,10 +241,11 @@
       .at .nav-brand-divider, .at .nav-brand-sub { display: none; }
       .at .nav-toggle { display: flex; }
       .at .nav-links {
-        display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0;
+        display: none; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; z-index: 1000;
         background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
       }
       .at .nav-links.open { display: flex; }
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
       .at .nav-links li a { padding: 12px 24px; font-size: 15px; }
       .at .nav-right { display: none; }
       .at .hero { padding: 56px 20px; }
@@ -259,6 +260,8 @@
       .at .accordion-icon { width: 36px; height: 36px; }
     }
   </style>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body class="at">
 
@@ -857,6 +860,7 @@
       <aside class="quick-links-box" id="quick-links">
         <h4 class="quick-links-title">Quick Links</h4>
         <ul class="quick-links-list">
+          <li><a href="technology-equipment-policy.html"><strong>Technology Equipment Policy</strong></a></li>
           <li><a href="https://rlpnetwork.com" target="_blank">rlpNetwork Portal</a></li>
           <li><a href="https://rlpnetwork.com/rlpsphere" target="_blank">rlpSPHERE CRM</a></li>
           <li><a href="https://royallepage.ca" target="_blank">Royal LePage.ca</a></li>
@@ -981,5 +985,7 @@
     });
   </script>
 
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>
