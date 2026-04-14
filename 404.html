@@ -162,7 +162,8 @@
       .hp .nav-bar { padding: 0 24px; }
       .hp .nav-links { display: none; }
       .hp .nav-toggle { display: flex; }
-      .hp .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: #fff; padding: 16px; border-bottom: 1px solid #e8e8e8; gap: 8px; }
+      .hp .nav-links.active { display: flex; flex-direction: column; position: fixed; top: 72px; left: 0; right: 0; background: #fff; padding: 16px; border-bottom: 1px solid #e8e8e8; gap: 8px; max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; z-index: 1000; }
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
       .hp .error-wrapper { padding: 40px 24px; }
       .hp .error-content { padding: 40px 24px; border-radius: 6px; }
       .hp .error-actions { flex-direction: column; }
@@ -172,6 +173,8 @@
       .hp .site-footer { padding: 40px 24px 0; }
     }
   </style>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
   <div class="hp">
@@ -275,8 +278,18 @@
       toggle.addEventListener('click', function() {
         toggle.classList.toggle('active');
         links.classList.toggle('active');
+        document.body.classList.toggle('nav-menu-open', links.classList.contains('active'));
+      });
+      links.addEventListener('click', function(ev) {
+        if (ev.target && ev.target.tagName === 'A') {
+          toggle.classList.remove('active');
+          links.classList.remove('active');
+          document.body.classList.remove('nav-menu-open');
+        }
       });
     }
   </script>
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>

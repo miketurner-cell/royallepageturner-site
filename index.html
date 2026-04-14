@@ -305,9 +305,11 @@
       .hp .nav-brand-divider, .hp .nav-brand-sub { display: none; }
       .hp .nav-toggle { display: flex; }
       .hp .nav-links {
-        display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0;
-        background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        display: none; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0;
+        max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+        background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06); z-index: 1000;
       }
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
       .hp .nav-links.open { display: flex; }
       .hp .nav-links li a { padding: 12px 24px; font-size: 15px; }
       .hp .nav-right { display: none; }
@@ -375,9 +377,12 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
+  "@type": ["RealEstateAgent","LocalBusiness"],
   "name": "Royal LePage Turner Realty",
   "legalName": "Royal LePage Turner Realty (2014) Inc.",
+  "geo": { "@type": "GeoCoordinates", "latitude": 48.9569, "longitude": -54.5836 },
+  "priceRange": "$$",
+  "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "17:00" }],
   "url": "https://royallepageturner.com",
   "logo": "https://royallepageturner.com/images/award-chairmans-2025.png",
   "description": "Award-winning real estate brokerage serving Newfoundland & Labrador since 1998. Four offices, 11 REALTORS®, Chairman's Club Top 1% nationally since 2017.",
@@ -411,6 +416,8 @@
   }
 }
   </script>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
 <div class="hp">
@@ -768,7 +775,8 @@
   var btn = document.querySelector('.hp .nav-toggle');
   var links = document.querySelector('.hp .nav-links');
   if(btn && links){
-    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); });
+    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); document.body.classList.toggle('nav-menu-open', links.classList.contains('open'));});
+    links.addEventListener('click', function(ev){ if(ev.target.tagName==='A'){ btn.classList.remove('active'); links.classList.remove('open'); document.body.classList.remove('nav-menu-open'); } });
   }
 })();
 </script>
@@ -811,5 +819,7 @@
   ]
 }
 </script>
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>

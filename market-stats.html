@@ -235,10 +235,11 @@
       .ms .nav-brand-divider, .ms .nav-brand-sub { display: none; }
       .ms .nav-toggle { display: flex; }
       .ms .nav-links {
-        display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0;
+        display: none; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; z-index: 1000;
         background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
       }
       .ms .nav-links.open { display: flex; }
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
       .ms .nav-links li a { padding: 12px 24px; font-size: 15px; }
       .ms .nav-right { display: none; }
       .ms .hero { padding: 64px 20px 56px; }
@@ -258,6 +259,8 @@
       .ms .card-stat-value { font-size: 20px; }
     }
   </style>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
 
@@ -611,7 +614,8 @@
     btn.addEventListener('click', function(){
       btn.classList.toggle('active');
       links.classList.toggle('open');
-    });
+    document.body.classList.toggle('nav-menu-open', links.classList.contains('open'));});
+    links.addEventListener('click', function(ev){ if(ev.target.tagName==='A'){ btn.classList.remove('active'); links.classList.remove('open'); document.body.classList.remove('nav-menu-open'); } });
   }
 
   // Price chart
@@ -737,5 +741,7 @@
 })();
 </script>
 
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>

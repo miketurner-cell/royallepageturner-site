@@ -51,11 +51,13 @@
             .sl-nav-brand-divider, .sl-nav-brand-sub { display: none; }
             .sl-nav-toggle { display: flex; }
             .sl-nav-links {
-                display: none; position: absolute; top: 60px; left: 0; right: 0;
+                display: none; position: fixed; top: 60px; left: 0; right: 0;
+                max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; z-index: 1000;
                 background: #fff; flex-direction: column; padding: 8px 0;
                 border-bottom: 1px solid #e8e8e8; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
             .sl-nav-links.open { display: flex; }
+            body.nav-menu-open { overflow: hidden; touch-action: none; }
             .sl-nav-links li a { padding: 12px 24px; font-size: 15px; }
             .sl-nav-right { display: none; }
         }
@@ -241,6 +243,8 @@
             .sl-footer-red-bar { margin: 0 -20px; padding: 14px 20px; flex-direction: column; gap: 4px; text-align: center; }
         }
     </style>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
 
@@ -412,7 +416,8 @@
     var btn = document.getElementById('slNavToggle');
     var links = document.getElementById('slNavLinks');
     if (btn && links) {
-        btn.addEventListener('click', function() { btn.classList.toggle('active'); links.classList.toggle('open'); });
+        btn.addEventListener('click', function() { btn.classList.toggle('active'); links.classList.toggle('open'); document.body.classList.toggle('nav-menu-open', links.classList.contains('open'));});
+    links.addEventListener('click', function(ev){ if(ev.target.tagName==='A'){ btn.classList.remove('active'); links.classList.remove('open'); document.body.classList.remove('nav-menu-open'); } });
     }
 
     // Password gate
@@ -542,5 +547,7 @@
     }
 })();
 </script>
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>

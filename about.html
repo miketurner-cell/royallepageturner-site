@@ -116,8 +116,9 @@
       .ab .nav-bar { padding: 0 20px; height: 60px; }
       .ab .nav-brand-divider, .ab .nav-brand-sub { display: none; }
       .ab .nav-toggle { display: flex; }
-      .ab .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+      .ab .nav-links { display: none; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; z-index: 1000; background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
       .ab .nav-links.open { display: flex; }
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
       .ab .nav-links li a { padding: 12px 24px; font-size: 15px; }
       .ab .nav-right { display: none; }
       .ab .page-header { padding: 56px 20px 48px; }
@@ -137,6 +138,8 @@
     .ab .scenic-band h2 { font-family: 'Raleway', sans-serif; font-weight: 900; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15; margin: 0 0 12px; color: #fff; letter-spacing: -0.02em; }
     .ab .scenic-band p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.92); margin: 0; }
   </style>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
 <div class="ab">
@@ -282,9 +285,12 @@
   var btn = document.querySelector('.ab .nav-toggle');
   var links = document.querySelector('.ab .nav-links');
   if(btn && links){
-    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); });
+    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); document.body.classList.toggle('nav-menu-open', links.classList.contains('open'));});
+    links.addEventListener('click', function(ev){ if(ev.target.tagName==='A'){ btn.classList.remove('active'); links.classList.remove('open'); document.body.classList.remove('nav-menu-open'); } });
   }
 })();
 </script>
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>

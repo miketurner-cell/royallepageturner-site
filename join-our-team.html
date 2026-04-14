@@ -775,7 +775,7 @@
       }
 
       .jt .nav-links {
-        position: absolute;
+        position: fixed;
         top: 72px;
         left: 0;
         right: 0;
@@ -785,13 +785,19 @@
         padding: 24px 32px;
         gap: 16px;
         max-height: 0;
-        overflow: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
         transition: max-height 0.3s ease;
+        z-index: 1000;
       }
 
       .jt .nav-links.active {
-        max-height: 500px;
+        max-height: calc(100vh - 72px);
+        max-height: calc(100dvh - 72px);
       }
+
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
 
       .jt .nav-bar {
         position: relative;
@@ -903,6 +909,8 @@
   ]
 }
   </script>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
   <div class="jt">
@@ -1177,6 +1185,7 @@
       navToggle.addEventListener('click', function() {
         navToggle.classList.toggle('active');
         navLinks.classList.toggle('active');
+        document.body.classList.toggle('nav-menu-open', navLinks.classList.contains('active'));
       });
 
       // Close menu when link is clicked
@@ -1184,6 +1193,7 @@
         link.addEventListener('click', function() {
           navToggle.classList.remove('active');
           navLinks.classList.remove('active');
+          document.body.classList.remove('nav-menu-open');
         });
       });
 
@@ -1193,5 +1203,7 @@
       });
     });
   </script>
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>

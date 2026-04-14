@@ -115,8 +115,9 @@
       .ct .nav-bar { padding: 0 20px; height: 60px; }
       .ct .nav-brand-divider, .ct .nav-brand-sub { display: none; }
       .ct .nav-toggle { display: flex; }
-      .ct .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+      .ct .nav-links { display: none; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; max-height: calc(100vh - 60px); max-height: calc(100dvh - 60px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; z-index: 1000; background: #fff; border-bottom: 1px solid #e8e8e8; padding: 8px 0; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
       .ct .nav-links.open { display: flex; }
+      body.nav-menu-open { overflow: hidden; touch-action: none; }
       .ct .nav-links li a { padding: 12px 24px; font-size: 15px; }
       .ct .nav-right { display: none; }
       .ct .page-header { padding: 56px 20px 48px; }
@@ -127,6 +128,8 @@
       .ct .footer-red-bar { margin: 0 -20px; padding: 14px 20px; }
     }
   </style>
+  <script src="js/analytics-events.js" defer></script>
+  <link rel="stylesheet" href="css/turner-network.css">
 </head>
 <body>
 <div class="ct">
@@ -273,7 +276,8 @@
   var btn = document.querySelector('.ct .nav-toggle');
   var links = document.querySelector('.ct .nav-links');
   if(btn && links){
-    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); });
+    btn.addEventListener('click', function(){ btn.classList.toggle('active'); links.classList.toggle('open'); document.body.classList.toggle('nav-menu-open', links.classList.contains('open'));});
+    links.addEventListener('click', function(ev){ if(ev.target.tagName==='A'){ btn.classList.remove('active'); links.classList.remove('open'); document.body.classList.remove('nav-menu-open'); } });
   }
 })();
 </script>
@@ -301,5 +305,7 @@
   }
 }
 </script>
+  <script>window.TURNER_SITE='hub';</script>
+  <script src="js/turner-network.js" defer></script>
 </body>
 </html>
