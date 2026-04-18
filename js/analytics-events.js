@@ -107,6 +107,19 @@
       });
       return;
     }
+    // Hub office-selector cards — semantic event on top of click_outbound.
+    // Fires BEFORE the generic outbound block below so dashboards keep both.
+    var officeCard = el.closest && el.closest('.office-card[data-destination]');
+    if (officeCard) {
+      send('click_regional_site', {
+        destination: officeCard.getAttribute('data-destination'),
+        destination_url: href,
+        link_text: (el.textContent || '').trim().slice(0, 80),
+        page_path: location.pathname
+      });
+      // fall through — let click_outbound also fire
+    }
+
     // http(s) outbound (different host)
     if (/^https?:/i.test(href)) {
       try {
