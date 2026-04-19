@@ -2,4 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /agent-training
 
+Sitemap: https://royallepageturner.com/sitemap-index.xml
 Sitemap: https://royallepageturner.com/sitemap.xml
+Sitemap: https://royallepageturner.com/sitemap-listings.xml
