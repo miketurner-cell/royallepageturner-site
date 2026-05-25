@@ -28,6 +28,10 @@
 
   var currentSite = (window.TURNER_SITE || '').toLowerCase();
 
+  var creditLine = currentSite === 'avalon'
+    ? 'A family-owned Newfoundland brokerage, serving the province since 1998.'
+    : 'Chairman\'s Club Top 1% nationally since 2017 &middot; Award of Excellence 2023&ndash;2025';
+
   function buildHTML() {
     var cards = OFFICES.map(function (o) {
       var isActive = o.key === currentSite;
@@ -56,7 +60,7 @@
         '<div class="turner-network-inner">' +
           '<div class="turner-network-lead">' +
             '<p class="turner-network-eyebrow">Royal LePage Turner Realty Network</p>' +
-            '<h2 class="turner-network-title">Five offices across Newfoundland &amp; Labrador</h2>' +
+            '<h2 class="turner-network-title">Serving Newfoundland &amp; Labrador</h2>' +
             '<p class="turner-network-sub">Serving buyers and sellers from the Avalon Peninsula to the Labrador coast. ' +
             'One brokerage, one standard of service.</p>' +
           '</div>' +
@@ -67,7 +71,7 @@
             '<strong>Royal LePage Turner Realty (2014) Inc.</strong> &middot; ' +
             '204 Airport Blvd, Gander, NL A1V 1L6 &middot; ' +
             '<a href="tel:7092567999">709-256-7999</a>' +
-            '<br>Chairman\'s Club Top 1% nationally since 2017 &middot; Award of Excellence 2023&ndash;2025' +
+            '<br>' + creditLine +
           '</p>' +
         '</div>' +
       '</section>'
