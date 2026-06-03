@@ -9,3 +9,7 @@
 /agent-training      /agent-training.html      200
 /smart-leads-report  /smart-leads-report.html  200
 /technology-equipment-policy  /technology-equipment-policy.html  200
+# Award-tier pace folded into the unified broker dashboard (data-driven, real GCI).
+# 301! (forced) because agent-accountability.html still exists on disk for rollback.
+/agent-accountability.html  https://realestategander.com/pages/agent-dashboard.html  301!
+/agent-accountability       https://realestategander.com/pages/agent-dashboard.html  301!
