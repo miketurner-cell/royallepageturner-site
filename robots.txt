@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /agent-training
+Disallow: /.netlify/
+Disallow: /api/
 
 Sitemap: https://royallepageturner.com/sitemap-index.xml
 Sitemap: https://royallepageturner.com/sitemap.xml
