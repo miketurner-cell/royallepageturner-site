@@ -11,3 +11,8 @@ snapshots/
 # Python build artefacts (added 2026-05-10 — Convention #15 fleet prop)
 __pycache__/
 *.pyc
+
+# Never commit secrets (security audit 2026-08-21)
+.env
+.env.*
+!.env.example
