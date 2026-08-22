@@ -1,3 +1,6 @@
+# Block /tools/* — internal build tooling must not be publicly served. (security audit 2026-08-21 P3)
+/tools/*  /404.html  404!
+
 # Clean URL rewrites — serve .html files at extensionless paths
 /about        /about.html        200
 /offices      /offices.html      200
