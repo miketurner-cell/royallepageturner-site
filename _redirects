@@ -16,3 +16,4 @@
 # 301! (forced) because agent-accountability.html still exists on disk for rollback.
 /agent-accountability.html  https://realestategander.com/pages/agent-dashboard.html  301!
 /agent-accountability       https://realestategander.com/pages/agent-dashboard.html  301!
+/agent                       https://realestategander.com/pages/agent.html  301!
