@@ -19,9 +19,9 @@
       "total_eligible": 0
     }
   ],
-  "generated_at": "2026-08-29T14:05:51Z",
+  "generated_at": "2026-08-29T17:07:31Z",
   "ingest_cache_md5": "7d34227c7eb4b14d845b78906cf06872",
-  "ingest_generated_at": "2026-08-29T14:05:51Z",
+  "ingest_generated_at": "2026-08-29T17:07:30Z",
   "ingest_row_count": 398,
   "pii_guard_passed": true,
   "rollup_mean_rating": 5.0,
