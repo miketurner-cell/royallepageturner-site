@@ -829,7 +829,7 @@
         var live = r.state === 'live';
         badgeCls = live ? 'region-tile-badge--turner' : 'region-tile-badge--recruiting';
         badgeText = live ? 'Turner Office' : 'Recruiting';
-        href = r.domain || 'join-our-team.html';
+        href = r.domain || 'become-a-realtor.html';
         attrs = r.domain ? ' target="_blank" rel="noopener"' : '';
       } else if (r.operator === 'peer') {
         badgeCls = 'region-tile-badge--peer';
@@ -839,7 +839,7 @@
       } else {
         badgeCls = 'region-tile-badge--recruiting';
         badgeText = 'Recruiting';
-        href = 'join-our-team.html';
+        href = 'become-a-realtor.html';
         attrs = '';
       }
       return '<a class="region-tile" href="' + href + '"' + attrs + '>' +
