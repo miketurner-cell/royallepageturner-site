@@ -182,6 +182,25 @@
     }
     .hp .office-card .card-link svg { width: 14px; height: 14px; fill: #EA002A; }
 
+    /* ── REGION CHOOSER (Slice 3 step 6, 2026-09-09) ── */
+    .hp .region-chooser-section { background: #fff; }
+    .hp .region-chooser-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .hp .region-tile {
+      display: block; background: #fff; border: 1px solid #e8e8e8; border-radius: 10px;
+      padding: 28px 22px; text-align: center; text-decoration: none; color: #2c2c2c;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .hp .region-tile:hover { border-color: #EA002A; box-shadow: 0 12px 40px rgba(0,0,0,0.06); transform: translateY(-4px); }
+    .hp .region-tile h3 { font-family: 'Raleway', sans-serif; font-weight: 800; font-size: 16px; margin: 0; color: #1a1a1a; }
+    .hp .region-tile-badge {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 999px; margin-bottom: 12px;
+    }
+    .hp .region-tile-badge--turner { background: rgba(234,0,42,0.08); color: #EA002A; }
+    .hp .region-tile-badge--peer { background: rgba(74,122,192,0.1); color: #4a7ac0; }
+    .hp .region-tile-badge--recruiting { background: rgba(217,119,6,0.1); color: #b45309; }
+    .hp .region-chooser-loading { color: #999; font-size: 14px; }
+
     /* ── WHY SECTION ── */
     .hp .why-section { background: #fff; }
     .hp .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; }
@@ -473,6 +492,21 @@
       <div class="scenic-band-eyebrow">Newfoundland &amp; Labrador</div>
       <h2>Rooted Here. Working For You.</h2>
       <p>From the harbours of the northeast coast to the inland reach of Labrador, our REALTORS&reg; live in the markets they serve.</p>
+    </div>
+  </section>
+
+  <!-- REGION CHOOSER (Slice 3 step 6): reads window.TURNER_REGIONS client-side,
+       badges Turner Office / Partner Brokerage / Recruiting per region. No new
+       generator -- hand-authored, rendered by the inline script near the end
+       of body once js/regions-data.js has loaded. -->
+  <section class="region-chooser-section">
+    <div class="section-inner">
+      <div class="section-eyebrow">Every Region We Serve</div>
+      <h2 class="section-title">One Network, Nine Regions</h2>
+      <p class="section-desc">From established Turner offices to the independent Royal LePage brokerages we partner with, and the regions we're actively growing into next.</p>
+      <div class="region-chooser-grid" id="region-chooser-grid" aria-live="polite">
+        <p class="region-chooser-loading">Loading regions&hellip;</p>
+      </div>
     </div>
   </section>
 
@@ -773,5 +807,47 @@
   <script src="js/nav.js?v=20260909c-nav-parity" defer></script>
   <script src="js/footer.js?v=20260909-footer-converge" defer></script>
   <script src="js/turner-network.js" defer></script>
+  <script>
+  // Region chooser (Slice 3 step 6) -- renders once window.TURNER_REGIONS is
+  // available. DOMContentLoaded fires only after every deferred script has
+  // run (regardless of this script's own defer state or position), so this
+  // is the one safe place to read it -- never bake it into a module-level
+  // constant (the exact bug class nav.js's topBarHTML hit earlier this
+  // session). Convention #74: no registry, no half render -- leave the
+  // "Loading regions..." placeholder rather than show an empty grid.
+  document.addEventListener('DOMContentLoaded', function () {
+    var grid = document.getElementById('region-chooser-grid');
+    var reg = window.TURNER_REGIONS;
+    if (!grid || !reg) return;
+    function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    var keys = Object.keys(reg).sort(function (a, b) { return (reg[a].order || 0) - (reg[b].order || 0); });
+    var tiles = keys.map(function (k) {
+      var r = reg[k];
+      var label = esc(r.nav_label || r.label || k);
+      var badgeCls, badgeText, href, attrs;
+      if (r.operator === 'turner') {
+        var live = r.state === 'live';
+        badgeCls = live ? 'region-tile-badge--turner' : 'region-tile-badge--recruiting';
+        badgeText = live ? 'Turner Office' : 'Recruiting';
+        href = r.domain || 'join-our-team.html';
+        attrs = r.domain ? ' target="_blank" rel="noopener"' : '';
+      } else if (r.operator === 'peer') {
+        badgeCls = 'region-tile-badge--peer';
+        badgeText = 'Partner Brokerage';
+        href = r.domain || '#';
+        attrs = ' target="_blank" rel="noopener"';
+      } else {
+        badgeCls = 'region-tile-badge--recruiting';
+        badgeText = 'Recruiting';
+        href = 'join-our-team.html';
+        attrs = '';
+      }
+      return '<a class="region-tile" href="' + href + '"' + attrs + '>' +
+        '<span class="region-tile-badge ' + badgeCls + '">' + badgeText + '</span>' +
+        '<h3>' + label + '</h3></a>';
+    }).join('');
+    grid.innerHTML = tiles;
+  });
+  </script>
 </body>
 </html>
