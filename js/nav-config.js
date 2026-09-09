@@ -48,6 +48,7 @@
     { label: 'Shelter Foundation', href: p + 'shelter-foundation.html' },
     { label: 'Agent Training', href: p + 'agent-training.html' },
     { label: 'Careers', href: p + 'join-our-team.html' },
+    { label: 'Become a REALTOR&reg;', href: p + 'become-a-realtor.html' },
     { label: 'Contact', href: p + 'contact.html' }
   ];
 
@@ -64,6 +65,8 @@
         ['About Us', p + 'about.html'],
         ['Offices', p + 'offices.html'],
         ['Awards', p + 'awards.html'],
+        ['Careers', p + 'join-our-team.html'],
+        ['Become a REALTOR&reg;', p + 'become-a-realtor.html'],
         ['Contact', p + 'contact.html']
       ] },
       { heading: 'Offices', links: [
