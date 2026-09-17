@@ -14,6 +14,6 @@
 /technology-equipment-policy  /technology-equipment-policy.html  200
 # Award-tier pace folded into the unified broker dashboard (data-driven, real GCI).
 # 301! (forced) because agent-accountability.html still exists on disk for rollback.
-/agent-accountability.html  https://realestategander.com/pages/agent-dashboard.html  301!
-/agent-accountability       https://realestategander.com/pages/agent-dashboard.html  301!
-/agent                       https://realestategander.com/pages/agent.html  301!
+/agent-accountability.html  https://realestategander.com/agent/dashboard  301!
+/agent-accountability       https://realestategander.com/agent/dashboard  301!
+/agent                       https://realestategander.com/agent/  301!
