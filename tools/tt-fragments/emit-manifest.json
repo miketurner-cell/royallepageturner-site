@@ -2,15 +2,15 @@
   "fragments": [
     {
       "byte_count": 34,
-      "card_count": 383,
+      "card_count": 384,
       "name": "brokerage-count",
-      "total_eligible": 383
+      "total_eligible": 384
     },
     {
-      "byte_count": 508619,
-      "card_count": 383,
+      "byte_count": 509838,
+      "card_count": 384,
       "name": "brokerage-rollup",
-      "total_eligible": 383
+      "total_eligible": 384
     },
     {
       "byte_count": 227,
@@ -19,11 +19,11 @@
       "total_eligible": 0
     }
   ],
-  "generated_at": "2026-09-28T17:00:57Z",
-  "ingest_cache_md5": "9c5651926fbff9b6cecef952f14f0dd5",
-  "ingest_generated_at": "2026-09-28T17:00:56Z",
-  "ingest_row_count": 405,
+  "generated_at": "2026-09-28T20:02:33Z",
+  "ingest_cache_md5": "2e8d9d255a3dd4dbf26c3a6145695ad6",
+  "ingest_generated_at": "2026-09-28T20:02:33Z",
+  "ingest_row_count": 406,
   "pii_guard_passed": true,
   "rollup_mean_rating": 5.0,
-  "rollup_total": 383
+  "rollup_total": 384
 }
