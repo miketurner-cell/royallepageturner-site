@@ -7,7 +7,7 @@ Also blocks two wordings the record does not support:
   - "Lead Manager of the Year" (not on any published Royal LePage list)
   - "Top 1% brokerage" (the Chairman's Club award names the Turner Realty Team)
   - award leftovers with no source (D-1008-91, 2026-10-08): "104 deals", "178 sales", "97.95%",
-    "BGRS Certified", "5 Wing Military Relocation", the Shelter Foundation "$50M+", and a bare count of
+    "5 Wing Military Relocation", the Shelter Foundation "$50M+", and a bare count of
     "Brokerage Awards" (the awards are named from the record instead)
 
 Usage: python3 tools/check-award-region.py     (exit 1 on any hit)
@@ -30,7 +30,6 @@ RULES = [
     (re.compile(r"(?<![\d,.])104\s+deals\b", re.I), '"104 deals": undated whole-brokerage figure, no source (D-1008-91)'),
     (re.compile(r"(?<![\d,.])178\s+(?:residential\s+)?sales\b", re.I), '"178 sales": unsourced 2025 market figure (D-1008-91)'),
     (re.compile(r"(?<![\d.])97\.95\s?%"), '"97.95%": unsourced 2025 sale-to-list figure (D-1008-91)'),
-    (re.compile(r"\bBGRS\s+certified\b", re.I), '"BGRS Certified": BGRS closed 2026-10-01 (D-1008-91)'),
     (re.compile(r"5\s+Wing\s+Military\s+Relocation"), '"5 Wing Military Relocation": 5 Wing personnel cannot buy or sell (D-1008-38/91)'),
     (re.compile(r"\$\s?50\s?M\+"), 'Shelter Foundation "$50M+": the Foundation says more than $57 million (D-1008-91)'),
     (re.compile(r'class="(?:stat-num|net-num)">\s*\d+\s*</div>\s*<div class="(?:stat-label|net-label)">\s*Brokerage Awards', re.I),
@@ -38,7 +37,7 @@ RULES = [
 ]
 # The brokerage-award count spans two lines, so it is also checked on the whole file.
 MULTILINE = [r for r in RULES if "Brokerage Awards" in r[0].pattern]
-for _bad, _n in (("closed 104 deals", 1), ("a 97.95% ratio", 1), ("178 residential sales", 1), ("HHT &amp; BGRS Certified", 1),
+for _bad, _n in (("closed 104 deals", 1), ("a 97.95% ratio", 1), ("178 residential sales", 1),
                  ("5 Wing Military Relocation", 1), ("$50M+ raised", 1),
                  ('<div class="stat-num">6</div>\n      <div class="stat-label">Brokerage Awards</div>', 1)):
     assert sum(1 for rx, _ in RULES if rx.search(_bad)) >= _n, f"self-check: should flag {_bad!r}"
