@@ -32,7 +32,9 @@
     facebook: 'https://www.facebook.com/realestategander',
     instagram: 'https://www.instagram.com/turnerrealty2014',
     youtube: 'https://www.youtube.com/playlist?list=PLr4XcQLT7UeO_8OZSgtx6h2N6dvsmsY_Y',
-    ctaHref: p + 'contact.html'
+    ctaHref: p + 'contact.html',
+    // js/nav.js is one fleet file now (2026-10-08); this site's own copy used 1024 as the menu breakpoint, kept here.
+    navBreakpoint: 1024
   };
 
   // Top-level MENU entries are {label, href} objects (nav.js's menuItem()
