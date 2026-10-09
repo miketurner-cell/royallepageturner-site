@@ -49,8 +49,7 @@
     { label: 'Our Team', href: p + 'team.html' },
     { label: 'Shelter Foundation', href: p + 'shelter-foundation.html' },
     { label: 'Agent Training', href: p + 'agent-training.html' },
-    { label: 'Careers', href: p + 'join-our-team.html' },
-    { label: 'Become a REALTOR&reg;', href: p + 'become-a-realtor.html' },
+    { label: 'Careers at Lab West', href: 'https://labwestrealty.com/become-a-realtor.html' },
     { label: 'Contact', href: p + 'contact.html' }
   ];
 
