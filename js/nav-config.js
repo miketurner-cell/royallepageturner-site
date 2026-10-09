@@ -68,6 +68,7 @@
       more: [
         ['Home', r + 'index.html'],
         ['About', p + 'about.html'],
+        ['Our team', p + 'team.html'],
         ['Contact', p + 'contact.html']
       ]
     }
