@@ -1,3 +1,13 @@
+# -- Recruiting off (D-1009-19, Mike 2026-10-09: "we are not in recruiting mode") --
+# The recruiting pages are parked in _archive/recruiting/ (never served: the 404! rule) and their old
+# URLs go to /about with a TEMPORARY 302 so they can come back when recruiting restarts.
+# To restart: move the pages back, delete this block, restore the links (see the PR).
+/_archive/*  /404.html  404!
+/become-a-realtor.html  /about  302
+/become-a-realtor       /about  302
+/join-our-team.html     /about  302
+/join-our-team          /about  302
+
 # Block /tools/* — internal build tooling must not be publicly served. (security audit 2026-08-21 P3)
 /tools/*  /404.html  404!
 
@@ -7,7 +17,6 @@
 /awards       /awards.html       200
 /team         /team.html         200
 /shelter-foundation  /shelter-foundation.html  200
-/join-our-team       /join-our-team.html       200
 /contact      /contact.html      200
 /agent-training      /agent-training.html      200
 /smart-leads-report  /smart-leads-report.html  200
