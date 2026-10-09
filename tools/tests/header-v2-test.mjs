@@ -61,7 +61,7 @@ if (h2) {
   });
   ok(hrefs.length >= 6 && !dead.length, `every header link is a page on this site (${hrefs.length} links)`, dead.join(', '));
   // the drawn words: the three listing sites share one set; Lab West and the hub (D-1009-10) have their own
-  const DRAWN = ['Buy|Sell|Sold prices|Communities', 'Why join|Get licensed|The market|About Turner', 'Offices|Our team|Awards|Careers'];
+  const DRAWN = ['Buy|Sell|Sold prices|Communities', 'Why join|Get licensed|The market|About Turner', 'Offices|Our team|Awards|Careers at Lab West'];
   ok(DRAWN.includes((h2.menu || []).map((m) => m.label).join('|')), 'the four words, in the drawn order');
 } else {
   ok(true, 'no header2 on this site yet: the old header stays (its words need Mike’s word first)');

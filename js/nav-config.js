@@ -61,10 +61,7 @@
           ['Awards', p + 'awards.html'],
           ['The Shelter Foundation', p + 'shelter-foundation.html']
         ] },
-        { label: 'Careers', href: p + 'join-our-team.html', items: [
-          ['Join the brokerage', p + 'join-our-team.html'],
-          ['Become a REALTOR&reg;', p + 'become-a-realtor.html']
-        ] }
+        { label: 'Careers at Lab West', href: 'https://labwestrealty.com/become-a-realtor.html' }
       ],
       more: [
         ['Home', r + 'index.html'],

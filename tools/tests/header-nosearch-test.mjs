@@ -22,7 +22,7 @@ const fleet = JSON.parse(readFileSync(join(ROOT, 'tools', '_fleet_config.json'),
 const key = fleet.site_key;
 const WANT = {
   labwest: { words: 'Why join|Get licensed|The market|About Turner', cta: 'Book a confidential call', ctaHref: 'become-a-realtor.html#confidential-inquiry', region: 'Labrador West &middot; recruiting' },
-  hub: { words: 'Offices|Our team|Awards|Careers', cta: undefined, ctaHref: 'home-value.html', region: 'The brokerage' },
+  hub: { words: 'Offices|Our team|Awards|Careers at Lab West', cta: undefined, ctaHref: 'home-value.html', region: 'The brokerage' },
 }[key];
 ok(!!WANT, 'this test knows the site', String(key));
 
