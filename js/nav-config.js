@@ -66,8 +66,8 @@
         ['About Us', p + 'about.html'],
         ['Offices', p + 'offices.html'],
         ['Awards', p + 'awards.html'],
-        ['Careers', p + 'join-our-team.html'],
-        ['Become a REALTOR&reg;', p + 'become-a-realtor.html'],
+        // D-1009-19 (2026-10-09): Careers / Become a REALTOR removed while recruiting is off; the hub's one
+        // careers link is 'Careers at Lab West' in the header menu above.
         ['Contact', p + 'contact.html']
       ] },
       { heading: 'Offices', links: [
