@@ -263,7 +263,8 @@ def main():
     js_left, js_labwest = scan_js()
     fails = page_fails + sm_fails + arc_fails
     if "royallepageturner" in host:
-        n = len(allowed) + len(js_labwest)
+        # The same header item appears once per header config (old header + header v2); count distinct items, not lines.
+        n = len(allowed) + len({line.rstrip(',').strip() for _, _, line in js_labwest})
         for rel, i, line in js_labwest:
             print(f"  allowed (hub Lab West mention): {rel}:{i}: {line}")
         if n != 1:
