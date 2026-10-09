@@ -741,20 +741,24 @@
     const navToggle = document.querySelector('.tm .nav-toggle');
     const navLinks = document.querySelector('.tm .nav-links');
 
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
-      document.body.classList.toggle('nav-menu-open', navLinks.classList.contains('active'));
-    });
-
-    // Close menu when a link is clicked
-    document.querySelectorAll('.tm .nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-        document.body.classList.remove('nav-menu-open');
+    // The header now comes from nav.js, so this page has no .tm .nav-toggle;
+    // guard it so a missing toggle cannot stop the office filter below.
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        document.body.classList.toggle('nav-menu-open', navLinks.classList.contains('active'));
       });
-    });
+
+      // Close menu when a link is clicked
+      document.querySelectorAll('.tm .nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+          document.body.classList.remove('nav-menu-open');
+        });
+      });
+    }
 
     // Office Filter Functionality
     const filterButtons = document.querySelectorAll('.tm .filter-btn');
