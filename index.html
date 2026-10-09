@@ -558,9 +558,9 @@
   <!-- OFFICES -->
   <section class="offices-section">
     <div class="section-inner">
-      <div class="section-eyebrow">Our Offices</div>
+      <div class="section-eyebrow">Our Network</div>
       <h2 class="section-title">Local Expertise, Province-Wide</h2>
-      <p class="section-desc">Each office is staffed by agents who know their market inside and out. Visit an office site to connect with a local REALTOR&reg;.</p>
+      <p class="section-desc">Offices in Gander and Happy Valley&ndash;Goose Bay, and Chris Morrison&rsquo;s team on the Avalon. Visit a site to connect with a local REALTOR&reg;.</p>
       <div class="office-grid">
 
         <a href="https://realestategander.com" class="office-card" data-destination="gander" target="_blank" rel="noopener">
@@ -580,14 +580,14 @@
         <a href="https://labwestrealty.com" class="office-card" data-destination="labwest" target="_blank" rel="noopener">
           <div class="office-dot"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <h3>Labrador West</h3>
-          <p>Lab City &amp; Wabush</p>
+          <p>Lab City &amp; Wabush &middot; no office</p>
           <span class="card-link">labwestrealty.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </a>
 
         <a href="https://avalonrealestate.ca" class="office-card" data-destination="stjohns" target="_blank" rel="noopener">
           <div class="office-dot"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <h3>St. John's</h3>
-          <p>Capital Region &middot; Avalon Peninsula &middot; 1 Agent</p>
+          <h3>Avalon</h3>
+          <p>Service area &middot; Chris Morrison, 709-725-6520</p>
           <span class="card-link">avalonrealestate.ca <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </a>
 
@@ -845,7 +845,9 @@
       if (r.operator === 'turner') {
         var live = r.state === 'live';
         badgeCls = 'region-tile-badge--turner';
-        badgeText = live ? 'Turner Office' : 'Turner Realty';
+        // "Turner Office" only where the registry has an office address (Gander, Goose Bay); the Avalon is served
+        // by Chris Morrison's team with no office (D-1009-62), Lab West has none.
+        badgeText = (live && r.office && r.office.address) ? 'Turner Office' : 'Turner Realty';
         href = r.domain;
         attrs = r.domain ? ' target="_blank" rel="noopener"' : '';
       } else if (r.operator === 'peer') {
