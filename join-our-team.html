@@ -1135,14 +1135,15 @@
       const navToggle = document.querySelector('.jt .nav-toggle');
       const navLinks = document.querySelector('.jt .nav-links');
 
-      navToggle.addEventListener('click', function() {
+      // The shared fleet nav (09-09) replaced this page's own toggle; skip when it's absent so the mailto step below still runs.
+      if (navToggle && navLinks) navToggle.addEventListener('click', function() {
         navToggle.classList.toggle('active');
         navLinks.classList.toggle('active');
         document.body.classList.toggle('nav-menu-open', navLinks.classList.contains('active'));
       });
 
       // Close menu when link is clicked
-      document.querySelectorAll('.jt .nav-links a').forEach(link => {
+      if (navToggle && navLinks) document.querySelectorAll('.jt .nav-links a').forEach(link => {
         link.addEventListener('click', function() {
           navToggle.classList.remove('active');
           navLinks.classList.remove('active');
