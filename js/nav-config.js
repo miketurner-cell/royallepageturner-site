@@ -39,6 +39,8 @@
     // (?header=v2 previews it on any page). Four words, one button, the phone; no search bar (the hub has no listings);
     // the regions sit in the phone menu's More line (js/nav.js adds them after the three links below).
     header: 'off',
+    // js/nav.js loads css/header-v2.css with this ?v= (sha256[:8] of the file; tools/tests/header-v2-test.mjs fails when it is stale and prints the value)
+    header2Stamp: '4f6b917c',
     header2: {
       region: 'The brokerage',
       office: '204 Airport Blvd, Gander &middot; 709-256-7999',
