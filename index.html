@@ -505,14 +505,15 @@
   </section>
 
   <!-- REGION CHOOSER (Slice 3 step 6): reads window.TURNER_REGIONS client-side,
-       badges Turner Office / Partner Brokerage / Recruiting per region. No new
+       badges Turner Office / Partner Brokerage per region (D-1009-19: regions that are
+       only recruiting are not shown while recruiting is off; Lab West shows as a region). No new
        generator -- hand-authored, rendered by the inline script near the end
        of body once js/regions-data.js has loaded. -->
   <section class="region-chooser-section">
     <div class="section-inner">
       <div class="section-eyebrow">Every Region We Serve</div>
-      <h2 class="section-title">One Network, Nine Regions</h2>
-      <p class="section-desc">From established Turner offices to the independent Royal LePage brokerages we partner with, and the regions we're actively growing into next.</p>
+      <h2 class="section-title">One Network Across Newfoundland &amp; Labrador</h2>
+      <p class="section-desc">From established Turner offices to the independent Royal LePage brokerages we partner with.</p>
       <div class="region-chooser-grid" id="region-chooser-grid" aria-live="polite">
         <p class="region-chooser-loading">Loading regions&hellip;</p>
       </div>
@@ -579,7 +580,7 @@
         <a href="https://labwestrealty.com" class="office-card" data-destination="labwest" target="_blank" rel="noopener">
           <div class="office-dot"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <h3>Labrador West</h3>
-          <p>Lab City &amp; Wabush &middot; Recruiting</p>
+          <p>Lab City &amp; Wabush</p>
           <span class="card-link">labwestrealty.com <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </a>
 
@@ -831,26 +832,27 @@
     if (!grid || !reg) return;
     function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
     var keys = Object.keys(reg).sort(function (a, b) { return (reg[a].order || 0) - (reg[b].order || 0); });
+    // D-1009-19 (Mike 2026-10-09, recruiting off): no "Recruiting" tiles. A recruiting-only region with no
+    // site of its own is left out; Lab West (its own site, labwestrealty.com) shows as a Turner region.
+    keys = keys.filter(function (k) {
+      var r = reg[k];
+      return (r.operator === 'peer' && r.state === 'live') || (r.operator === 'turner' && (r.state === 'live' || r.domain));
+    });
     var tiles = keys.map(function (k) {
       var r = reg[k];
       var label = esc(r.nav_label || r.label || k);
       var badgeCls, badgeText, href, attrs;
       if (r.operator === 'turner') {
         var live = r.state === 'live';
-        badgeCls = live ? 'region-tile-badge--turner' : 'region-tile-badge--recruiting';
-        badgeText = live ? 'Turner Office' : 'Recruiting';
-        href = r.domain || 'become-a-realtor.html';
+        badgeCls = 'region-tile-badge--turner';
+        badgeText = live ? 'Turner Office' : 'Turner Realty';
+        href = r.domain;
         attrs = r.domain ? ' target="_blank" rel="noopener"' : '';
       } else if (r.operator === 'peer') {
         badgeCls = 'region-tile-badge--peer';
         badgeText = 'Partner Brokerage';
         href = r.domain || '#';
         attrs = ' target="_blank" rel="noopener"';
-      } else {
-        badgeCls = 'region-tile-badge--recruiting';
-        badgeText = 'Recruiting';
-        href = 'become-a-realtor.html';
-        attrs = '';
       }
       return '<a class="region-tile" href="' + href + '"' + attrs + '>' +
         '<span class="region-tile-badge ' + badgeCls + '">' + badgeText + '</span>' +
