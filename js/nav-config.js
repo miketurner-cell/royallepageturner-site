@@ -51,7 +51,7 @@
           ['Gander and Area', 'https://realestategander.com'],
           ['Avalon', 'https://avalonrealestate.ca'],
           ['Labrador', 'https://goosebayrealestate.ca'],
-          ['Labrador West (recruiting)', 'https://labwestrealty.com']
+          ['Labrador West', 'https://labwestrealty.com']
         ] },
         { label: 'Our team', href: p + 'team.html', items: [
           ['Our team', p + 'team.html'],
