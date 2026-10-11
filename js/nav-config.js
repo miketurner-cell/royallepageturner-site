@@ -63,7 +63,10 @@
           ['Awards', p + 'awards.html'],
           ['The Shelter Foundation', p + 'shelter-foundation.html']
         ] },
-        { label: 'Careers at Lab West', href: 'https://labwestrealty.com/become-a-realtor.html' }
+        { label: 'Careers', href: p + 'join-our-team.html', items: [
+          ['Join the brokerage', p + 'join-our-team.html'],
+          ['Become a REALTOR&reg;', p + 'become-a-realtor.html']
+        ] }
       ],
       more: [
         ['Home', r + 'index.html'],
@@ -86,7 +89,8 @@
     { label: 'Our Team', href: p + 'team.html' },
     { label: 'Shelter Foundation', href: p + 'shelter-foundation.html' },
     { label: 'Agent Training', href: p + 'agent-training.html' },
-    { label: 'Careers at Lab West', href: 'https://labwestrealty.com/become-a-realtor.html' },
+    { label: 'Careers', href: p + 'join-our-team.html' },
+    { label: 'Become a REALTOR&reg;', href: p + 'become-a-realtor.html' },
     { label: 'Contact', href: p + 'contact.html' }
   ];
 
