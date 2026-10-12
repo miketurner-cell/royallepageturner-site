@@ -1,0 +1,17 @@
+{
+ "_doc": "Pages that matter in search, checked by tools/seo-safety-check.py. Rebuild: python3 tools/seo-pages-refresh.py. Add a page by hand with \"pinned\": true. Sources: sitemap, digest, gsc, pinned.",
+ "site": "https://royallepageturner.com",
+ "mode": "warn",
+ "pages": [
+  {"path": "/", "source": "sitemap"},
+  {"path": "/about", "source": "sitemap"},
+  {"path": "/awards", "source": "sitemap"},
+  {"path": "/become-a-realtor", "source": "sitemap"},
+  {"path": "/contact", "source": "sitemap"},
+  {"path": "/home-value", "source": "sitemap"},
+  {"path": "/join-our-team", "source": "sitemap"},
+  {"path": "/offices", "source": "sitemap"},
+  {"path": "/shelter-foundation", "source": "sitemap"},
+  {"path": "/team", "source": "sitemap"}
+ ]
+}
