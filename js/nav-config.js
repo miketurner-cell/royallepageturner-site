@@ -40,7 +40,7 @@
     // the regions sit in the phone menu's More line (js/nav.js adds them after the three links below).
     header: 'off',
     // js/nav.js loads css/header-v2.css with this ?v= (sha256[:8] of the file; tools/tests/header-v2-test.mjs fails when it is stale and prints the value)
-    header2Stamp: '4f6b917c',
+    header2Stamp: '1d69f1de',
     header2: {
       region: 'The brokerage',
       office: '204 Airport Blvd, Gander &middot; 709-256-7999',
