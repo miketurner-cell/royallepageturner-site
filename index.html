@@ -395,6 +395,7 @@
       .hp .scenic-band-inner { padding: 40px 24px; }
     }
   </style>
+  <!-- openingHoursSpecification below = Gander office walk-in hours, Mike D-1009-21 (Mon-Fri 10-12 & 1-4, weekends by appointment); same source as realestategander-site tools/site-config.json office_hours.gander. tools/tests/office-hours-test.py checks it. -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -403,7 +404,10 @@
   "legalName": "Royal LePage Turner Realty (2014) Inc.",
   "geo": { "@type": "GeoCoordinates", "latitude": 48.9569, "longitude": -54.5836 },
   "priceRange": "$$",
-  "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "17:00" }],
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "10:00", "closes": "12:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "13:00", "closes": "16:00" }
+  ],
   "url": "https://royallepageturner.com",
   "logo": "https://royallepageturner.com/images/award-chairmans-2025.png",
   "description": "Award-winning real estate brokerage serving Newfoundland & Labrador since 1998. Experienced REALTORS®. Turner Realty Team: Royal LePage® National Chairman's Club™, 2017–2025.",
